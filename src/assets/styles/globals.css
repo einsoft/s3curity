@@ -9,6 +9,53 @@ body {
   font-family: Poppins, Arial, Helvetica, sans-serif;
 }
 
+.background {
+  background: #09090b;
+}
+
+.foreground {
+  color: #18181b;
+}
+
+.janela_background {
+  background: #09090b;
+  opacity: 50%;
+}
+
+.janela_foreground {
+  color: #27272a;
+  opacity: 50%;
+}
+
+.button_blue {
+  background: #1d4ed8;
+  color: #f5f5f5;
+}
+
+.button_green {
+  background: #22c55e;
+  color: #f5f5f5;
+}
+
+.button_red {
+  background: #ef4444;
+  color: #f5f5f5;
+}
+
+.button_gray {
+  background: #27272a;
+  color: #f5f5f5;
+}
+
+.bordas {
+  color: #a1a1aa;
+  opacity: 50%;
+}
+
+.texto_padrao {
+  color: #f5f5f5;
+}
+
 .debug {
   outline: 6px dotted green;
 }
