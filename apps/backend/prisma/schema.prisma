@@ -9,3 +9,20 @@ datasource db {
   provider = "sqlite"
   url      = env("DATABASE_URL")
 }
+
+model Usuario {
+  id                            Int @id @default(autoincrement())
+  nomeCompleto                  String
+  email                         String @unique
+  senha                         String
+  dataCriacao                   DateTime @default(now())
+  ativo                         Boolean @default(true)
+  token                         String
+  dataExpiracaoToken            DateTime
+  qutenticacaoDoisFatoresAtiva  Boolean @default(false)
+  telefone                      String
+  imagemPerfil                  String
+  // perfis  Perfil[]
+
+  @@map("usuarios")
+}
