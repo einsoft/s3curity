@@ -19,7 +19,7 @@ model Usuario {
   ativo                         Boolean @default(true)
   token                         String
   dataExpiracaoToken            DateTime
-  qutenticacaoDoisFatoresAtiva  Boolean @default(false)
+  autenticacaoDoisFatoresAtiva  Boolean @default(false)
   telefone                      String
   imagemPerfil                  String
   // perfis  Perfil[]
