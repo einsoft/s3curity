@@ -33,7 +33,7 @@ export class AuthController {
         senha: usuario.senha,
         dataCriacao: new Date(),
         ativo: true,
-        token: '',
+        token: usuario.token,
         dataExpiracaoToken: new Date(),
         autenticacaoDoisFatoresAtiva: false,
         telefone: usuario.telefone,
