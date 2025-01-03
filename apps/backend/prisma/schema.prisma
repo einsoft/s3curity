@@ -22,7 +22,7 @@ model Usuario {
   autenticacaoDoisFatoresAtiva  Boolean @default(false)
   telefone                      String
   imagemPerfil                  String
-  perfis                        Perfil[] @relation("UsuarioPerfis")
+  permissoes                        Permissao[] @relation("UsuarioPermissoes")
 
   @@map("usuarios")
 }
@@ -33,10 +33,19 @@ model Perfil {
   descricao   String
   dataCriacao DateTime @default(now())
   ativo       Boolean @default(true)
-  usuarioId   Int
-  usuario     Usuario @relation(fields: [usuarioId], references: [id], name: "UsuarioPerfis")
   // permissoes  Permissoes[]
 
   @@map("perfis")
 }
 
+model Permissao {
+  id          Int @id @default(autoincrement())
+  nome        String
+  descricao   String
+  dataCriacao DateTime @default(now())
+  ativo       Boolean @default(true)
+  usuarioId   Int
+  usuario     Usuario @relation(fields: [usuarioId], references: [id], name: "UsuarioPermissoes")
+
+  @@map("permissoes")
+}
