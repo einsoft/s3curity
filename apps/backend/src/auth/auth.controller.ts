@@ -10,9 +10,9 @@ interface Usuario {
   ativo?: boolean;
   token: string;
   dataExpiracaoToken: Date;
-  autenticacaoDoisFatoresAtiva: boolean;
+  autenticacaoDoisFatoresAtiva?: boolean;
   telefone?: string;
-  imagemPerfil: string;
+  imagemPerfil?: string;
 }
 
 @Controller('auth')
@@ -26,7 +26,7 @@ export class AuthController {
 
   @Post('registrar')
   async registrar(@Body() usuario: Usuario) {
-    this.prisma.usuario.create({
+    await this.prisma.usuario.create({
       data: {
         nomeCompleto: usuario.nomeCompleto,
         email: usuario.email,

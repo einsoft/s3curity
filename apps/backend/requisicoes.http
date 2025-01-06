@@ -12,7 +12,6 @@ content-type: application/json
         "dataCriacao": "2021-09-01T00:00:00.000Z",
         "token": "123456",
         "dataExpiracaoToken": "2021-09-01T00:00:00.000Z",
-        "autenticacaoDoisFatoresAtiva": false,
         "telefone": "123456",
-        "imagemPerfil": "https://www.google.com.br",
+        "imagemPerfil": "https://www.google.com.br"
 }
