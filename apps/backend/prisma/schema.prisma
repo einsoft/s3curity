@@ -1,0 +1,51 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Usuario {
+  id                            Int @id @default(autoincrement())
+  nomeCompleto                  String
+  email                         String @unique
+  senha                         String
+  dataCriacao                   DateTime @default(now())
+  ativo                         Boolean @default(true)
+  token                         String
+  dataExpiracaoToken            DateTime
+  autenticacaoDoisFatoresAtiva  Boolean @default(false)
+  telefone                      String
+  imagemPerfil                  String
+  permissoes                        Permissao[] @relation("UsuarioPermissoes")
+
+  @@map("usuarios")
+}
+
+model Perfil {
+  id          Int @id @default(autoincrement())
+  nome        String
+  descricao   String
+  dataCriacao DateTime @default(now())
+  ativo       Boolean @default(true)
+  // permissoes  Permissoes[]
+
+  @@map("perfis")
+}
+
+model Permissao {
+  id          Int @id @default(autoincrement())
+  nome        String
+  descricao   String
+  dataCriacao DateTime @default(now())
+  ativo       Boolean @default(true)
+  usuarioId   Int
+  usuario     Usuario @relation(fields: [usuarioId], references: [id], name: "UsuarioPermissoes")
+
+  @@map("permissoes")
+}
