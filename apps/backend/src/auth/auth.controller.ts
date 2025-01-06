@@ -1,23 +1,10 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { PrismaService } from 'src/db/prisma.service';
-
-interface Usuario {
-  id?: number;
-  nomeCompleto: string;
-  email: string;
-  senha?: string;
-  dataCriacao: Date;
-  ativo?: boolean;
-  token: string;
-  dataExpiracaoToken: Date;
-  autenticacaoDoisFatoresAtiva?: boolean;
-  telefone?: string;
-  imagemPerfil?: string;
-}
+import { Body, Controller, HttpException, Post } from '@nestjs/common';
+import Usuario from './usuario';
+import { UsuarioRepositorio } from './usuario.repositorio';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly repo: UsuarioRepositorio) {}
 
   @Post('login')
   async login() {
@@ -26,20 +13,13 @@ export class AuthController {
 
   @Post('registrar')
   async registrar(@Body() usuario: Usuario) {
-    await this.prisma.usuario.create({
-      data: {
-        nomeCompleto: usuario.nomeCompleto,
-        email: usuario.email,
-        senha: usuario.senha,
-        dataCriacao: new Date(),
-        ativo: true,
-        token: usuario.token,
-        dataExpiracaoToken: new Date(),
-        autenticacaoDoisFatoresAtiva: false,
-        telefone: usuario.telefone,
-        imagemPerfil: usuario.imagemPerfil,
-      },
-    });
-    return 'login';
+    const usuarioExistente = await this.repo.buscarPorEmail(usuario.email);
+
+    if (usuarioExistente) {
+      throw new HttpException('Usuário já existe', 400);
+    }
+
+    await this.repo.salvar(usuario);
+    return 'Salvo com sucesso';
   }
 }
