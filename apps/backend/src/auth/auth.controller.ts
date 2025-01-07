@@ -1,10 +1,10 @@
 import { Body, Controller, HttpException, Post } from '@nestjs/common';
-import { Usuario } from '@s3curity/core';
-import { UsuarioRepositorio } from './usuario.repositorio';
+import { RegistrarUsuario, Usuario } from '@s3curity/core';
+import { UsuarioPrisma } from './usuario.prisma';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly repo: UsuarioRepositorio) {}
+  constructor(private readonly repo: UsuarioPrisma) {}
 
   @Post('login')
   async login() {
@@ -13,13 +13,7 @@ export class AuthController {
 
   @Post('registrar')
   async registrar(@Body() usuario: Usuario) {
-    const usuarioExistente = await this.repo.buscarPorEmail(usuario.email);
-
-    if (usuarioExistente) {
-      throw new HttpException('Usuário já existe', 400);
-    }
-
-    await this.repo.salvar(usuario);
-    return 'Salvo com sucesso';
+    const casoDeUso = new RegistrarUsuario(this.repo);
+    return await casoDeUso.executar(usuario);
   }
 }

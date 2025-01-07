@@ -6,8 +6,8 @@ POST http://localhost:4000/auth/registrar
 content-type: application/json
 
 {
-        "nomeCompleto": "Fulano de Tal",
-        "email": "fulano@empresa.com",
+        "nomeCompleto": "Fulano de Tal Silva",
+        "email": "fulanodetal@empresa.com",
         "senha": "123456",
         "dataCriacao": "2021-09-01T00:00:00.000Z",
         "token": "123456",
