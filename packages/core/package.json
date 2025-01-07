@@ -11,5 +11,8 @@
   "author": "",
   "license": "ISC",
   "type": "commonjs",
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "tsup": "^8.2.4"
+  }
 }
