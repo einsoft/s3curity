@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Usuario } from '@s3curity/core';
+import { RepositorioUsuario, Usuario } from '@s3curity/core';
 import { PrismaService } from 'src/db/prisma.service';
 
 @Injectable()
-export class UsuarioRepositorio {
+export class UsuarioPrisma implements RepositorioUsuario {
   constructor(private readonly prisma: PrismaService) {}
 
   async salvar(usuario: Usuario): Promise<void> {
