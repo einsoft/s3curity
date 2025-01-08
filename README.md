@@ -4,7 +4,7 @@
 [![Forks][forks-shield]][forks-url]
 [![Stargazers][stars-shield]][stars-url]
 [![Issues][issues-shield]][issues-url]
-[![project_license][license-shield]][license-url]
+[![License][license-shield]][license-url]
 
 <!-- LOGO -->
 <br />
@@ -80,7 +80,7 @@ Para executar localmente, siga os passos seguintes.
 
 ### Pré-requisitos
 
-This is an example of how to list things you need to use the software and how to install them.
+Para usar esse software é necessário:
 
 - npm
   ```sh
@@ -89,23 +89,17 @@ This is an example of how to list things you need to use the software and how to
 
 ### Instalação
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
+1. Clonar o repositório
    ```sh
    git clone https://github.com/einsoft/s3curity.git
    ```
-3. Install NPM packages
+2. Instalar os pacotes necessários
    ```sh
-   npm install
+   yarn
    ```
-4. Enter your API in `config.js`
+3. Na pasta apps/backend, renomear o arquivo `.env.exemplo` para `.env` e preencher as variáveis de ambiente
    ```js
-   const API_KEY = "ENTER YOUR API";
-   ```
-5. Change git remote url to avoid accidental pushes to base project
-   ```sh
-   git remote set-url origin einsoft/s3curity
-   git remote -v # confirm the changes
+   const JWT_SECRET = "ENTER YOUR API";
    ```
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
@@ -136,9 +130,9 @@ Não se esqueça de dar uma estrela ao projeto! Obrigado novamente!
 
 <!-- LICENSE -->
 
-## License
+## Licença
 
-Distributed under the project_license. See `LICENSE.txt` for more information.
+Distribuído com a licença Unlicense. Consulte `LICENSE.txt` para mais informações.
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
@@ -161,7 +155,7 @@ Projeto: [https://github.com/einsoft/s3curity](https://github.com/einsoft/s3curi
 [stars-url]: https://github.com/einsoft/s3curity/stargazers
 [issues-shield]: https://img.shields.io/github/issues/einsoft/s3curity.svg?style=for-the-badge
 [issues-url]: https://github.com/einsoft/s3curity/issues
-[license-shield]: https://img.shields.io/github/license/einsoft/s3curity.svg?style=for-the-badge
+[license-shield]: https://img.shields.io/badge/license-Unlicense-blue.svg
 [license-url]: https://github.com/einsoft/s3curity/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
