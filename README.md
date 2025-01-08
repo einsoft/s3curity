@@ -104,17 +104,7 @@ Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguint
    ```
 9. **Git**: Sistema de controle de versão. Certifique-se de ter o Git instalado a partir do [site oficial do Git](https://git-scm.com/).
 
-Para garantir que todas as dependências do projeto estão instaladas, execute:
-
-```sh
-npm install
-```
-
-Além disso, certifique-se de configurar variáveis de ambiente necessárias e outros requisitos específicos mencionados na documentação do projeto.
-
-Espero que isso ajude! Se precisar de mais alguma coisa, estou por aqui.
-
-### Instalação
+## Instalação
 
 1. Clonar o repositório
    ```sh
