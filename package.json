@@ -1,6 +1,7 @@
 {
   "name": "s3curity",
   "private": true,
+  "license": "Unlicense",
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
