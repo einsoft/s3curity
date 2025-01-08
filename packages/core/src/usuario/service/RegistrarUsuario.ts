@@ -3,13 +3,13 @@ import Usuario from "../model/Usuario";
 import ProvedorCriptografia from "../provider/ProvedorCriptogafia";
 import RepositorioUsuario from "../provider/RepositorioUsuario";
 
-export default class RegistrarUsuario implements CasoDeUso {
+export default class RegistrarUsuario implements CasoDeUso<Usuario, void> {
   constructor(
     private readonly repo: RepositorioUsuario,
     private readonly cripto: ProvedorCriptografia
   ) {}
 
-  async executar(usuario: Usuario): Promise<any> {
+  async executar(usuario: Usuario): Promise<void> {
     const usuarioExistente = await this.repo.buscarPorEmail(usuario.email);
 
     if (usuarioExistente) {
