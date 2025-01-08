@@ -80,12 +80,39 @@ Para executar localmente, siga os passos seguintes.
 
 ### Pré-requisitos
 
-Para usar esse software é necessário:
+Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguinte software instalado em seu ambiente:
 
-- npm
-  ```sh
-  npm install npm@latest -g
-  ```
+1. **Node.js**: Versão 14.x ou superior. Pode ser baixado e instalado a partir do [site oficial do Node.js](https://nodejs.org/).
+2. **npm**: Gerenciador de pacotes do Node.js, que geralmente é instalado juntamente com o Node.js.
+3. **TypeScript**: Transpilador para JavaScript, instalado globalmente. Instale com o comando:
+   ```sh
+   npm install -g typescript
+   ```
+4. **Next.js**: Framework para React.js. Instale com o comando:
+   ```sh
+   npx create-next-app@latest
+   ```
+5. **React**: Biblioteca para construção de interfaces de usuário. Geralmente instalado como parte do Next.js.
+6. **Prisma ORM**: Ferramenta para modelagem de dados e geração de consultas SQL. Instale com o comando:
+   ```sh
+   npm install @prisma/client
+   ```
+7. **SQLite**: Banco de dados relacional leve. O Prisma geralmente lida com a instalação do SQLite, mas você pode precisar instalar bibliotecas adicionais dependendo do sistema operacional.
+8. **NestJS**: Framework para construção de aplicativos Node.js robustos e escaláveis. Instale com o comando:
+   ```sh
+   npm install -g @nestjs/cli
+   ```
+9. **Git**: Sistema de controle de versão. Certifique-se de ter o Git instalado a partir do [site oficial do Git](https://git-scm.com/).
+
+Para garantir que todas as dependências do projeto estão instaladas, execute:
+
+```sh
+npm install
+```
+
+Além disso, certifique-se de configurar variáveis de ambiente necessárias e outros requisitos específicos mencionados na documentação do projeto.
+
+Espero que isso ajude! Se precisar de mais alguma coisa, estou por aqui.
 
 ### Instalação
 
