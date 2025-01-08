@@ -107,7 +107,7 @@ Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguint
    ```sh
    git clone https://github.com/einsoft/s3curity.git
    ```
-2. Instalar os pacotes necessários
+2. Instalar os pacotes necessários, na raiz do projeto, execute:
    ```sh
    yarn
    ```
