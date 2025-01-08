@@ -33,21 +33,21 @@
   <summary>Conteúdo desse arquivo</summary>
   <ol>
     <li>
-      <a href="#about-the-project">Sobre o Projeto</a>
+      <a href="#sobre-o-projeto">Sobre o Projeto</a>
       <ul>
-        <li><a href="#built-with">Feito com</a></li>
+        <li><a href="#feito-com">Feito com</a></li>
       </ul>
     </li>
     <li>
-      <a href="#getting-started">Iniciando</a>
+      <a href="#iniciando">Iniciando</a>
       <ul>
-        <li><a href="#Pré-requisitos">Pré-requisitos</a></li>
-        <li><a href="#Instalação">Instalação</a></li>
+        <li><a href="#pr%C3%A9-requisitos">Pré-requisitos</a></li>
+        <li><a href="#instala%C3%A7%C3%A3o">Instalação</a></li>
       </ul>
     </li>
-    <li><a href="#contributing">Contribuindo</a></li>
-    <li><a href="#license">Licença</a></li>
-    <li><a href="#Contato">Contato</a></li>
+    <li><a href="#contribuindo">Contribuindo</a></li>
+    <li><a href="#licen%C3%A7a">Licença</a></li>
+    <li><a href="#contato">Contato</a></li>
   </ol>
 </details>
 
