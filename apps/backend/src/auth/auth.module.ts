@@ -8,5 +8,6 @@ import { BcryptProvider } from './bcrypt.provider';
   imports: [DbModule],
   controllers: [AuthController],
   providers: [UsuarioPrisma, BcryptProvider],
+  exports: [UsuarioPrisma]
 })
 export class AuthModule {}

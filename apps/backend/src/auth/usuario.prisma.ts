@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { RepositorioUsuario, Usuario } from '@s3curity/core';
 import { PrismaService } from 'src/db/prisma.service';
 
@@ -17,6 +17,25 @@ export class UsuarioPrisma implements RepositorioUsuario {
   async buscarPorEmail(email: string): Promise<Usuario | null> {
     return this.prisma.usuario.findUnique({
       where: { email },
+    });
+  }
+
+  async buscarPorId(id: number): Promise<Usuario | null> {
+    return this.prisma.usuario.findFirst({
+      where: { id: Number(id) },
+    });
+  }
+
+  async atualizarNome(id: number, nomeCompleto: string): Promise<void>{
+    let usuarioDB = await this.buscarPorId(id);
+
+    if(!usuarioDB){      
+      throw new HttpException('Usuário não encontrado', 400);
+    }
+
+    await this.prisma.usuario.update({
+      where: { id: Number(usuarioDB.id) },
+      data: { nomeCompleto: nomeCompleto },
     });
   }
 }

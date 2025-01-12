@@ -23,3 +23,13 @@ content-type: application/json
         "email": "silvaesilva@silva.com",
         "senha": "#Senha123"
 }
+
+### Alterar Nome usuario 
+PUT http://localhost:4000/usuario/1/alterarNome
+content-type: application/json
+
+{
+        "nomeCompleto": "João da Silva"
+}
+
+
