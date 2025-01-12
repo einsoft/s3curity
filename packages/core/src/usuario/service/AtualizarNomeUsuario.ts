@@ -1,9 +1,12 @@
+
 import CasoDeUso from "../../shared/CasoDeUso";
+import Usuario from "../model/Usuario";
 import RepositorioUsuario from "../provider/RepositorioUsuario";
 
 type Entrada = {
   id: number;
   nomeCompleto: string;
+  usuarioLogado: Usuario
 };
 
 export default class AtualizarNomeUsuario implements CasoDeUso<Entrada, void> {
@@ -12,17 +15,22 @@ export default class AtualizarNomeUsuario implements CasoDeUso<Entrada, void> {
   ) {}
 
   async executar(entrada: Entrada): Promise<void> {
-    
-    if (entrada.nomeCompleto?.length <= 3){
+    const { id, nomeCompleto, usuarioLogado } = entrada;
+
+    if(id != usuarioLogado.id){
+      throw new Error('Não é possível alterar nome de outro usuário');
+    }
+
+    if (nomeCompleto?.length <= 3){
       throw new Error("nome inválido");
     }
 
-    const usuarioDB = await this.repo.buscarPorId(entrada.id);
+    const usuarioDB = await this.repo.buscarPorId(id);
 
     if (!usuarioDB) {
       throw new Error("Usuário não existe");
     }
 
-    await this.repo.atualizarNome(usuarioDB.id, entrada.nomeCompleto);
+    await this.repo.atualizarNome(usuarioDB.id, nomeCompleto);
   }
 }

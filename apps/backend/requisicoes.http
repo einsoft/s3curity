@@ -16,6 +16,7 @@ content-type: application/json
         "imagemPerfil": "https://www.google.com.br"
 }
 ### Login
+# @name tokenAPI
 POST http://localhost:4000/auth/login
 content-type: application/json
 
@@ -25,8 +26,12 @@ content-type: application/json
 }
 
 ### Alterar Nome usuario 
-PUT http://localhost:4000/usuario/1/alterarNome
+
+#@authToken = {{tokenAPI.response.body}}
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywibm9tZUNvbXBsZXRvIjoiU2lsdmEgZSBTaWx2YSIsImVtYWlsIjoic2lsdmFlc2lsdmFAc2lsdmEuY29tIiwiZGF0YUNyaWFjYW8iOiIyMDIxLTA5LTAxVDAwOjAwOjAwLjAwMFoiLCJhdGl2byI6dHJ1ZSwidG9rZW4iOiIxMjM0NTYiLCJkYXRhRXhwaXJhY2FvVG9rZW4iOiIyMDIxLTA5LTAxVDAwOjAwOjAwLjAwMFoiLCJhdXRlbnRpY2FjYW9Eb2lzRmF0b3Jlc0F0aXZhIjpmYWxzZSwidGVsZWZvbmUiOiIxMjM0NTYiLCJpbWFnZW1QZXJmaWwiOiJodHRwczovL3d3dy5nb29nbGUuY29tLmJyIiwiaWF0IjoxNzM2Njg5NTc0LCJleHAiOjE3Mzc5ODU1NzR9.UGXKWAjpnMHHyGpCcinmfJRMMYBFY22JzQG84GyQ4m0
+PUT http://localhost:4000/usuario/3/alterarNome
 content-type: application/json
+Authorization: Bearer {{authToken}}
 
 {
         "nomeCompleto": "João da Silva"
