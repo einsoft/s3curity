@@ -1,3 +1,3 @@
-import Login from "../views/login/Login";
+import LandingPage from "../views/landingPage/LandingPage";
 
-export default Login;
+export default LandingPage;

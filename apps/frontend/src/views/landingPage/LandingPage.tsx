@@ -1,8 +1,8 @@
 import Image from "next/image";
 
-export default function Login() {
+export default function LandingPage() {
   return (
-    <div>
+    <div className="centroExato">
       <main>
         <Image
           src="logo.svg"
