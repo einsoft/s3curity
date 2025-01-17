@@ -1,3 +1,5 @@
+import FormAuth from "@/src/components/auth/FormAuth";
+
 export default function Page() {
-  return <div>Entrar</div>;
+  return <FormAuth />;
 }
