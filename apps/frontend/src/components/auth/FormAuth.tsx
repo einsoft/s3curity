@@ -12,6 +12,12 @@ export default function FormAuth() {
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [dataCriacao] = useState(new Date());
+  const [token] = useState("");
+  const [dataExpiracaoToken] = useState<Date>(
+    new Date(new Date().getTime() + 1000 * 60 * 60 * 24)
+  );
+  const [imagemPerfil] = useState("https://www.google.com.br/logo.svg");
 
   const { httpPost } = useAPI();
 
@@ -23,9 +29,27 @@ export default function FormAuth() {
     if (modo === "login") {
       const token = await httpPost("/auth/login", { email, senha });
       console.log(token);
+      limparFormulario();
     } else {
-      console.log({ email, senha });
+      await httpPost("/auth/registrar", {
+        nomeCompleto: nome,
+        email,
+        senha,
+        dataCriacao,
+        token,
+        dataExpiracaoToken,
+        telefone,
+        imagemPerfil,
+      });
+      limparFormulario();
     }
+  }
+
+  function limparFormulario() {
+    setNome("");
+    setTelefone("");
+    setEmail("");
+    setSenha("");
   }
 
   return (
