@@ -1,9 +1,7 @@
 "use client";
-
 import { useState } from "react";
-import Image from "next/image";
-import logo from "../../assets/images/logo.svg";
 import useAPI from "@/src/data/hooks/useAPI";
+import Logo from "../logo/Logo";
 
 export default function FormAuth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
@@ -14,10 +12,10 @@ export default function FormAuth() {
   const [senha, setSenha] = useState("");
   const [dataCriacao] = useState(new Date());
   const [token] = useState("");
+  const [imagemPerfil] = useState("https://www.google.com.br/logo.svg");
   const [dataExpiracaoToken] = useState<Date>(
     new Date(new Date().getTime() + 1000 * 60 * 60 * 24)
   );
-  const [imagemPerfil] = useState("https://www.google.com.br/logo.svg");
 
   const { httpPost } = useAPI();
 
@@ -53,25 +51,27 @@ export default function FormAuth() {
   }
 
   return (
-    <div className="flex justify-center items-center h-screen">
-      <Image src={logo} width={150} height={150} alt="Logo" priority={false} />
-      <div className="flex flex-col">
-        {modo === "cadastro" && (
-          <>
-            <input
-              type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              placeholder="Nome Completo"
-            />
-            <input
-              type="text"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              placeholder="Telefone"
-            />
-          </>
-        )}
+    <div className="formularioContainer">
+      <div className="formularioLogo">
+        <Logo />
+      </div>
+      {modo === "cadastro" && (
+        <div className="formulario">
+          <input
+            type="text"
+            value={nome}
+            onChange={(e) => setNome(e.target.value)}
+            placeholder="Nome Completo"
+          />
+          <input
+            type="text"
+            value={telefone}
+            onChange={(e) => setTelefone(e.target.value)}
+            placeholder="Telefone"
+          />
+        </div>
+      )}
+      <div className="formulario">
         <input
           type="text"
           value={email}
@@ -86,7 +86,7 @@ export default function FormAuth() {
         />
         <button onClick={submeter}>Confirmar</button>
       </div>
-      <div>
+      <div className="espacamento_superior">
         <button onClick={alternarModo}>
           {modo === "login" ? (
             <span>Aindão não tem conta? Cadastre-se</span>

@@ -59,8 +59,24 @@ body {
   color: #f5f5f5;
 }
 
-.centroExato {
-  @apply flex justify-center items-center h-screen;
+.espacamento_superior {
+  @apply mt-4;
+}
+
+.container {
+  @apply flex justify-center items-center h-screen text-white;
+}
+
+.formularioContainer {
+  @apply flex flex-col items-center justify-center bg-[#18181b] py-4 px-8 rounded-lg w-[631] h-[748];
+}
+
+.formularioLogo {
+  @apply pb-20;
+}
+
+.formulario {
+  @apply flex flex-col gap-4;
 }
 
 .debug {

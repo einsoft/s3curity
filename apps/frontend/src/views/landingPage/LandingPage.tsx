@@ -1,17 +1,5 @@
-import Image from "next/image";
+import Logo from "@/src/components/logo/Logo";
 
 export default function LandingPage() {
-  return (
-    <div className="centroExato">
-      <main>
-        <Image
-          src="logo.svg"
-          alt="S3curity logo"
-          width={180}
-          height={38}
-          priority
-        />
-      </main>
-    </div>
-  );
+  return <Logo />;
 }
