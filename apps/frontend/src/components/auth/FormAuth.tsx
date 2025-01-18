@@ -55,37 +55,37 @@ export default function FormAuth() {
       <div className="formularioLogo">
         <Logo />
       </div>
-      {modo === "cadastro" && (
-        <div className="espacamento_superior">
-          <div className="formulario">
-            <label className="labelFormLogin" htmlFor="nome">
-              Nome Completo
-            </label>
-            <input
-              id="nome"
-              type="text"
-              value={nome}
-              onChange={(e) => setNome(e.target.value)}
-              placeholder="Nome Completo"
-              className="inputFormLogin"
-            />
-          </div>
-          <div className="espacamento_superior">
-            <label className="labelFormLogin" htmlFor="telefone">
-              Telefone
-            </label>
-            <input
-              id="nome"
-              type="text"
-              value={telefone}
-              onChange={(e) => setTelefone(e.target.value)}
-              placeholder="Telefone"
-              className="inputFormLogin"
-            />
-          </div>
-        </div>
-      )}
       <div className="formulario">
+        {modo === "cadastro" && (
+          <>
+            <div className="espacamento_superior">
+              <label className="labelFormLogin" htmlFor="nome">
+                Nome Completo
+              </label>
+              <input
+                id="nome"
+                type="text"
+                value={nome}
+                onChange={(e) => setNome(e.target.value)}
+                placeholder="Nome Completo"
+                className="inputFormLogin"
+              />
+            </div>
+            <div className="espacamento_superior">
+              <label className="labelFormLogin" htmlFor="telefone">
+                Telefone
+              </label>
+              <input
+                id="nome"
+                type="text"
+                value={telefone}
+                onChange={(e) => setTelefone(e.target.value)}
+                placeholder="Telefone"
+                className="inputFormLogin"
+              />
+            </div>
+          </>
+        )}
         <div className="espacamento_superior">
           <label className="labelFormLogin" htmlFor="email">
             E-mail
@@ -122,7 +122,7 @@ export default function FormAuth() {
           Confirmar
         </button>
       </div>
-      <div className="espacamento_superior">
+      <div className="formulario espacamento_superior">
         <button onClick={alternarModo}>
           {modo === "login" ? (
             <span>Aindão não tem conta? Cadastre-se</span>
