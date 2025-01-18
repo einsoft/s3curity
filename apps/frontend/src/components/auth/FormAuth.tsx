@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
 import Logo from "../logo/Logo";
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import useFormAuth from "@/src/data/hooks/useFormAuth";
+import CampoSenha from "../shared/formulario/CampoSenha";
 
 export default function FormAuth() {
   const {
@@ -18,12 +17,6 @@ export default function FormAuth() {
     setSenha,
     submeter,
   } = useFormAuth();
-
-  const [mostrarSenha, setMostrarSenha] = useState(false);
-
-  function alternarMostrarSenha() {
-    setMostrarSenha(!mostrarSenha);
-  }
 
   return (
     <div className="formularioContainer">
@@ -75,35 +68,11 @@ export default function FormAuth() {
           />
         </div>
         <div className="espacamento_superior">
-          <label
-            className="labelFormLogin espacamento_superior"
-            htmlFor="senha"
-          >
-            Senha
-          </label>
-          <div className="inputFormLogin">
-            <input
-              id="senha"
-              type={mostrarSenha ? "text" : "password"}
-              value={senha}
-              onChange={(e) => setSenha(e.target.value)}
-              placeholder="Senha"
-              className="inputFormLoginPassword"
-            />
-            <div>
-              {mostrarSenha ? (
-                <IconEyeOff
-                  onClick={alternarMostrarSenha}
-                  className="inputFormLoginPasswordEyeIcon"
-                />
-              ) : (
-                <IconEye
-                  onClick={alternarMostrarSenha}
-                  className="inputFormLoginPasswordEyeIcon"
-                />
-              )}
-            </div>
-          </div>
+          <CampoSenha
+            placeholder="Senha"
+            value={senha}
+            onChangeText={setSenha}
+          />
         </div>
         <button
           onClick={submeter}
