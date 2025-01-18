@@ -2,6 +2,9 @@
 import Logo from "../logo/Logo";
 import useFormAuth from "@/src/data/hooks/useFormAuth";
 import CampoSenha from "../shared/formulario/CampoSenha";
+import CampoTexto from "../shared/formulario/CampoTexto";
+import CampoTelefone from "../shared/formulario/CampoTelefone";
+import CampoEmail from "../shared/formulario/CampoEmail";
 
 export default function FormAuth() {
   const {
@@ -26,54 +29,24 @@ export default function FormAuth() {
       <div className="formulario">
         {modo === "cadastro" && (
           <>
-            <div className="espacamento_superior">
-              <label className="labelFormLogin" htmlFor="nome">
-                Nome Completo
-              </label>
-              <input
-                id="nome"
-                type="text"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
-                placeholder="Nome Completo"
-                className="inputFormLogin"
-              />
-            </div>
-            <div className="espacamento_superior">
-              <label className="labelFormLogin" htmlFor="telefone">
-                Telefone
-              </label>
-              <input
-                id="nome"
-                type="text"
-                value={telefone}
-                onChange={(e) => setTelefone(e.target.value)}
-                placeholder="Telefone"
-                className="inputFormLogin"
-              />
-            </div>
+            <CampoTexto
+              placeholder="Nome Completo"
+              value={nome}
+              onChangeText={setNome}
+            />
+            <CampoTelefone
+              placeholder="Telefone"
+              value={telefone}
+              onChangeText={setTelefone}
+            />
           </>
         )}
-        <div className="espacamento_superior">
-          <label className="labelFormLogin" htmlFor="email">
-            E-mail
-          </label>
-          <input
-            id="email"
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="E-mail"
-            className="inputFormLogin"
-          />
-        </div>
-        <div className="espacamento_superior">
-          <CampoSenha
-            placeholder="Senha"
-            value={senha}
-            onChangeText={setSenha}
-          />
-        </div>
+        <CampoEmail
+          placeholder="E-mail"
+          value={email}
+          onChangeText={setEmail}
+        />
+        <CampoSenha placeholder="Senha" value={senha} onChangeText={setSenha} />
         <button
           onClick={submeter}
           className="button_green espacamento_superior"

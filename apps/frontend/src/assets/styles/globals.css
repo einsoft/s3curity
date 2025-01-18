@@ -83,7 +83,7 @@ body {
 }
 
 .formulario {
-  @apply flex flex-col;
+  @apply flex flex-col gap-1;
 }
 
 .inputFormLogin {

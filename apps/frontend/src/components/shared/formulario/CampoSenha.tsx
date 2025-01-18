@@ -17,7 +17,7 @@ export default function CampoSenha(props: CampoSenhaProps) {
 
   return (
     <>
-      <label className="labelFormLogin espacamento_superior" htmlFor="senha">
+      <label className="labelFormLogin" htmlFor="senha">
         Senha
       </label>
       <div className="inputFormLogin">
