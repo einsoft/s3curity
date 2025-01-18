@@ -1,59 +1,28 @@
 "use client";
 import { useState } from "react";
-import useAPI from "@/src/data/hooks/useAPI";
 import Logo from "../logo/Logo";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import useFormAuth from "@/src/data/hooks/useFormAuth";
 
 export default function FormAuth() {
-  const [modo, setModo] = useState<"login" | "cadastro">("login");
+  const {
+    modo,
+    nome,
+    telefone,
+    email,
+    senha,
+    alternarModo,
+    setNome,
+    setTelefone,
+    setEmail,
+    setSenha,
+    submeter,
+  } = useFormAuth();
 
-  const [nome, setNome] = useState("");
-  const [telefone, setTelefone] = useState("");
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
   const [mostrarSenha, setMostrarSenha] = useState(false);
-  const [dataCriacao] = useState(new Date());
-  const [token] = useState("");
-  const [imagemPerfil] = useState("https://www.google.com.br/logo.svg");
-  const [dataExpiracaoToken] = useState<Date>(
-    new Date(new Date().getTime() + 1000 * 60 * 60 * 24)
-  );
-
-  const { httpPost } = useAPI();
-
-  function alternarModo() {
-    setModo(modo === "login" ? "cadastro" : "login");
-  }
 
   function alternarMostrarSenha() {
     setMostrarSenha(!mostrarSenha);
-  }
-
-  async function submeter() {
-    if (modo === "login") {
-      const token = await httpPost("/auth/login", { email, senha });
-      console.log(token);
-      limparFormulario();
-    } else {
-      await httpPost("/auth/registrar", {
-        nomeCompleto: nome,
-        email,
-        senha,
-        dataCriacao,
-        token,
-        dataExpiracaoToken,
-        telefone,
-        imagemPerfil,
-      });
-      limparFormulario();
-    }
-  }
-
-  function limparFormulario() {
-    setNome("");
-    setTelefone("");
-    setEmail("");
-    setSenha("");
   }
 
   return (
