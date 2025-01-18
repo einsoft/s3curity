@@ -1,3 +1,3 @@
-import FormAuth from "@/src/components/auth/FormAuth";
+import Entrar from "../../views/entrar/Entrar";
 
-export default FormAuth;
+export default Entrar;

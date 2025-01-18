@@ -106,14 +106,16 @@ export default function FormAuth() {
           >
             Senha
           </label>
-          <input
-            id="senha"
-            type="password"
-            value={senha}
-            onChange={(e) => setSenha(e.target.value)}
-            placeholder="Senha"
-            className="inputFormLogin"
-          />
+          <div className="inputFormLogin">
+            <input
+              id="senha"
+              type="password"
+              value={senha}
+              onChange={(e) => setSenha(e.target.value)}
+              placeholder="Senha"
+              className="inputFormLoginPassword"
+            />
+          </div>
         </div>
         <button
           onClick={submeter}

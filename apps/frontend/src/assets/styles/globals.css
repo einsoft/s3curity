@@ -90,6 +90,10 @@ body {
   @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4;
 }
 
+.inputFormLoginPassword {
+  @apply bg-transparent border-none w-full h-full flex-1 items-center outline-none;
+}
+
 .labelFormLogin {
   @apply text-[#F5F5F5] text-sm pt-2 ml-1;
 }
