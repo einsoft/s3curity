@@ -2,7 +2,7 @@
 import { useState } from "react";
 import useAPI from "@/src/data/hooks/useAPI";
 import Logo from "../logo/Logo";
-import { IconEye } from "@tabler/icons-react";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 export default function FormAuth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
@@ -11,6 +11,7 @@ export default function FormAuth() {
   const [telefone, setTelefone] = useState("");
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const [mostrarSenha, setMostrarSenha] = useState(false);
   const [dataCriacao] = useState(new Date());
   const [token] = useState("");
   const [imagemPerfil] = useState("https://www.google.com.br/logo.svg");
@@ -22,6 +23,10 @@ export default function FormAuth() {
 
   function alternarModo() {
     setModo(modo === "login" ? "cadastro" : "login");
+  }
+
+  function alternarMostrarSenha() {
+    setMostrarSenha(!mostrarSenha);
   }
 
   async function submeter() {
@@ -110,14 +115,24 @@ export default function FormAuth() {
           <div className="inputFormLogin">
             <input
               id="senha"
-              type="password"
+              type={mostrarSenha ? "text" : "password"}
               value={senha}
               onChange={(e) => setSenha(e.target.value)}
               placeholder="Senha"
               className="inputFormLoginPassword"
             />
             <div>
-              <IconEye className="inputFormLoginPasswordEyeIcon" />
+              {mostrarSenha ? (
+                <IconEyeOff
+                  onClick={alternarMostrarSenha}
+                  className="inputFormLoginPasswordEyeIcon"
+                />
+              ) : (
+                <IconEye
+                  onClick={alternarMostrarSenha}
+                  className="inputFormLoginPasswordEyeIcon"
+                />
+              )}
             </div>
           </div>
         </div>
