@@ -5,6 +5,7 @@ import CampoSenha from "../shared/formulario/CampoSenha";
 import CampoTexto from "../shared/formulario/CampoTexto";
 import CampoTelefone from "../shared/formulario/CampoTelefone";
 import CampoEmail from "../shared/formulario/CampoEmail";
+import Link from "next/link";
 
 export default function FormAuth() {
   const {
@@ -52,6 +53,9 @@ export default function FormAuth() {
           className="button_green espacamento_superior"
         >
           Confirmar
+        </button>
+        <button className="button_red">
+          <Link href="/">Cancelar</Link>
         </button>
       </div>
       <div className="formulario espacamento_superior">
