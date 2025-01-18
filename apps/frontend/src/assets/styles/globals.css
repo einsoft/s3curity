@@ -87,11 +87,15 @@ body {
 }
 
 .inputFormLogin {
-  @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4;
+  @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4 flex items-center;
 }
 
 .inputFormLoginPassword {
-  @apply bg-transparent border-none w-full h-full flex-1 items-center outline-none;
+  @apply bg-transparent border-none h-full items-center outline-none;
+}
+
+.inputFormLoginPasswordEyeIcon {
+  @apply text-zinc-500;
 }
 
 .labelFormLogin {

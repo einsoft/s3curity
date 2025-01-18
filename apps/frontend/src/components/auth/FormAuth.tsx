@@ -2,6 +2,7 @@
 import { useState } from "react";
 import useAPI from "@/src/data/hooks/useAPI";
 import Logo from "../logo/Logo";
+import { IconEye } from "@tabler/icons-react";
 
 export default function FormAuth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
@@ -115,6 +116,9 @@ export default function FormAuth() {
               placeholder="Senha"
               className="inputFormLoginPassword"
             />
+            <div>
+              <IconEye className="inputFormLoginPasswordEyeIcon" />
+            </div>
           </div>
         </div>
         <button
