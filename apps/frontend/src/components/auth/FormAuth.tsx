@@ -26,6 +26,7 @@ export default function FormAuth() {
     <div className="formularioContainer">
       <div className="formularioLogo">
         <Logo />
+        <span className="formularioLogoTipo">Entre com sua conta</span>
       </div>
       <div className="formulario">
         {modo === "cadastro" && (

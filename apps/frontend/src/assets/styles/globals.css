@@ -82,15 +82,19 @@ body {
 }
 
 .formularioContainer {
-  @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg;
+  @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
 }
 
 .formularioLogo {
   @apply pb-2;
 }
 
+.formularioLogoTipo {
+  @apply font-bold leading-9 text-center;
+}
+
 .formulario {
-  @apply flex flex-col gap-1;
+  @apply flex flex-col gap-1 w-full p-4;
 }
 
 .inputFormLogin {
@@ -98,7 +102,7 @@ body {
 }
 
 .inputFormLoginPassword {
-  @apply bg-transparent border-none h-full items-center outline-none;
+  @apply bg-transparent border-none h-full w-full items-center outline-none;
 }
 
 .inputFormLoginPasswordEyeIcon {
