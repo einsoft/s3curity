@@ -15,6 +15,14 @@ export default function useFormAuth() {
 
   const { httpPost } = useAPI();
 
+  function limparFormulario() {
+    setNome("");
+    setTelefone("");
+    setEmail("");
+    setSenha("");
+    setModo("login");
+  }
+
   function alternarModo() {
     setModo(modo === "login" ? "cadastro" : "login");
   }
@@ -37,14 +45,6 @@ export default function useFormAuth() {
       });
       limparFormulario();
     }
-  }
-
-  function limparFormulario() {
-    setNome("");
-    setTelefone("");
-    setEmail("");
-    setSenha("");
-    setModo("login");
   }
 
   return {

@@ -9,6 +9,6 @@ import { AuthMiddleware } from './auth.middleware';
   imports: [DbModule],
   controllers: [AuthController],
   providers: [UsuarioPrisma, BcryptProvider, AuthMiddleware],
-  exports: [UsuarioPrisma, AuthMiddleware]
+  exports: [UsuarioPrisma, AuthMiddleware],
 })
 export class AuthModule {}

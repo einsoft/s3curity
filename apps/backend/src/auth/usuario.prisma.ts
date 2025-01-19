@@ -26,10 +26,10 @@ export class UsuarioPrisma implements RepositorioUsuario {
     });
   }
 
-  async atualizarNome(id: number, nomeCompleto: string): Promise<void>{
-    let usuarioDB = await this.buscarPorId(id);
+  async atualizarNome(id: number, nomeCompleto: string): Promise<void> {
+    const usuarioDB = await this.buscarPorId(id);
 
-    if(!usuarioDB){      
+    if (!usuarioDB) {
       throw new HttpException('Usuário não encontrado', 400);
     }
 

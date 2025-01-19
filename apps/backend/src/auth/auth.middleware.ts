@@ -31,9 +31,8 @@ export class AuthMiddleware implements NestMiddleware {
       req.usuario = usuario;
       next();
     } catch (error) {
-      console.error('erro Token inválido', error)
+      console.error('erro Token inválido', error);
       throw new HttpException('Token inválido', 401);
     }
   }
 }
-
