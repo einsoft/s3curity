@@ -48,15 +48,14 @@ export default function FormAuth() {
           onChangeText={setEmail}
         />
         <CampoSenha placeholder="Senha" value={senha} onChangeText={setSenha} />
-        <button
-          onClick={submeter}
-          className="button_green espacamento_superior"
-        >
-          Confirmar
-        </button>
-        <button className="button_red">
-          <Link href="/">Cancelar</Link>
-        </button>
+        <div className="button_container espacamento_superior">
+          <button onClick={submeter} className="button_green">
+            Confirmar
+          </button>
+          <button className="button_red">
+            <Link href="/">Cancelar</Link>
+          </button>
+        </div>
       </div>
       <div className="formulario espacamento_superior">
         <button onClick={alternarModo}>
