@@ -60,7 +60,7 @@ export default function FormAuth() {
       <div className="formulario espacamento_superior">
         <button onClick={alternarModo}>
           {modo === "login" ? (
-            <span>Aindão não tem conta? Cadastre-se</span>
+            <span>Ainda não tem conta? Cadastre-se</span>
           ) : (
             <span>Já tem uma conta? Faça o Login</span>
           )}
