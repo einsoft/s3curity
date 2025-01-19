@@ -1,5 +1,4 @@
-export interface CampoTelefoneProps
-  extends React.HTMLAttributes<HTMLDivElement> {
+export interface CampoTelefoneProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;

@@ -1,5 +1,5 @@
-import { IconEye, IconEyeOff } from "@tabler/icons-react";
 import { useState } from "react";
+import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 export interface CampoSenhaProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder: string;
@@ -34,15 +34,9 @@ export default function CampoSenha(props: CampoSenhaProps) {
         />
         <div>
           {mostrarSenha ? (
-            <IconEyeOff
-              onClick={alternarMostrarSenha}
-              className="inputFormLoginPasswordEyeIcon"
-            />
+            <IconEyeOff onClick={alternarMostrarSenha} className="inputFormLoginPasswordEyeIcon" />
           ) : (
-            <IconEye
-              onClick={alternarMostrarSenha}
-              className="inputFormLoginPasswordEyeIcon"
-            />
+            <IconEye onClick={alternarMostrarSenha} className="inputFormLoginPasswordEyeIcon" />
           )}
         </div>
       </div>

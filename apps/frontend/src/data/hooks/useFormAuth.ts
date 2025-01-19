@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import useAPI from "./useAPI";
 
 export default function useFormAuth() {
@@ -9,12 +10,8 @@ export default function useFormAuth() {
   const [senha, setSenha] = useState("");
   const [dataCriacao] = useState(new Date());
   const [token] = useState("");
-  const [imagemPerfil] = useState(
-    "https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png"
-  );
-  const [dataExpiracaoToken] = useState<Date>(
-    new Date(new Date().getTime() + 1000 * 60 * 60 * 24)
-  );
+  const [imagemPerfil] = useState("https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_150x54dp.png");
+  const [dataExpiracaoToken] = useState<Date>(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
 
   const { httpPost } = useAPI();
 
