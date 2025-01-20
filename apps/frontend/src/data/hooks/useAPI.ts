@@ -6,8 +6,8 @@ export default function useAPI() {
     try {
       conteudo = await resposta.text();
       return JSON.parse(conteudo);
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (e) {
-      console.log(e);
       return conteudo;
     }
   }

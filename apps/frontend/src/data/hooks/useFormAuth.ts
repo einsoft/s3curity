@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 import useAPI from "./useAPI";
+import useSessao from "./useSessao";
 
 export default function useFormAuth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
@@ -14,6 +15,7 @@ export default function useFormAuth() {
   const [dataExpiracaoToken] = useState<Date>(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
 
   const { httpPost } = useAPI();
+  const { iniciarSessao } = useSessao();
 
   function limparFormulario() {
     setNome("");
@@ -30,7 +32,7 @@ export default function useFormAuth() {
   async function submeter() {
     if (modo === "login") {
       const token = await httpPost("/auth/login", { email, senha });
-      console.log(token);
+      iniciarSessao(token);
       limparFormulario();
     } else {
       await httpPost("/auth/registrar", {

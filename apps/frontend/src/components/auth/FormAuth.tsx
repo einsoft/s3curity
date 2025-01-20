@@ -28,6 +28,7 @@ export default function FormAuth() {
         )}
         <CampoEmail placeholder="E-mail" value={email} onChangeText={setEmail} />
         <CampoSenha placeholder="Senha" value={senha} onChangeText={setSenha} />
+        {modo === "login" && <span className="formularioLink">Esqueceu sua senha?</span>}
         <div className="button_container espacamento_superior">
           <button onClick={submeter} className="button_green">
             Confirmar
