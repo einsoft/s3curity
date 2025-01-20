@@ -93,7 +93,10 @@ export function ProvedorSessao(props: any) {
     setSessao(sessao);
   }
 
-  function encerrarSessao() {}
+  function encerrarSessao() {
+    cookie.remove(nomeCookie);
+    setSessao({ token: null, usuario: null });
+  }
 
   return (
     <ContextoSessao.Provider

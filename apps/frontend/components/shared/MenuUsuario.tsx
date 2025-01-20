@@ -5,8 +5,14 @@ export default function MenuUsuario() {
 
   return (
     <div className="flex">
-      <span>{usuario?.nomeCompleto}</span>
-      <span onClick={encerrarSessao}>Sair</span>
+      <nav className="flex justify-between w-full">
+        <div className="pr-12">
+          <span>{usuario?.nomeCompleto}</span>
+        </div>
+        <div>
+          <button onClick={encerrarSessao}>Sair</button>
+        </div>
+      </nav>
     </div>
   );
 }
