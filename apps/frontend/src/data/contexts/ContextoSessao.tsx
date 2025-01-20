@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { Usuario } from "@s3curity/core";
 import cookie from "js-cookie";
 import { jwtDecode } from "jwt-decode";
@@ -23,7 +23,7 @@ export default ContextoSessao;
 
 export function ProvedorSessao(props: any) {
   const nomeCookie = "_s3curity_token";
-  const [carregando] = useState(true);
+  const [carregando, setCarregando] = useState(true);
   const [sessao, setSessao] = useState<Sessao>({ token: null, usuario: null });
 
   function obterSessao(): Sessao {
@@ -68,6 +68,24 @@ export function ProvedorSessao(props: any) {
       };
     }
   }
+
+  const carregarSessao = useCallback(
+    () =>
+      function carregarSessao() {
+        try {
+          setCarregando(true);
+          const sessao = obterSessao();
+          setSessao(sessao);
+        } finally {
+          setCarregando(false);
+        }
+      },
+    []
+  );
+
+  useEffect(() => {
+    carregarSessao();
+  }, [carregarSessao]);
 
   function iniciarSessao(token: string) {
     cookie.set(nomeCookie, token, { expires: 1 });
