@@ -3,7 +3,7 @@ import { AppModule } from './app.module';
 import ErrorFilter from './error.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });  
+  const app = await NestFactory.create(AppModule, { cors: true });
   app.useGlobalFilters(new ErrorFilter());
   await app.listen(process.env.PORT ?? 4000);
 }

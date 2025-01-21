@@ -2,64 +2,149 @@
 @tailwind components;
 @tailwind utilities;
 
-* {
-  outline: 2px dotted red;
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 240 10% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 240 10% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 240 10% 3.9%;
+    --primary: 240 5.9% 10%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 240 4.8% 95.9%;
+    --secondary-foreground: 240 5.9% 10%;
+    --muted: 240 4.8% 95.9%;
+    --muted-foreground: 240 3.8% 46.1%;
+    --accent: 240 4.8% 95.9%;
+    --accent-foreground: 240 5.9% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 5.9% 90%;
+    --input: 240 5.9% 90%;
+    --ring: 240 10% 3.9%;
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+    --radius: 0.5rem;
+  }
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --chart-1: 220 70% 50%;
+    --chart-2: 160 60% 45%;
+    --chart-3: 30 80% 55%;
+    --chart-4: 280 65% 60%;
+    --chart-5: 340 75% 55%;
+  }
+  body {
+    color: #f5f5f5;
+    background: #09090b;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+  }
 }
 
-body {
-  padding: 20;
-  color: #f5f5f5;
-  background: #09090b;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-}
+@layer components {
+  .container {
+    @apply flex justify-center items-center h-screen text-white;
+  }
 
-.background {
-  background: #09090b;
-}
+  .container__landingpage {
+    @apply relative min-h-screen w-full;
+  }
 
-.foreground {
-  color: #18181b;
-}
+  .container__landingpage--conteudo {
+    @apply flex items-center justify-center h-screen;
+  }
 
-.janela_background {
-  background: #09090b;
-  opacity: 50%;
-}
+  .form__buttoncontainer {
+    @apply flex justify-center gap-2;
+  }
 
-.janela_foreground {
-  color: #27272a;
-  opacity: 50%;
-}
+  .form__button--green {
+    background: #22c55e;
+    color: #f5f5f5;
+    padding: 5px;
+    border-radius: 6px;
+    width: 50%;
+  }
 
-.button_blue {
-  background: #1d4ed8;
-  color: #f5f5f5;
-}
+  .form__button--red {
+    background: #ef4444;
+    color: #f5f5f5;
+    padding: 5px;
+    border-radius: 6px;
+    width: 50%;
+  }
 
-.button_green {
-  background: #22c55e;
-  color: #f5f5f5;
-}
+  .form__button--gray {
+    background: #27272a;
+    color: #f5f5f5;
+    padding: 5px;
+    border-radius: 6px;
+    width: 50%;
+  }
 
-.button_red {
-  background: #ef4444;
-  color: #f5f5f5;
-}
+  .cabecalho__container {
+    @apply flex items-center h-12 bg-black/60 self-stretch rounded-xl;
+  }
 
-.button_gray {
-  background: #27272a;
-  color: #f5f5f5;
-}
+  .cabecalho__container--items {
+    @apply flex justify-around w-full;
+  }
 
-.bordas {
-  color: #a1a1aa;
-  opacity: 50%;
-}
+  .cabecalho__container--itemsAlinhamentoDireita {
+    @apply flex justify-end;
+  }
 
-.texto_padrao {
-  color: #f5f5f5;
-}
+  .formulario {
+    @apply flex flex-col gap-1 w-full p-4;
+  }
 
-.debug {
-  outline: 6px dotted green;
+  .formulario__container {
+    @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
+  }
+
+  .formulario__container--logotipo {
+    @apply font-bold leading-9 text-center;
+  }
+
+  .formulario__link {
+    @apply text-zinc-500 text-right;
+  }
+
+  .formulario__input {
+    @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4 flex items-center;
+  }
+
+  .formulario__input--password {
+    @apply bg-transparent border-none h-full w-full items-center outline-none;
+  }
+
+  .formulario__label {
+    @apply text-[#F5F5F5] text-sm pt-2 ml-1;
+  }
+
+  .debug {
+    outline: 6px dotted green;
+  }
 }
