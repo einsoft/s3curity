@@ -1,5 +1,7 @@
-import { useState } from "react";
-import { useRouter } from "next/navigation";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
 
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
@@ -16,8 +18,16 @@ export default function useFormAuth() {
   const [dataExpiracaoToken] = useState<Date>(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
 
   const { httpPost } = useAPI();
-  const { iniciarSessao } = useSessao();
+  const { usuario, iniciarSessao } = useSessao();
   const router = useRouter();
+  const param = useSearchParams();
+
+  useEffect(() => {
+    if (usuario?.email) {
+      const destino = param.get("destino") as string;
+      router.push(destino ? destino : "/");
+    }
+  }, [usuario, router, param]);
 
   function limparFormulario() {
     setNome("");
@@ -34,7 +44,6 @@ export default function useFormAuth() {
   async function login() {
     const token = await httpPost("/auth/login", { email, senha });
     iniciarSessao(token);
-    router.push("/");
   }
 
   async function registrar() {

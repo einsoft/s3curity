@@ -1,4 +1,7 @@
+import useSessao from "./useSessao";
+
 export default function useAPI() {
+  const { token } = useSessao();
   const urlBase = process.env.NEXT_PUBLIC_API_URL;
 
   async function extrairDados(resposta: Response) {
@@ -15,7 +18,11 @@ export default function useAPI() {
   async function httpGet(caminho: string) {
     const uri = caminho.startsWith("/") ? caminho : `/${caminho}`;
     const urlCompleta = `${urlBase}${uri}`;
-    const resposta = await fetch(urlCompleta);
+    const resposta = await fetch(urlCompleta, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     return extrairDados(resposta);
   }
@@ -27,6 +34,7 @@ export default function useAPI() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify(body),
     });

@@ -1,3 +1,5 @@
+"use client";
+
 import Perfil from "@/src/views/perfil/Perfil";
 
 const Page: React.FC = () => {

@@ -28,6 +28,7 @@ export default function MenuUsuario() {
               height={40}
               width={40}
               alt="Usuário"
+              priority={false}
             />
           </div>
         </div>
