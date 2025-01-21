@@ -7,7 +7,7 @@ export interface CampoTelefoneProps extends React.HTMLAttributes<HTMLDivElement>
 export default function CampoTelefone(props: CampoTelefoneProps) {
   return (
     <>
-      <label className="labelFormLogin" htmlFor={props.placeholder}>
+      <label className="formulario__label" htmlFor={props.placeholder}>
         {props.placeholder}
       </label>
       <input
@@ -19,7 +19,7 @@ export default function CampoTelefone(props: CampoTelefoneProps) {
           props.onChangeText?.(e.target.value);
         }}
         placeholder={props.placeholder}
-        className="inputFormLogin"
+        className="formulario__input"
       />
     </>
   );

@@ -5,9 +5,9 @@ import Cabecalho from "@/src/components/shared/Cabecalho";
 
 export default function LandingPage() {
   return (
-    <div className="containerLandingPage">
+    <div className="container__landingpage">
       <Cabecalho />
-      <div className="conteudoLandingPage">
+      <div className="container__landingpage--conteudo">
         <Logo />
       </div>
     </div>

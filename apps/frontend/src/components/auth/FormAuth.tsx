@@ -14,10 +14,10 @@ export default function FormAuth() {
     useFormAuth();
 
   return (
-    <div className="formularioContainer">
+    <div className="formulario__container">
       <div className="pb-2">
         <Logo />
-        <span className="formularioLogoTipo">Entre com sua conta</span>
+        <span className="formulario__container--logotipo">Entre com sua conta</span>
       </div>
       <div className="formulario">
         {modo === "cadastro" && (
@@ -28,12 +28,12 @@ export default function FormAuth() {
         )}
         <CampoEmail placeholder="E-mail" value={email} onChangeText={setEmail} />
         <CampoSenha placeholder="Senha" value={senha} onChangeText={setSenha} />
-        {modo === "login" && <span className="formularioLink">Esqueceu sua senha?</span>}
-        <div className="button_container mt-4">
-          <button onClick={submeter} className="button_green">
+        {modo === "login" && <span className="formulario__link">Esqueceu sua senha?</span>}
+        <div className="form__buttoncontainer mt-4">
+          <button onClick={submeter} className="form__button--green">
             Confirmar
           </button>
-          <button className="button_red">
+          <button className="form__button--red">
             <Link href="/">Cancelar</Link>
           </button>
         </div>

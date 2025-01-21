@@ -17,10 +17,10 @@ export default function CampoSenha(props: CampoSenhaProps) {
 
   return (
     <>
-      <label className="labelFormLogin" htmlFor="senha">
+      <label className="formulario__label" htmlFor="senha">
         Senha
       </label>
-      <div className="inputFormLogin">
+      <div className="formulario__input">
         <input
           id="senha"
           type={mostrarSenha ? "text" : "password"}
@@ -30,7 +30,7 @@ export default function CampoSenha(props: CampoSenhaProps) {
             props.onChangeText?.(e.target.value);
           }}
           placeholder={props.placeholder}
-          className="inputFormLoginPassword"
+          className="formulario__input--password"
         />
         <div>
           {mostrarSenha ? (

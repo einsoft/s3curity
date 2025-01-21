@@ -7,7 +7,7 @@ export interface CampoEmailProps extends React.HTMLAttributes<HTMLDivElement> {
 export default function CampoEmail(props: CampoEmailProps) {
   return (
     <>
-      <label className="labelFormLogin" htmlFor={props.placeholder}>
+      <label className="formulario__label" htmlFor={props.placeholder}>
         {props.placeholder}
       </label>
       <input
@@ -19,7 +19,7 @@ export default function CampoEmail(props: CampoEmailProps) {
           props.onChangeText?.(e.target.value);
         }}
         placeholder={props.placeholder}
-        className="inputFormLogin"
+        className="formulario__input"
       />
     </>
   );
