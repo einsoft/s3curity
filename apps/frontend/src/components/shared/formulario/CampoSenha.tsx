@@ -17,9 +17,9 @@ export default function CampoSenha(props: CampoSenhaProps) {
 
   return (
     <>
-      <label className="formulario__label" htmlFor="senha">
+      {/* <label className="formulario__label" htmlFor="senha">
         Senha
-      </label>
+      </label> */}
       <div className="formulario__input">
         <input
           id="senha"

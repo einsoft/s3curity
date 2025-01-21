@@ -19,7 +19,7 @@ export default function FormAuth() {
         <Logo />
         <span className="formulario__container--logotipo">Entre com sua conta</span>
       </div>
-      <div className="formulario">
+      <div className="formulario gap-4">
         {modo === "cadastro" && (
           <>
             <CampoTexto placeholder="Nome Completo" value={nome} onChangeText={setNome} />

@@ -1,8 +1,15 @@
 import Image from "next/image";
-import { IconLogout } from "@tabler/icons-react";
+import Link from "next/link";
+import { IconHome, IconLogout } from "@tabler/icons-react";
 
 import useSessao from "@/src/data/hooks/useSessao";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 export default function MenuUsuario() {
   const { usuario, encerrarSessao } = useSessao();
@@ -26,6 +33,11 @@ export default function MenuUsuario() {
         </div>
       </DropdownMenuTrigger>
       <DropdownMenuContent>
+        <DropdownMenuItem className="flex gap-2">
+          <IconHome size={18} />
+          <Link href="/">Início</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
         <DropdownMenuItem onClick={encerrarSessao} className="flex gap-2 text-red-500">
           <IconLogout size={18} />
           <span>Logout</span>
