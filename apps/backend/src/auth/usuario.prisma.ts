@@ -38,4 +38,25 @@ export class UsuarioPrisma implements RepositorioUsuario {
       data: { nomeCompleto: nomeCompleto },
     });
   }
+  
+  async atualizarSenha(id: number, novaSenha: string): Promise<void>{
+    let usuarioDB = await this.buscarPorId(id);
+
+    if(!usuarioDB){      
+      throw new HttpException('Usuário não encontrado', 400);
+    }
+    
+    await this.prisma.usuario.update({
+      where: { id: Number(usuarioDB.id) },
+      data: { senha: novaSenha },
+    });
+    //await this.updateUsuario(usuarioDB, { senha: novaSenha });
+  }
+
+  async updateUsuario(usuarioDB: Usuario, campos: any){
+    await this.prisma.usuario.update({
+      where: { id: Number(usuarioDB.id) },
+      data: { ...campos },
+    });
+  }
 }
