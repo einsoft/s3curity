@@ -16,7 +16,12 @@ export default function MenuUsuario() {
             <span className="text-zinc-400 text-xs">{usuario?.email}</span>
           </div>
           <div className="bg-zinc-700 w-10 h-10 p-1 rounded-full">
-            <Image src="/logo.svg" height={40} width={40} alt="Usuário" />
+            <Image
+              src={usuario.imagemPerfil ? usuario.imagemPerfil : "/logo.svg"}
+              height={40}
+              width={40}
+              alt="Usuário"
+            />
           </div>
         </div>
       </DropdownMenuTrigger>
