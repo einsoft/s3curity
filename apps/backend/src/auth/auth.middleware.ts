@@ -15,6 +15,10 @@ export class AuthMiddleware implements NestMiddleware {
         throw new HttpException('Token não informado', 401);
       }
 
+      if (!process.env.JWT_SECRET) {
+        throw new HttpException('JWT_SECRET não definido', 500);
+      }
+
       const payload = jwt.verify(token, process.env.JWT_SECRET!) as Usuario;
 
       if (!payload) {
@@ -22,11 +26,12 @@ export class AuthMiddleware implements NestMiddleware {
       }
 
       const usuario = await this.repo.buscarPorEmail(payload.email);
-      delete usuario.senha;
 
       if (!usuario) {
         throw new HttpException('Usuário não encontrado', 401);
       }
+
+      delete usuario.senha;
 
       req.usuario = usuario;
       next();
