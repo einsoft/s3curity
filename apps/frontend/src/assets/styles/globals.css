@@ -2,134 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-/* * {
-  outline: 2px dotted red;
-} */
-
-body {
-  color: #f5f5f5;
-  background: #09090b;
-  font-family: Poppins, Arial, Helvetica, sans-serif;
-}
-
-.background {
-  background: #09090b;
-}
-
-.foreground {
-  color: #18181b;
-}
-
-.janela_background {
-  background: #09090b;
-  opacity: 50%;
-}
-
-.janela_foreground {
-  color: #27272a;
-  opacity: 50%;
-}
-
-.button_blue {
-  background: #1d4ed8;
-  color: #f5f5f5;
-}
-
-.button_green {
-  background: #22c55e;
-  color: #f5f5f5;
-  padding: 5px;
-  border-radius: 6px;
-  width: 50%;
-}
-
-.button_red {
-  background: #ef4444;
-  color: #f5f5f5;
-  padding: 5px;
-  border-radius: 6px;
-  width: 50%;
-}
-
-.button_gray {
-  background: #27272a;
-  color: #f5f5f5;
-}
-
-.bordas {
-  color: #a1a1aa;
-  opacity: 50%;
-}
-
-.texto_padrao {
-  color: #f5f5f5;
-}
-
-.debug {
-  outline: 6px dotted green;
-}
-
-.button_container {
-  @apply flex justify-center gap-2;
-}
-
-.espacamento_superior {
-  @apply mt-4;
-}
-
-.container {
-  @apply flex justify-center items-center h-screen text-white;
-}
-
-.menuCabecalho {
-  @apply fixed top-0 left-0 w-full justify-between;
-}
-
-.containerLandingPage {
-  @apply relative min-h-screen w-full;
-}
-
-.conteudoLandingPage {
-  @apply flex items-center justify-center h-screen;
-}
-
-.formularioContainer {
-  @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
-}
-
-.formularioLogo {
-  @apply pb-2;
-}
-
-.formularioLogoTipo {
-  @apply font-bold leading-9 text-center;
-}
-
-.formulario {
-  @apply flex flex-col gap-1 w-full p-4;
-}
-
-.formularioLink {
-  @apply text-zinc-500 text-right;
-}
-
-.inputFormLogin {
-  @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4 flex items-center;
-}
-
-.inputFormLoginPassword {
-  @apply bg-transparent border-none h-full w-full items-center outline-none;
-}
-
-.inputFormLoginPasswordEyeIcon {
-  @apply text-zinc-500;
-}
-
-.labelFormLogin {
-  @apply text-[#F5F5F5] text-sm pt-2 ml-1;
-}
-
 @layer base {
+  /* * {
+    outline: 2px dotted red;
+  } */
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -182,5 +58,141 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
+  }
+  body {
+    color: #f5f5f5;
+    background: #09090b;
+    font-family: Poppins, Arial, Helvetica, sans-serif;
+  }
+}
+
+@layer components {
+  .background {
+    background: #09090b;
+  }
+
+  .foreground {
+    color: #18181b;
+  }
+
+  .janela_background {
+    background: #09090b;
+    opacity: 50%;
+  }
+
+  .janela_foreground {
+    color: #27272a;
+    opacity: 50%;
+  }
+
+  .button_blue {
+    background: #1d4ed8;
+    color: #f5f5f5;
+  }
+
+  .button_green {
+    background: #22c55e;
+    color: #f5f5f5;
+    padding: 5px;
+    border-radius: 6px;
+    width: 50%;
+  }
+
+  .button_red {
+    background: #ef4444;
+    color: #f5f5f5;
+    padding: 5px;
+    border-radius: 6px;
+    width: 50%;
+  }
+
+  .button_gray {
+    background: #27272a;
+    color: #f5f5f5;
+  }
+
+  .bordas {
+    color: #a1a1aa;
+    opacity: 50%;
+  }
+
+  .texto_padrao {
+    color: #f5f5f5;
+  }
+
+  .debug {
+    outline: 6px dotted green;
+  }
+
+  .button_container {
+    @apply flex justify-center gap-2;
+  }
+
+  .espacamento_superior {
+    @apply mt-4;
+  }
+
+  .container {
+    @apply flex justify-center items-center h-screen text-white;
+  }
+
+  .cabecalhoContainer {
+    @apply flex items-center h-12 bg-black/60 self-stretch mt-10 rounded-xl;
+  }
+
+  .cabecalhoItems {
+    @apply flex justify-around w-full;
+  }
+
+  .cabecalhoItemsAlinhamentoDireita {
+    @apply flex justify-end;
+  }
+
+  .menuCabecalho {
+    @apply fixed top-0 left-0 w-full justify-between;
+  }
+
+  .containerLandingPage {
+    @apply relative min-h-screen w-full;
+  }
+
+  .conteudoLandingPage {
+    @apply flex items-center justify-center h-screen;
+  }
+
+  .formularioContainer {
+    @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
+  }
+
+  .formularioLogo {
+    @apply pb-2;
+  }
+
+  .formularioLogoTipo {
+    @apply font-bold leading-9 text-center;
+  }
+
+  .formulario {
+    @apply flex flex-col gap-1 w-full p-4;
+  }
+
+  .formularioLink {
+    @apply text-zinc-500 text-right;
+  }
+
+  .inputFormLogin {
+    @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4 flex items-center;
+  }
+
+  .inputFormLoginPassword {
+    @apply bg-transparent border-none h-full w-full items-center outline-none;
+  }
+
+  .inputFormLoginPasswordEyeIcon {
+    @apply text-zinc-500;
+  }
+
+  .labelFormLogin {
+    @apply text-[#F5F5F5] text-sm pt-2 ml-1;
   }
 }
