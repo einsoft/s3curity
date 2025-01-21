@@ -5,4 +5,5 @@ export default interface RepositorioUsuario {
   buscarPorEmail(email: string): Promise<any>;  
   buscarPorId(id: number): Promise<any>;
   atualizarNome(id: number, nomeCompleto: string): Promise<void>;
+  atualizarSenha(id: number, novaSenha: string): Promise<void>;
 }
