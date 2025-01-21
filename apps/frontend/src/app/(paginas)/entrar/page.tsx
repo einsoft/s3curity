@@ -1,3 +1,3 @@
-import Entrar from "../../../views/entrar/Entrar";
+import Entrar from "@/src/views/entrar/Entrar";
 
 export default Entrar;
