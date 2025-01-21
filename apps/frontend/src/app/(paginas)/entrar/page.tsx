@@ -1,3 +1,7 @@
 import Entrar from "@/src/views/entrar/Entrar";
 
-export default Entrar;
+const Page: React.FC = () => {
+  return <Entrar />;
+};
+
+export default Page;

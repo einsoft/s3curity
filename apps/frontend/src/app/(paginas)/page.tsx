@@ -1,3 +1,7 @@
-import LandingPage from "../../views/landingPage/LandingPage";
+import LandingPage from "@/src/views/landingPage/LandingPage";
 
-export default LandingPage;
+const Page: React.FC = () => {
+  return <LandingPage />;
+};
+
+export default Page;
