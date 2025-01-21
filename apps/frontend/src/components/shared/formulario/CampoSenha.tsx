@@ -34,9 +34,9 @@ export default function CampoSenha(props: CampoSenhaProps) {
         />
         <div>
           {mostrarSenha ? (
-            <IconEyeOff onClick={alternarMostrarSenha} className="inputFormLoginPasswordEyeIcon" />
+            <IconEyeOff onClick={alternarMostrarSenha} className="text-zinc-500" />
           ) : (
-            <IconEye onClick={alternarMostrarSenha} className="inputFormLoginPasswordEyeIcon" />
+            <IconEye onClick={alternarMostrarSenha} className="text-zinc-500" />
           )}
         </div>
       </div>

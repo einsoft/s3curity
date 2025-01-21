@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 @layer base {
-  /* * {
+  * {
     outline: 2px dotted red;
-  } */
+  }
   :root {
     --background: 0 0% 100%;
     --foreground: 240 10% 3.9%;
@@ -67,27 +67,8 @@
 }
 
 @layer components {
-  .background {
-    background: #09090b;
-  }
-
-  .foreground {
-    color: #18181b;
-  }
-
-  .janela_background {
-    background: #09090b;
-    opacity: 50%;
-  }
-
-  .janela_foreground {
-    color: #27272a;
-    opacity: 50%;
-  }
-
-  .button_blue {
-    background: #1d4ed8;
-    color: #f5f5f5;
+  .container {
+    @apply flex justify-center items-center h-screen text-white;
   }
 
   .button_green {
@@ -109,15 +90,9 @@
   .button_gray {
     background: #27272a;
     color: #f5f5f5;
-  }
-
-  .bordas {
-    color: #a1a1aa;
-    opacity: 50%;
-  }
-
-  .texto_padrao {
-    color: #f5f5f5;
+    padding: 5px;
+    border-radius: 6px;
+    width: 50%;
   }
 
   .debug {
@@ -126,14 +101,6 @@
 
   .button_container {
     @apply flex justify-center gap-2;
-  }
-
-  .espacamento_superior {
-    @apply mt-4;
-  }
-
-  .container {
-    @apply flex justify-center items-center h-screen text-white;
   }
 
   .cabecalhoContainer {
@@ -164,10 +131,6 @@
     @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
   }
 
-  .formularioLogo {
-    @apply pb-2;
-  }
-
   .formularioLogoTipo {
     @apply font-bold leading-9 text-center;
   }
@@ -186,10 +149,6 @@
 
   .inputFormLoginPassword {
     @apply bg-transparent border-none h-full w-full items-center outline-none;
-  }
-
-  .inputFormLoginPasswordEyeIcon {
-    @apply text-zinc-500;
   }
 
   .labelFormLogin {

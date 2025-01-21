@@ -15,7 +15,7 @@ export default function FormAuth() {
 
   return (
     <div className="formularioContainer">
-      <div className="formularioLogo">
+      <div className="pb-2">
         <Logo />
         <span className="formularioLogoTipo">Entre com sua conta</span>
       </div>
@@ -29,7 +29,7 @@ export default function FormAuth() {
         <CampoEmail placeholder="E-mail" value={email} onChangeText={setEmail} />
         <CampoSenha placeholder="Senha" value={senha} onChangeText={setSenha} />
         {modo === "login" && <span className="formularioLink">Esqueceu sua senha?</span>}
-        <div className="button_container espacamento_superior">
+        <div className="button_container mt-4">
           <button onClick={submeter} className="button_green">
             Confirmar
           </button>
@@ -38,7 +38,7 @@ export default function FormAuth() {
           </button>
         </div>
       </div>
-      <div className="formulario espacamento_superior">
+      <div className="formulario mt-4">
         <button onClick={alternarModo}>
           {modo === "login" ? (
             <span>Ainda não tem conta? Cadastre-se</span>
