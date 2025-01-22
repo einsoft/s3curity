@@ -57,3 +57,5 @@ report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
 # SQlite files
 /prisma/dev.db
+/prisma/dev.db-journal
+/prisma/dev.sqbpro
