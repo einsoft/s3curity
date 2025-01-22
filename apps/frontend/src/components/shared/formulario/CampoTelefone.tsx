@@ -1,5 +1,9 @@
+import { IconPhone } from "@tabler/icons-react";
+
+import { Label } from "@/components/ui/label";
+
 export interface CampoTelefoneProps extends React.HTMLAttributes<HTMLDivElement> {
-  label?: string;
+  labelText?: string;
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
@@ -7,25 +11,30 @@ export interface CampoTelefoneProps extends React.HTMLAttributes<HTMLDivElement>
 
 export default function CampoTelefone(props: CampoTelefoneProps) {
   return (
-    <>
-      {props?.label && (
+    <div className="outline-none">
+      {props?.labelText && (
         <>
-          <label className="formulario__label" htmlFor="senha">
-            {props.label}
-          </label>
+          <Label className="formulario__label" htmlFor={props.placeholder}>
+            {props.labelText}
+          </Label>
         </>
       )}
-      <input
-        id={props.placeholder}
-        type="text"
-        value={props.value}
-        onChange={(e) => {
-          props.onChange?.(e);
-          props.onChangeText?.(e.target.value);
-        }}
-        placeholder={props.placeholder}
-        className="formulario__input"
-      />
-    </>
+      <div className="formulario__input">
+        <input
+          id={props.placeholder}
+          type="text"
+          value={props.value}
+          onChange={(e) => {
+            props.onChange?.(e);
+            props.onChangeText?.(e.target.value);
+          }}
+          placeholder={props.placeholder}
+          className="formulario__input"
+        />
+        <div>
+          <IconPhone className="text-zinc-500 cursor-pointer" />
+        </div>
+      </div>
+    </div>
   );
 }

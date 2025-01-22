@@ -11,7 +11,7 @@ type Entrada = {
 export default class LoginUsuario implements CasoDeUso<Entrada, Usuario> {
   constructor(
     private readonly repo: RepositorioUsuario,
-    private readonly cripto: ProvedorCriptografia
+    private readonly cripto: ProvedorCriptografia,
   ) {}
 
   async executar(entrada: Entrada): Promise<Usuario> {

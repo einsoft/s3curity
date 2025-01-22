@@ -1,7 +1,9 @@
 import { IconMail } from "@tabler/icons-react";
 
+import { Label } from "@/components/ui/label";
+
 export interface CampoEmailProps extends React.HTMLAttributes<HTMLDivElement> {
-  label?: string;
+  labelText?: string;
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
@@ -9,12 +11,12 @@ export interface CampoEmailProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function CampoEmail(props: CampoEmailProps) {
   return (
-    <>
-      {props?.label && (
+    <div className="outline-none">
+      {props?.labelText && (
         <>
-          <label className="formulario__label" htmlFor="senha">
-            {props.label}
-          </label>
+          <Label className="formulario__label" htmlFor={props.placeholder}>
+            {props.labelText}
+          </Label>
         </>
       )}
       <div className="formulario__input">
@@ -33,6 +35,6 @@ export default function CampoEmail(props: CampoEmailProps) {
           <IconMail className="text-zinc-500" />
         </div>
       </div>
-    </>
+    </div>
   );
 }

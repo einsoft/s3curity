@@ -24,7 +24,7 @@ export default function MenuUsuario() {
           </div>
           <div className="bg-zinc-700 w-10 h-10 p-1 rounded-full">
             <Image
-              src={usuario.imagemPerfil ? usuario.imagemPerfil : "/logo.svg"}
+              src={usuario.imagemPerfil ? usuario.imagemPerfil : "/avatar.svg"}
               height={40}
               width={40}
               alt="Usuário"

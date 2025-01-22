@@ -8,4 +8,9 @@ import AtualizarNomeUsuario from "./service/AtualizarNomeUsuario";
 import AtualizarSenhaUsuario from "./service/AtualizarSenhaUsuario";
 
 export type { Usuario, RepositorioUsuario, ProvedorCriptografia };
-export { RegistrarUsuario, LoginUsuario, AtualizarNomeUsuario, AtualizarSenhaUsuario };
+export {
+  RegistrarUsuario,
+  LoginUsuario,
+  AtualizarNomeUsuario,
+  AtualizarSenhaUsuario,
+};
