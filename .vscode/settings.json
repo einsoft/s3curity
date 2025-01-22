@@ -1,6 +1,7 @@
 {
   "[prisma]": {
-    "editor.formatOnSave": true
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "Prisma.prisma"
   },
-  "editor.defaultFormatter": "Prisma.prisma"
+  "editor.defaultFormatter": "esbenp.prettier-vscode"
 }
