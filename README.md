@@ -115,7 +115,7 @@ Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguint
    ```js
    const JWT_SECRET = "ENTER YOUR API";
    ```
-3. Na pasta apps/backend, executar o comando para gerar as tabelas do banco de dados:
+4. Na pasta apps/backend, executar o comando para gerar as tabelas do banco de dados:
    ```sh
    npx prisma migrate dev
    ```
