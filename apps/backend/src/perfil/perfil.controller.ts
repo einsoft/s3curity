@@ -4,7 +4,7 @@ import { UsuarioLogado } from 'src/shared/usuario.decorator';
 
 @Controller('perfil')
 export class PerfilController {
-  @Get()
+  @Get('nome')
   perfil(@UsuarioLogado() usuario: Usuario) {
     return `Olá ${usuario.nomeCompleto}`;
   }
