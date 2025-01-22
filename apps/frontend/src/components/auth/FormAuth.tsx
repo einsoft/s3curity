@@ -16,7 +16,9 @@ export default function FormAuth() {
   return (
     <div className="formulario__container">
       <div className="pb-2">
-        <Logo />
+        <Link href={"/"}>
+          <Logo />
+        </Link>
         {modo === "login" ? (
           <span className="formulario__container--logotipo">Entre com sua conta</span>
         ) : (
