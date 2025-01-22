@@ -1,31 +1,32 @@
 {
   "version": "0.2.0",
-"configurations": [
-  {
-    "type": "chrome",
-    "request": "launch",
-    "name": "Launch Chrome against localhost",
-    "url": "http://localhost:3000",
-    "webRoot": "${workspaceFolder}"
-  },
-  {
-    // 公式ママ
-    // ref. https://nextjs.org/docs/advanced-features/debugging#debugging-with-vs-code
-    //
-    "name": "Next.js: debug full stack",
-    "type": "node",
-    "request": "launch",
-    "runtimeExecutable": "npm",
-    "runtimeArgs": ["run", "dev"], // ここはお好み、next dev を叩けばなんでもいい
-    "console": "integratedTerminal",
-    //
-    // ↓ は単純に新規 chrome tab 立ち上がるだけなので無効化でよさそう
-    //
-    // "serverReadyAction": {
-    //   "pattern": "started server on .+, url: (https?://.+)",
-    //   "uriFormat": "%s",
-    //   "action": "debugWithChrome"
-    // }
-  }
-]
+  "configurations": [
+    {
+      "name": "Next.js: debug server-side",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev"
+    },
+    {
+      "name": "Next.js: debug client-side",
+      "type": "chrome",
+      "request": "launch",
+      "url": "http://localhost:3000",
+      "resolveSourceMapLocations": [
+        "${workspaceFolder}/**",
+        "!**/node_modules/**"
+      ]
+    },
+    {
+      "name": "Next.js: debug full stack",
+      "type": "node-terminal",
+      "request": "launch",
+      "command": "npm run dev",
+      "serverReadyAction": {
+        "pattern": "started server on .+, url: (https?://.+)",
+        "uriFormat": "%s",
+        "action": "debugWithChrome"
+      }
+    }
+  ]
 }

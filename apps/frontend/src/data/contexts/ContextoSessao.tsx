@@ -69,19 +69,15 @@ export function ProvedorSessao(props: any) {
     }
   }
 
-  const carregarSessao = useCallback(
-    () =>
-      function carregarSessao() {
-        try {
-          setCarregando(true);
-          const sessao = obterSessao();
-          setSessao(sessao);
-        } finally {
-          setCarregando(false);
-        }
-      },
-    []
-  );
+  const carregarSessao = useCallback(() => {
+    try {
+      setCarregando(true);
+      const sessao = obterSessao();
+      setSessao(sessao);
+    } finally {
+      setCarregando(false);
+    }
+  }, []);
 
   useEffect(() => {
     carregarSessao();
