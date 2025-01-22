@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
 
 import useSessao from "@/src/data/hooks/useSessao";
@@ -10,10 +11,13 @@ export default function ForcarAutenticacao(props: any) {
   const router = useRouter();
   const caminho = usePathname();
 
-  if (carregando && !usuario?.email) return <Processando />;
+  useEffect(() => {
+    if (!carregando && !usuario?.email) {
+      router.push(`/entrar?destino=${caminho}`);
+    }
+  }, [carregando, usuario, caminho, router]);
 
-  if (!usuario?.email) {
-    router.push(`/entrar?destino=${caminho}`);
+  if (carregando || !usuario?.email) {
     return <Processando />;
   }
 

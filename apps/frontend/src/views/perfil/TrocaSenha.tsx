@@ -1,4 +1,5 @@
 import Logo from "@/src/components/logo/Logo";
+import Cabecalho from "@/src/components/shared/Cabecalho";
 import CampoEmail from "@/src/components/shared/formulario/CampoEmail";
 import useSessao from "@/src/data/hooks/useSessao";
 
@@ -11,6 +12,7 @@ export default function TrocaSenha() {
 
   return (
     <div className="container">
+      <Cabecalho />
       <div className="formulario__container gap-4">
         <Logo />
         <span className="formulario__container--logotipo">Solicitar troca de senha</span>

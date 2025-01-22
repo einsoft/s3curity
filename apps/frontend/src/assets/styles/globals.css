@@ -65,7 +65,7 @@
 
 @layer components {
   .container {
-    @apply flex justify-center items-center h-screen text-white;
+    @apply flex justify-center items-center w-full h-full min-h-screen text-white;
   }
 
   .container__landingpage {
@@ -105,7 +105,7 @@
   }
 
   .cabecalho__container {
-    @apply flex items-center h-12 bg-black/60 self-stretch rounded-xl;
+    @apply fixed top-0 left-0 w-full flex items-center h-12 bg-black/60 rounded-xl;
   }
 
   .cabecalho__container--items {
