@@ -1,4 +1,5 @@
 export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
+  label?: string;
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
@@ -7,9 +8,13 @@ export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
 export default function CampoTexto(props: CampoTextoProps) {
   return (
     <>
-      {/* <label className="formulario__label" htmlFor={props.placeholder}>
-        {props.placeholder}
-      </label> */}
+      {props?.label && (
+        <>
+          <label className="formulario__label" htmlFor="senha">
+            {props.label}
+          </label>
+        </>
+      )}
       <input
         id={props.placeholder}
         type="text"
