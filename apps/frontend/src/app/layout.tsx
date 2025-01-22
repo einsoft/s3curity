@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Poppins } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 
 import "../assets/styles/globals.css";
 
@@ -27,7 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body className={`${poppinsRegular} antialiased`}>{children}</body>
+      <body className={`${poppinsRegular} antialiased`}>
+        <>
+          <Analytics />
+          {children}
+        </>
+      </body>
     </html>
   );
 }
