@@ -2,7 +2,7 @@ import { useState } from "react";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
 
 export interface CampoSenhaProps extends React.HTMLAttributes<HTMLDivElement> {
-  label?: string;
+  labelText?: string;
   placeholder: string;
   value: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -18,10 +18,10 @@ export default function CampoSenha(props: CampoSenhaProps) {
 
   return (
     <>
-      {props?.label && (
+      {props?.labelText && (
         <>
           <label className="formulario__label" htmlFor="senha">
-            {props.label}
+            {props.labelText}
           </label>
         </>
       )}
@@ -35,13 +35,13 @@ export default function CampoSenha(props: CampoSenhaProps) {
             props.onChangeText?.(e.target.value);
           }}
           placeholder={props.placeholder}
-          className="formulario__input--password"
+          className="formulario__input"
         />
         <div>
           {mostrarSenha ? (
-            <IconEyeOff onClick={alternarMostrarSenha} className="text-zinc-500" />
+            <IconEyeOff onClick={alternarMostrarSenha} className="text-zinc-500 cursor-pointer" />
           ) : (
-            <IconEye onClick={alternarMostrarSenha} className="text-zinc-500" />
+            <IconEye onClick={alternarMostrarSenha} className="text-zinc-500 cursor-pointer" />
           )}
         </div>
       </div>

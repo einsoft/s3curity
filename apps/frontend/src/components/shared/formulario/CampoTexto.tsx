@@ -1,5 +1,7 @@
+import { Label } from "@/components/ui/label";
+
 export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
-  label?: string;
+  labelText?: string;
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
@@ -7,13 +9,11 @@ export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function CampoTexto(props: CampoTextoProps) {
   return (
-    <>
-      {props?.label && (
-        <>
-          <label className="formulario__label" htmlFor="senha">
-            {props.label}
-          </label>
-        </>
+    <div className="outline-none">
+      {props.labelText && (
+        <Label className="formulario__label" htmlFor={props.placeholder}>
+          {props.labelText}
+        </Label>
       )}
       <input
         id={props.placeholder}
@@ -26,6 +26,6 @@ export default function CampoTexto(props: CampoTextoProps) {
         placeholder={props.placeholder}
         className="formulario__input"
       />
-    </>
+    </div>
   );
 }
