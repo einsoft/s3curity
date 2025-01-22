@@ -49,6 +49,6 @@ Authorization: Bearer {{authToken}}
 }
 
 ### Perfil
-@authToken = ...
-GET http://localhost:4000/perfil
+@authToken = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Mywibm9tZUNvbXBsZXRvIjoiU2lsdmEgZSBTaWx2YSIsImVtYWlsIjoic2lsdmFlc2lsdmFAc2lsdmEuY29tIiwiZGF0YUNyaWFjYW8iOiIyMDIxLTA5LTAxVDAwOjAwOjAwLjAwMFoiLCJhdGl2byI6dHJ1ZSwidG9rZW4iOiIxMjM0NTYiLCJkYXRhRXhwaXJhY2FvVG9rZW4iOiIyMDIxLTA5LTAxVDAwOjAwOjAwLjAwMFoiLCJhdXRlbnRpY2FjYW9Eb2lzRmF0b3Jlc0F0aXZhIjpmYWxzZSwidGVsZWZvbmUiOiIxMjM0NTYiLCJpbWFnZW1QZXJmaWwiOiJodHRwczovL3d3dy5nb29nbGUuY29tLmJyIiwiaWF0IjoxNzM3NTE0NDgyLCJleHAiOjE3Mzg4MTA0ODJ9.4-5y-PwdbiXAXBmUseCT-7um6Uh7Uq_Dy88Bd8DLah0
+GET http://localhost:4000/perfil/nome
 Authorization: Bearer {{authToken}}
