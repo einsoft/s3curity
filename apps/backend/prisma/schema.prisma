@@ -11,41 +11,41 @@ datasource db {
 }
 
 model Usuario {
-  id                            Int @id @default(autoincrement())
-  nomeCompleto                  String
-  email                         String @unique
-  senha                         String
-  dataCriacao                   DateTime @default(now())
-  ativo                         Boolean @default(true)
-  token                         String
-  dataExpiracaoToken            DateTime
-  autenticacaoDoisFatoresAtiva  Boolean @default(false)
-  telefone                      String
-  imagemPerfil                  String
-  permissoes                        Permissao[] @relation("UsuarioPermissoes")
+  id                           Int         @id @default(autoincrement())
+  nomeCompleto                 String
+  email                        String      @unique
+  senha                        String
+  dataCriacao                  DateTime    @default(now())
+  ativo                        Boolean     @default(true)
+  token                        String
+  dataExpiracaoToken           DateTime
+  autenticacaoDoisFatoresAtiva Boolean     @default(false)
+  telefone                     String
+  imagemPerfil                 String
+  permissoes                   Permissao[] @relation("UsuarioPermissoes")
 
   @@map("usuarios")
 }
 
 model Perfil {
-  id          Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   nome        String
   descricao   String
   dataCriacao DateTime @default(now())
-  ativo       Boolean @default(true)
+  ativo       Boolean  @default(true)
   // permissoes  Permissoes[]
 
   @@map("perfis")
 }
 
 model Permissao {
-  id          Int @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   nome        String
   descricao   String
   dataCriacao DateTime @default(now())
-  ativo       Boolean @default(true)
+  ativo       Boolean  @default(true)
   usuarioId   Int
-  usuario     Usuario @relation(fields: [usuarioId], references: [id], name: "UsuarioPermissoes")
+  usuario     Usuario  @relation(fields: [usuarioId], references: [id], name: "UsuarioPermissoes")
 
   @@map("permissoes")
 }

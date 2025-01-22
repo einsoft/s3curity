@@ -115,6 +115,10 @@ Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguint
    ```js
    const JWT_SECRET = "ENTER YOUR API";
    ```
+4. Na pasta apps/backend, executar o comando para gerar as tabelas do banco de dados:
+   ```sh
+   npx prisma migrate dev
+   ```
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
@@ -173,7 +177,7 @@ Projeto: [https://github.com/einsoft/s3curity](https://github.com/einsoft/s3curi
 [license-url]: https://github.com/einsoft/s3curity/blob/master/LICENSE.txt
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
-[product-screenshot]: apps/frontend/public/screenshot.png
+[product-screenshot]: images/screenshot.png
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB
