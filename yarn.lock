@@ -510,7 +510,7 @@
 
 "@eslint/eslintrc@^3.2.0":
   version "3.2.0"
-  resolved "https://registry.npmjs.org/@eslint/eslintrc/-/eslintrc-3.2.0.tgz"
+  resolved "https://registry.yarnpkg.com/@eslint/eslintrc/-/eslintrc-3.2.0.tgz#57470ac4e2e283a6bf76044d63281196e370542c"
   integrity sha512-grOjVNN8P3hjJn/eIETF1wwd12DdnwFDoyceUJLYYdkpbwq3nLi+4fqrTAONx7XDALqlL220wC/RHSC/QTI/0w==
   dependencies:
     ajv "^6.12.4"
@@ -2255,6 +2255,11 @@
   version "1.2.1"
   resolved "https://registry.npmjs.org/@ungap/structured-clone/-/structured-clone-1.2.1.tgz"
   integrity sha512-fEzPV3hSkSMltkw152tJKNARhOupqbH96MZWyRjNaYZOMIzbrTeQDG+MTc6Mr2pgzFQzFxAfmhGDNP5QK++2ZA==
+
+"@vercel/analytics@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@vercel/analytics/-/analytics-1.4.1.tgz#a28a93133d68b6e3d86884a52fa7893f5ecaa381"
+  integrity sha512-ekpL4ReX2TH3LnrRZTUKjHHNpNy9S1I7QmS+g/RQXoSUQ8ienzosuX7T9djZ/s8zPhBx1mpHP/Rw5875N+zQIQ==
 
 "@webassemblyjs/ast@1.14.1", "@webassemblyjs/ast@^1.14.1":
   version "1.14.1"

@@ -50,7 +50,6 @@ export class UsuarioPrisma implements RepositorioUsuario {
       where: { id: Number(usuarioDB.id) },
       data: { senha: novaSenha },
     });
-    //await this.updateUsuario(usuarioDB, { senha: novaSenha });
   }
 
   async updateUsuario(usuarioDB: Usuario, campos: any) {
