@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { IconHome, IconLogout } from "@tabler/icons-react";
+import { IconHome, IconLogout, IconUser } from "@tabler/icons-react";
 
 import useSessao from "@/src/data/hooks/useSessao";
 import {
@@ -37,6 +37,11 @@ export default function MenuUsuario() {
         <DropdownMenuItem className="flex gap-2">
           <IconHome size={18} />
           <Link href="/">Início</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="flex gap-2">
+          <IconUser size={18} />
+          <Link href="/perfil">Perfil</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={encerrarSessao} className="flex gap-2 text-red-500">

@@ -17,7 +17,11 @@ export default function FormAuth() {
     <div className="formulario__container">
       <div className="pb-2">
         <Logo />
-        <span className="formulario__container--logotipo">Entre com sua conta</span>
+        {modo === "login" ? (
+          <span className="formulario__container--logotipo">Entre com sua conta</span>
+        ) : (
+          <span className="formulario__container--logotipo">Cadastrar</span>
+        )}
       </div>
       <div className="formulario gap-4">
         {modo === "cadastro" && (
@@ -41,9 +45,13 @@ export default function FormAuth() {
       <div className="formulario mt-4">
         <button onClick={alternarModo}>
           {modo === "login" ? (
-            <span>Ainda não tem conta? Cadastre-se</span>
+            <div>
+              Ainda não possui conta? <span className="text-green-500">Cadastre-se aqui</span>
+            </div>
           ) : (
-            <span>Já tem uma conta? Faça o Login</span>
+            <span>
+              Já tem uma conta? <span className="text-green-500">Faça o Login</span>
+            </span>
           )}
         </button>
       </div>
