@@ -1,3 +1,5 @@
+import { IsEmail, IsNotEmpty } from 'class-validator';
+
 import { ApiProperty } from '@nestjs/swagger';
 
 export class RegistrarUsuarioDto {
@@ -5,18 +7,29 @@ export class RegistrarUsuarioDto {
     description: 'Nome completo do usuário',
     example: 'João da Silva',
   })
+  @IsNotEmpty({ message: 'O nome completo é obrigatório' })
   nomeCompleto: string;
 
   @ApiProperty({
     description: 'Email do usuário',
     example: 'usuario@example.com',
   })
+  @IsNotEmpty({ message: 'O email é obrigatório' })
+  @IsEmail(
+    {
+      allow_ip_domain: false,
+      allow_utf8_local_part: true,
+      require_tld: true,
+    },
+    { message: 'O email é inválido' },
+  )
   email: string;
 
   @ApiProperty({
     description: 'Senha do usuário',
     example: 'senha123',
   })
+  @IsNotEmpty({ message: 'A senha é obrigatória' })
   senha: string;
 
   @ApiProperty({

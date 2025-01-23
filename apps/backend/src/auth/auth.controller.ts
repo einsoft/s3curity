@@ -1,11 +1,13 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { RegistrarUsuario, LoginUsuario } from '@s3curity/core';
-import { UsuarioPrisma } from './usuario.prisma';
-import { BcryptProvider } from './bcrypt.provider';
 import * as jwt from 'jsonwebtoken';
+
+import { Body, Controller, Post } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { LoginUsuario, RegistrarUsuario } from '@s3curity/core';
+
+import { BcryptProvider } from './bcrypt.provider';
 import { LoginDto } from './dto/login.dto';
 import { RegistrarUsuarioDto } from './dto/registrar-usuario.dto';
+import { UsuarioPrisma } from './usuario.prisma';
 
 @ApiTags('Auth')
 @Controller('auth')
