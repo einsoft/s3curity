@@ -6,10 +6,12 @@ import Cabecalho from "@/src/components/shared/Cabecalho";
 import CampoEmail from "@/src/components/shared/formulario/CampoEmail";
 import CampoSenha from "@/src/components/shared/formulario/CampoSenha";
 import CampoTexto from "@/src/components/shared/formulario/CampoTexto";
+import useFormPerfil from "@/src/data/hooks/useFormPerfil";
 import useSessao from "@/src/data/hooks/useSessao";
 
 export default function Perfil() {
   const { usuario } = useSessao();
+  const { nome, setNome, email } = useFormPerfil();
 
   return (
     <div className="container mt-16">
@@ -36,15 +38,10 @@ export default function Perfil() {
             <div className="formulario__container--logotipo text-zinc-500">Informações principais</div>
             <CardContent className="space-y-6">
               <div className="space-y-2 pt-4">
-                <CampoTexto
-                  value={"Nome"}
-                  placeholder="Nome completo"
-                  onChangeText={() => console.log("Mudou")}
-                  labelText="Nome completo"
-                />
+                <CampoTexto value={nome} placeholder="Nome completo" onChangeText={setNome} labelText="Nome completo" />
               </div>
               <div className="space-y-2">
-                <CampoEmail placeholder="E-mail principal" value="" labelText="E-mail" />
+                <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" />
               </div>
             </CardContent>
           </Card>
