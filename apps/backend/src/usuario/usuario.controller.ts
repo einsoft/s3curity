@@ -1,4 +1,4 @@
-import { Body, Controller, HttpCode, Param, Patch, Put } from '@nestjs/common';
+import { Body, Controller, HttpCode, Param, Patch } from '@nestjs/common';
 import {
   AtualizarNomeUsuario,
   AtualizarSenhaUsuario,
@@ -7,7 +7,17 @@ import {
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 import { UsuarioPrisma } from 'src/auth/usuario.prisma';
 import { BcryptProvider } from 'src/auth/bcrypt.provider';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { AtualizarNomeDto } from './dto/atualizar-nome.dto';
+import { AlterarSenhaDto } from './dto/alterar-senha.dto';
 
+@ApiTags('Usuario')
+@ApiBearerAuth()
 @Controller('usuario')
 export class UsuarioController {
   constructor(
@@ -17,9 +27,12 @@ export class UsuarioController {
 
   @Patch(':id/alterarNome')
   @HttpCode(204)
+  @ApiOperation({ summary: 'Alterar o nome do usuário' })
+  @ApiResponse({ status: 204, description: 'Nome alterado com sucesso' })
+  @ApiResponse({ status: 400, description: 'Dados inválidos' })
   async alterarNome(
     @Param('id') id: number,
-    @Body() alterarNomeDto: { nomeCompleto: string },
+    @Body() alterarNomeDto: AtualizarNomeDto,
     @UsuarioLogado() usuario: Usuario,
   ) {
     const casoDeUso = new AtualizarNomeUsuario(this.repo);
@@ -34,15 +47,13 @@ export class UsuarioController {
 
   @Patch(':id/alterarSenha')
   @HttpCode(204)
+  @ApiOperation({ summary: 'Alterar a senha do usuário' })
+  @ApiResponse({ status: 204, description: 'Senha alterada com sucesso' })
+  @ApiResponse({ status: 400, description: 'Dados inválidos' })
   async alterarSenha(
     @Param('id') id: number,
     @Body()
-    alterarSenhaDto: {
-      senhaAtual: string;
-      novaSenha: string;
-      confirmaNovaSenha: string;
-      usuarioLogado: Usuario;
-    },
+    alterarSenhaDto: AlterarSenhaDto,
     @UsuarioLogado() usuario: Usuario,
   ) {
     const casoDeUso = new AtualizarSenhaUsuario(this.repo, this.cripto);

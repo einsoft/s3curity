@@ -10,7 +10,8 @@ async function bootstrap() {
     .setTitle('Documentação Swagger')
     .setDescription('Documentação Swagger para a API de S3curity.')
     .setVersion('1.0')
-    .addTag('users')
+    .setTitle('S3curity API')
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
