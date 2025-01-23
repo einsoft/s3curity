@@ -18,7 +18,7 @@
   <p align="center">
     Solução robusta de autenticação e autorização, incluindo o gerenciamento de Usuários, Perfis e Permissões.
     <br />
-    <a href="https://github.com/einsoft/s3curity"><strong>Documentação »</strong></a>
+    <a href="https://github.com/einsoft/s3curity/wiki"><strong>Documentação »</strong></a>
     <br />
     <br />
     <a href="https://github.com/einsoft/s3curity">Demonstração</a>
