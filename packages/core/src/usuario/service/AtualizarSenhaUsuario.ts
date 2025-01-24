@@ -1,7 +1,7 @@
-import CasoDeUso from "../../shared/CasoDeUso";
-import Usuario from "../model/Usuario";
-import ProvedorCriptografia from "../provider/ProvedorCriptogafia";
-import RepositorioUsuario from "../provider/RepositorioUsuario";
+import CasoDeUso from '../../shared/CasoDeUso';
+import { Usuario } from '../model/Usuario';
+import ProvedorCriptografia from '../provider/ProvedorCriptogafia';
+import RepositorioUsuario from '../provider/RepositorioUsuario';
 
 type Entrada = {
   id: number;
@@ -14,7 +14,7 @@ type Entrada = {
 export default class AtualizarSenhaUsuario implements CasoDeUso<Entrada, void> {
   constructor(
     private readonly repo: RepositorioUsuario,
-    private readonly cripto: ProvedorCriptografia,
+    private readonly cripto: ProvedorCriptografia
   ) {}
 
   async executar(entrada: Entrada): Promise<void> {

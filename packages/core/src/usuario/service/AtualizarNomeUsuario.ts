@@ -1,6 +1,6 @@
-import CasoDeUso from "../../shared/CasoDeUso";
-import Usuario from "../model/Usuario";
-import RepositorioUsuario from "../provider/RepositorioUsuario";
+import CasoDeUso from '../../shared/CasoDeUso';
+import { Usuario } from '../model/Usuario';
+import RepositorioUsuario from '../provider/RepositorioUsuario';
 
 type Entrada = {
   id: number;
