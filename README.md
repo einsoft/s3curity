@@ -124,6 +124,62 @@ Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguint
    npx prisma generate
    ```
 
+### Desenvolvimento
+
+Para iniciar todos os aplicativos em modo de desenvolvimento:
+
+```bash
+yarn dev
+```
+
+Para iniciar aplicativos específicos:
+
+```bash
+# Frontend
+yarn workspace frontend dev
+
+# Backend
+yarn workspace backend start:dev
+```
+
+### Estrutura do Projeto
+
+```
+s3curity/
+├── apps/
+│   ├── frontend/          # Aplicação Next.js
+│   └── backend/           # API NestJS
+├── packages/
+│   ├── core/             # Lógica de negócio compartilhada
+│   ├── ui/               # Componentes UI compartilhados
+│   ├── eslint-config/    # Configurações ESLint
+│   └── typescript-config/ # Configurações TypeScript
+```
+
+### Documentação da API
+
+A documentação da API está disponível em:
+
+- Swagger UI: `http://localhost:4000/api`
+- OpenAPI JSON: `http://localhost:4000/api-json`
+
+### Resolução de Problemas
+
+1. **Erro de conexão com banco de dados**
+
+   - Verifique se o PostgreSQL está rodando
+   - Confirme as credenciais no arquivo .env
+   - Verifique se o banco de dados existe
+
+2. **Erro de build**
+
+   - Limpe a cache: `yarn clean`
+   - Reinstale as dependências: `yarn install`
+
+3. **Erro de tipagem**
+   - Regenere os tipos do Prisma: `npx prisma generate`
+   - Verifique se todas as dependências estão instaladas
+
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
 <!-- CONTRIBUTING -->
