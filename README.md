@@ -55,9 +55,9 @@
 
 ## Sobre o Projeto
 
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
+[![S3curity Screen Shot][product-screenshot]](https://s3curity-web.vercel.app)
 
-Solução robusta de autenticação e autorização, incluindo o gerenciamento de Usuários, Perfis e Permissões.
+**S3curity** é uma solução robusta de autenticação e autorização projetada para garantir segurança, flexibilidade e eficiência no gerenciamento de usuários, perfis e permissões. Este projeto foi desenvolvido com o objetivo de oferecer uma infraestrutura escalável e moderna, que atenda às necessidades de controle de acesso para aplicações web e mobile.
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
