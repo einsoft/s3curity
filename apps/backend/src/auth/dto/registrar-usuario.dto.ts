@@ -1,6 +1,9 @@
-import { IsEmail, IsNotEmpty } from 'class-validator';
+import { IsEmail, IsEnum, IsNotEmpty, IsOptional } from 'class-validator';
 
 import { ApiProperty } from '@nestjs/swagger';
+
+export type StatusUsuario = 'ativo' | 'inativo' | 'pendente';
+export type TipoAutenticacao = 'senha' | 'google' | 'facebook' | 'github';
 
 export class RegistrarUsuarioDto {
   @ApiProperty({
@@ -39,14 +42,24 @@ export class RegistrarUsuarioDto {
   dataCriacao: Date;
 
   @ApiProperty({
-    description: 'Token de autenticação do usuário',
-    example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+    description: 'Status do usuário',
+    example: 'ativo',
+    enum: ['ativo', 'inativo', 'pendente'],
+    required: false,
+    default: 'ativo',
   })
-  token: string;
+  @IsOptional()
+  @IsEnum(['ativo', 'inativo', 'pendente'] as const)
+  status?: StatusUsuario;
 
   @ApiProperty({
-    description: 'Data de expiração do token de autenticação',
-    example: '2023-01-02T00:00:00.000Z',
+    description: 'Tipo de autenticação',
+    example: 'senha',
+    enum: ['senha', 'google', 'facebook', 'github'],
+    required: false,
+    default: 'senha',
   })
-  dataExpiracaoToken: Date;
+  @IsOptional()
+  @IsEnum(['senha', 'google', 'facebook', 'github'] as const)
+  tipoAutenticacao?: TipoAutenticacao;
 }

@@ -8,41 +8,44 @@ datasource db {
 }
 
 model Usuario {
-  id                           Int         @id @default(autoincrement())
+  id                           Int       @id @default(autoincrement())
   nomeCompleto                 String
-  email                        String      @unique
-  senha                        String
-  dataCriacao                  DateTime    @default(now())
-  ativo                        Boolean     @default(true)
-  token                        String
-  dataExpiracaoToken           DateTime
-  autenticacaoDoisFatoresAtiva Boolean     @default(false)
-  telefone                     String
-  imagemPerfil                 String
-  permissoes                   Permissao[] @relation("UsuarioPermissoes")
+  email                        String    @unique
+  senha                        String?
+  dataCriacao                  DateTime  @default(now())
+  status                       String    @default("ativo") // Values: ativo, inativo, pendente
+  token                        String?
+  dataExpiracaoToken           DateTime?
+  autenticacaoDoisFatoresAtiva Boolean   @default(false)
+  telefone                     String?
+  imagemPerfil                 String?
+  tipoAutenticacao             String?   @default("senha") // Values: senha, google, facebook, github
+  dataUltimaAtualizacao        DateTime?
+  dataUltimoLogin              DateTime?
+  perfis                       Perfil[]  @relation("UsuarioPerfis")
 
   @@map("usuarios")
 }
 
 model Perfil {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   nome        String
-  descricao   String
-  dataCriacao DateTime @default(now())
-  ativo       Boolean  @default(true)
-  // permissoes  Permissoes[]
+  descricao   String?
+  dataCriacao DateTime    @default(now())
+  status      String      @default("ativo") // Values: ativo, inativo
+  permissoes  Permissao[] @relation("PerfilPermissoes")
+  usuarios    Usuario[]   @relation("UsuarioPerfis")
 
   @@map("perfis")
 }
 
 model Permissao {
-  id          Int      @id @default(autoincrement())
-  nome        String
-  descricao   String
-  dataCriacao DateTime @default(now())
-  ativo       Boolean  @default(true)
-  usuarioId   Int
-  usuario     Usuario  @relation(fields: [usuarioId], references: [id], name: "UsuarioPermissoes")
+  id           Int      @id @default(autoincrement())
+  nome         String
+  descricao    String?
+  dataCadastro DateTime @default(now())
+  status       String   @default("ativo") // Values: ativo, inativo
+  perfis       Perfil[] @relation("PerfilPermissoes")
 
   @@map("permissoes")
 }
