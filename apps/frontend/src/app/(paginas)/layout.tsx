@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster } from "@/src/components/ui/toaster";
 import { ProvedorSessao } from "@/src/data/contexts/ContextoSessao";
 
 interface LayoutProps {

@@ -1,11 +1,11 @@
 import Image from "next/image";
 
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import Cabecalho from "@/src/components/shared/Cabecalho";
 import CampoEmail from "@/src/components/shared/formulario/CampoEmail";
 import CampoSenha from "@/src/components/shared/formulario/CampoSenha";
 import CampoTexto from "@/src/components/shared/formulario/CampoTexto";
+import { Button } from "@/src/components/ui/button";
+import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import useFormPerfil from "@/src/data/hooks/useFormPerfil";
 import useSessao from "@/src/data/hooks/useSessao";
 
