@@ -1,7 +1,7 @@
-import CasoDeUso from '../../shared/CasoDeUso';
-import { Usuario } from '../model/Usuario';
-import ProvedorCriptografia from '../provider/ProvedorCriptogafia';
-import RepositorioUsuario from '../provider/RepositorioUsuario';
+import CasoDeUso from "../../shared/CasoDeUso";
+import { Usuario } from "../model/Usuario";
+import ProvedorCriptografia from "../provider/ProvedorCriptogafia";
+import RepositorioUsuario from "../provider/RepositorioUsuario";
 
 type Entrada = {
   id: number;
@@ -22,10 +22,17 @@ export default class AtualizarSenhaUsuario implements CasoDeUso<Entrada, void> {
       entrada;
 
     if (novaSenha?.length <= 3) {
-      throw new Error("Senha inválido");
+      throw new Error("Senha inválida: deve ter mais de 3 caracteres");
     }
 
-    if (novaSenha !== confirmaNovaSenha) {
+    if (!novaSenha || !confirmaNovaSenha) {
+      throw new Error("Senha e confirmação são obrigatórias");
+    }
+
+    const novaSenhaTrimmed = novaSenha.trim();
+    const confirmaNovaSenhaTrimmed = confirmaNovaSenha.trim();
+
+    if (novaSenhaTrimmed !== confirmaNovaSenhaTrimmed) {
       throw new Error("Confirmação de senha não confere");
     }
 

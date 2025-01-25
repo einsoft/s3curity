@@ -11,7 +11,20 @@ import useSessao from "@/src/data/hooks/useSessao";
 
 export default function Perfil() {
   const { usuario } = useSessao();
-  const { nome, setNome, submeter, processando, email } = useFormPerfil();
+  const {
+    nome,
+    setNome,
+    submeter,
+    processando,
+    email,
+    senhaAtual,
+    setSenhaAtual,
+    novaSenha,
+    setNovaSenha,
+    confirmaNovaSenha,
+    setConfirmaNovaSenha,
+    submeterSenha,
+  } = useFormPerfil();
 
   return (
     <div className="container mt-16">
@@ -49,6 +62,18 @@ export default function Perfil() {
               <div className="space-y-2">
                 <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" disabled={true} />
               </div>
+              <div className="pt-6 flex justify-center bg w-full">
+                <button
+                  className="form__button--green w-full"
+                  disabled={processando}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await submeter();
+                  }}
+                >
+                  {processando ? "Salvando..." : "Alterar nome"}
+                </button>
+              </div>
             </CardContent>
           </Card>
           <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
@@ -58,33 +83,46 @@ export default function Perfil() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <CampoSenha id="senha" placeholder="Senha atual" value="" labelText="Senha atual" />
+                <CampoSenha
+                  id="senha"
+                  placeholder="Senha atual"
+                  value={senhaAtual}
+                  onChangeText={setSenhaAtual}
+                  labelText="Senha atual"
+                />
               </div>
               <div className="space-y-2">
-                <CampoSenha id="novasenha" placeholder="Nova senha" value="" labelText="Nova senha" />
+                <CampoSenha
+                  id="novasenha"
+                  placeholder="Nova senha"
+                  value={novaSenha}
+                  onChangeText={setNovaSenha}
+                  labelText="Nova senha"
+                />
               </div>
               <div className="space-y-2">
                 <CampoSenha
                   id="confirmenovasenha"
                   placeholder="Confirme a nova senha"
-                  value=""
+                  value={confirmaNovaSenha}
+                  onChangeText={setConfirmaNovaSenha}
                   labelText="Confirme a nova senha"
                 />
               </div>
+              <div className="flex flex-col space-y-4 pt-6 w-full">
+                <button
+                  className="form__button--green w-full"
+                  disabled={processando}
+                  onClick={async (e) => {
+                    e.preventDefault();
+                    await submeterSenha();
+                  }}
+                >
+                  {processando ? "Salvando..." : "Alterar senha"}
+                </button>
+              </div>
             </CardContent>
           </Card>
-        </div>
-        <div className="pt-6 flex justify-center bg w-full">
-          <button
-            className="form__button--green w-full"
-            disabled={processando}
-            onClick={async (e) => {
-              e.preventDefault();
-              await submeter();
-            }}
-          >
-            {processando ? "Salvando..." : "Salvar"}
-          </button>
         </div>
       </div>
     </div>

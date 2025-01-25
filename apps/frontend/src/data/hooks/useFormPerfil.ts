@@ -9,6 +9,9 @@ export default function useFormPerfil() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
   const [processando, setProcessando] = useState(false);
+  const [senhaAtual, setSenhaAtual] = useState("");
+  const [novaSenha, setNovaSenha] = useState("");
+  const [confirmaNovaSenha, setConfirmaNovaSenha] = useState("");
 
   const { usuario, atualizarSessao } = useSessao();
   const { httpPatch } = useAPI();
@@ -43,6 +46,48 @@ export default function useFormPerfil() {
     }
   }
 
+  async function submeterSenha() {
+    if (!usuario?.id) return;
+
+    const trimmedNovaSenha = novaSenha.trim();
+    const trimmedConfirmaSenha = confirmaNovaSenha.trim();
+
+    if (!trimmedNovaSenha || !trimmedConfirmaSenha) {
+      alert("Por favor, preencha ambos os campos de senha");
+      return;
+    }
+
+    if (trimmedNovaSenha !== trimmedConfirmaSenha) {
+      alert("As senhas não coincidem. Verifique se digitou corretamente.");
+      return;
+    }
+
+    if (trimmedNovaSenha.length < 8) {
+      alert("A nova senha deve ter pelo menos 8 caracteres");
+      return;
+    }
+
+    try {
+      setProcessando(true);
+      const novoToken = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
+        senhaAtual,
+        novaSenha,
+        confirmaNovaSenha,
+      });
+
+      if (novoToken) {
+        atualizarSessao(novoToken);
+        setSenhaAtual("");
+        setNovaSenha("");
+        setConfirmaNovaSenha("");
+      }
+    } catch (error) {
+      console.error("Erro ao alterar senha:", error);
+    } finally {
+      setProcessando(false);
+    }
+  }
+
   return {
     nome,
     email,
@@ -51,5 +96,12 @@ export default function useFormPerfil() {
     setNome,
     setEmail,
     submeter,
+    senhaAtual,
+    setSenhaAtual,
+    novaSenha,
+    setNovaSenha,
+    confirmaNovaSenha,
+    setConfirmaNovaSenha,
+    submeterSenha,
   };
 }

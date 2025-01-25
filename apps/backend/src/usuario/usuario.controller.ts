@@ -3,7 +3,7 @@ import { BcryptProvider } from 'src/auth/bcrypt.provider';
 import { UsuarioPrisma } from 'src/auth/usuario.prisma';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 
-import { Body, Controller, HttpCode, Param, Patch } from '@nestjs/common';
+import { Body, Controller, HttpException, Param, Patch } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -79,23 +79,41 @@ export class UsuarioController {
     alterarSenhaDto: AlterarSenhaDto,
     @UsuarioLogado() usuario: Usuario,
   ) {
-    const casoDeUso = new AtualizarSenhaUsuario(this.repo, this.cripto);
-    await casoDeUso.executar({
-      id: id,
-      senhaAtual: alterarSenhaDto.senhaAtual,
-      novaSenha: alterarSenhaDto.novaSenha,
-      confirmaNovaSenha: alterarSenhaDto.confirmaNovaSenha,
-      usuarioLogado: usuario,
-    });
+    try {
+      const casoDeUso = new AtualizarSenhaUsuario(this.repo, this.cripto);
+      await casoDeUso.executar({
+        id: id,
+        senhaAtual: alterarSenhaDto.senhaAtual,
+        novaSenha: alterarSenhaDto.novaSenha,
+        confirmaNovaSenha: alterarSenhaDto.confirmaNovaSenha,
+        usuarioLogado: usuario,
+      });
 
-    // Get updated user data
-    const usuarioAtualizado = await this.repo.buscarPorId(id);
+      const usuarioAtualizado = await this.repo.buscarPorId(id);
 
-    const segredoToken = process.env.JWT_SECRET;
-    const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
-      expiresIn: '15d',
-    });
+      const segredoToken = process.env.JWT_SECRET;
+      const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
+        expiresIn: '15d',
+      });
 
-    return novoToken;
+      return novoToken;
+    } catch (error) {
+      if (error instanceof Error) {
+        throw new HttpException(
+          {
+            statusCode: 400,
+            message: error.message,
+          },
+          400,
+        );
+      }
+      throw new HttpException(
+        {
+          statusCode: 500,
+          message: 'Erro interno ao alterar senha',
+        },
+        500,
+      );
+    }
   }
 }

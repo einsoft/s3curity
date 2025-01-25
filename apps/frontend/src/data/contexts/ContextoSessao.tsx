@@ -28,9 +28,9 @@ export function ProvedorSessao(props: any) {
   const [sessao, setSessao] = useState<Sessao>({ token: null, usuario: null });
 
   function obterSessao(): Sessao {
-    const token = cookie.get(nomeCookie);
+    const encodedToken = cookie.get(nomeCookie);
 
-    if (!token) {
+    if (!encodedToken) {
       return {
         token: null,
         usuario: null,
@@ -38,6 +38,7 @@ export function ProvedorSessao(props: any) {
     }
 
     try {
+      const token = decodeURIComponent(encodedToken);
       const payload: any = jwtDecode(token);
       const valido = payload.exp! > Date.now() / 1000;
 
@@ -85,13 +86,23 @@ export function ProvedorSessao(props: any) {
   }, [carregarSessao]);
 
   async function atualizarSessao(token: string) {
-    cookie.set(nomeCookie, token, { expires: 1 });
+    const encodedToken = encodeURIComponent(token);
+    cookie.set(nomeCookie, encodedToken, {
+      expires: 1,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
     const sessao = obterSessao();
     setSessao(sessao);
   }
 
   function iniciarSessao(token: string) {
-    cookie.set(nomeCookie, token, { expires: 1 });
+    const encodedToken = encodeURIComponent(token);
+    cookie.set(nomeCookie, encodedToken, {
+      expires: 1,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
     const sessao = obterSessao();
     setSessao(sessao);
   }
