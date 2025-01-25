@@ -42,5 +42,20 @@ export default function useAPI() {
     return extrairDados(resposta);
   }
 
-  return { httpGet, httpPost };
+  async function httpPatch(caminho: string, body: any) {
+    const uri = caminho.startsWith("/") ? caminho : `/${caminho}`;
+    const urlCompleta = `${urlBase}${uri}`;
+    const resposta = await fetch(urlCompleta, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(body),
+    });
+
+    return extrairDados(resposta);
+  }
+
+  return { httpGet, httpPost, httpPatch };
 }

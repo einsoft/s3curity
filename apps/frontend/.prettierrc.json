@@ -1,5 +1,4 @@
 {
-  "endOfLine": "lf",
   "importOrder": [
     "^(react/(.*)$)|^(react$)",
     "^(next/(.*)$)|^(next$)",

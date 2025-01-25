@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { PrismaService } from 'src/db/prisma.service';
 
 import { HttpException, Injectable } from '@nestjs/common';
@@ -8,7 +9,7 @@ export class UsuarioPrisma implements RepositorioUsuario {
   constructor(private readonly prisma: PrismaService) {}
 
   async salvar(usuario: Usuario): Promise<void> {
-    const { perfis: _, ...usuarioData } = usuario; // eslint-disable-line @typescript-eslint/no-unused-vars
+    const { perfis: _, ...usuarioData } = usuario;
 
     await this.prisma.usuario.upsert({
       where: { id: usuario.id ?? -1 },

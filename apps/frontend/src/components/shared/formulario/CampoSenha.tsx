@@ -7,6 +7,7 @@ export interface CampoSenhaProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onChangeText?: (s: string) => void;
+  disabled?: boolean;
 }
 
 export default function CampoSenha(props: CampoSenhaProps) {
@@ -27,7 +28,7 @@ export default function CampoSenha(props: CampoSenhaProps) {
       )}
       <div className="formulario__input">
         <input
-          id="senha"
+          id={props.id ? props.id : "senha"}
           type={mostrarSenha ? "text" : "password"}
           value={props.value}
           onChange={(e) => {
@@ -35,6 +36,7 @@ export default function CampoSenha(props: CampoSenhaProps) {
             props.onChangeText?.(e.target.value);
           }}
           placeholder={props.placeholder}
+          disabled={props?.disabled ? true : false}
           className="formulario__input"
         />
         <div>

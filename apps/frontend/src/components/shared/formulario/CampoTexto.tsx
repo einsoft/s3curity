@@ -5,6 +5,7 @@ export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
+  disabled?: boolean;
 }
 
 export default function CampoTexto(props: CampoTextoProps) {
@@ -25,6 +26,7 @@ export default function CampoTexto(props: CampoTextoProps) {
         }}
         placeholder={props.placeholder}
         className="formulario__input"
+        disabled={props?.disabled ? true : false}
       />
     </div>
   );

@@ -11,7 +11,7 @@ import useSessao from "@/src/data/hooks/useSessao";
 
 export default function Perfil() {
   const { usuario } = useSessao();
-  const { nome, setNome, email } = useFormPerfil();
+  const { nome, setNome, submeter, processando, email } = useFormPerfil();
 
   return (
     <div className="container mt-16">
@@ -26,6 +26,7 @@ export default function Perfil() {
               height="96"
               className="rounded-full mb-4"
               style={{ aspectRatio: "96/96", objectFit: "cover" }}
+              priority={false}
             />
             <div className="space-y-1">
               <h1 className="text-2xl font-bold">{usuario?.nomeCompleto}</h1>
@@ -38,10 +39,15 @@ export default function Perfil() {
             <div className="formulario__container--logotipo text-zinc-500">Informações principais</div>
             <CardContent className="space-y-6">
               <div className="space-y-2 pt-4">
-                <CampoTexto value={nome} placeholder="Nome completo" onChangeText={setNome} labelText="Nome completo" />
+                <CampoTexto
+                  value={nome || ""}
+                  placeholder="Nome completo"
+                  onChangeText={setNome}
+                  labelText="Nome completo"
+                />
               </div>
               <div className="space-y-2">
-                <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" />
+                <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" disabled={true} />
               </div>
             </CardContent>
           </Card>
@@ -52,19 +58,33 @@ export default function Perfil() {
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">
-                <CampoSenha placeholder="Senha atual" value="" labelText="Senha atual" />
+                <CampoSenha id="senha" placeholder="Senha atual" value="" labelText="Senha atual" />
               </div>
               <div className="space-y-2">
-                <CampoSenha placeholder="Nova senha" value="" labelText="Nova senha" />
+                <CampoSenha id="novasenha" placeholder="Nova senha" value="" labelText="Nova senha" />
               </div>
               <div className="space-y-2">
-                <CampoSenha placeholder="Confirme a nova senha" value="" labelText="Confirme a nova senha" />
+                <CampoSenha
+                  id="confirmenovasenha"
+                  placeholder="Confirme a nova senha"
+                  value=""
+                  labelText="Confirme a nova senha"
+                />
               </div>
             </CardContent>
           </Card>
         </div>
         <div className="pt-6 flex justify-center bg w-full">
-          <button className="form__button--green w-full">Salvar</button>
+          <button
+            className="form__button--green w-full"
+            disabled={processando}
+            onClick={async (e) => {
+              e.preventDefault();
+              await submeter();
+            }}
+          >
+            {processando ? "Salvando..." : "Salvar"}
+          </button>
         </div>
       </div>
     </div>

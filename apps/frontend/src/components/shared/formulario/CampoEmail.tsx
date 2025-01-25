@@ -7,6 +7,7 @@ export interface CampoEmailProps extends React.HTMLAttributes<HTMLDivElement> {
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
+  disabled?: boolean;
 }
 
 export default function CampoEmail(props: CampoEmailProps) {
@@ -22,6 +23,7 @@ export default function CampoEmail(props: CampoEmailProps) {
       <div className="formulario__input">
         <input
           id={props.placeholder}
+          disabled={props?.disabled ? true : false}
           type="text"
           value={props.value}
           onChange={(e) => {
