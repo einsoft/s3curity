@@ -27,7 +27,7 @@ export default function CampoSenha(props: CampoSenhaProps) {
       )}
       <div className="formulario__input">
         <input
-          id="senha"
+          id={props.id ? props.id : "senha"}
           type={mostrarSenha ? "text" : "password"}
           value={props.value}
           onChange={(e) => {

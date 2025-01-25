@@ -16,6 +16,7 @@ interface ContextoSessaoProps {
   usuario: Usuario | null;
   iniciarSessao: (token: string) => void;
   encerrarSessao: () => void;
+  atualizarSessao: (token: string) => void;
 }
 
 const ContextoSessao = createContext<ContextoSessaoProps>({} as any);
@@ -83,6 +84,12 @@ export function ProvedorSessao(props: any) {
     carregarSessao();
   }, [carregarSessao]);
 
+  async function atualizarSessao(token: string) {
+    cookie.set(nomeCookie, token, { expires: 1 });
+    const sessao = obterSessao();
+    setSessao(sessao);
+  }
+
   function iniciarSessao(token: string) {
     cookie.set(nomeCookie, token, { expires: 1 });
     const sessao = obterSessao();
@@ -102,6 +109,7 @@ export function ProvedorSessao(props: any) {
         usuario: sessao.usuario,
         iniciarSessao,
         encerrarSessao,
+        atualizarSessao,
       }}
     >
       {props.children}

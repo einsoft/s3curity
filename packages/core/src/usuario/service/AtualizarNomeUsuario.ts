@@ -1,6 +1,6 @@
-import CasoDeUso from '../../shared/CasoDeUso';
-import { Usuario } from '../model/Usuario';
-import RepositorioUsuario from '../provider/RepositorioUsuario';
+import CasoDeUso from "../../shared/CasoDeUso";
+import { Usuario } from "../model/Usuario";
+import RepositorioUsuario from "../provider/RepositorioUsuario";
 
 type Entrada = {
   id: number;
@@ -8,10 +8,12 @@ type Entrada = {
   usuarioLogado: Usuario;
 };
 
-export default class AtualizarNomeUsuario implements CasoDeUso<Entrada, void> {
+export default class AtualizarNomeUsuario
+  implements CasoDeUso<Entrada, Usuario>
+{
   constructor(private readonly repo: RepositorioUsuario) {}
 
-  async executar(entrada: Entrada): Promise<void> {
+  async executar(entrada: Entrada): Promise<Usuario> {
     const { id, nomeCompleto, usuarioLogado } = entrada;
 
     if (id != usuarioLogado.id) {
@@ -29,5 +31,9 @@ export default class AtualizarNomeUsuario implements CasoDeUso<Entrada, void> {
     }
 
     await this.repo.atualizarNome(usuarioDB.id, nomeCompleto);
+    return {
+      ...usuarioDB,
+      nomeCompleto,
+    };
   }
 }

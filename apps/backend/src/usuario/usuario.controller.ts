@@ -1,20 +1,23 @@
-import { Body, Controller, HttpCode, Param, Patch } from '@nestjs/common';
-import {
-  AtualizarNomeUsuario,
-  AtualizarSenhaUsuario,
-  Usuario,
-} from '@s3curity/core';
-import { UsuarioLogado } from 'src/shared/usuario.decorator';
-import { UsuarioPrisma } from 'src/auth/usuario.prisma';
+import * as jwt from 'jsonwebtoken';
 import { BcryptProvider } from 'src/auth/bcrypt.provider';
+import { UsuarioPrisma } from 'src/auth/usuario.prisma';
+import { UsuarioLogado } from 'src/shared/usuario.decorator';
+
+import { Body, Controller, HttpCode, Param, Patch } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { AtualizarNomeDto } from './dto/atualizar-nome.dto';
+import {
+  AtualizarNomeUsuario,
+  AtualizarSenhaUsuario,
+  Usuario,
+} from '@s3curity/core';
+
 import { AlterarSenhaDto } from './dto/alterar-senha.dto';
+import { AtualizarNomeDto } from './dto/atualizar-nome.dto';
 
 @ApiTags('Usuario')
 @ApiBearerAuth()
@@ -38,11 +41,19 @@ export class UsuarioController {
     const casoDeUso = new AtualizarNomeUsuario(this.repo);
 
     const nomeCompleto = alterarNomeDto.nomeCompleto;
-    return await casoDeUso.executar({
+    const usuarioAtualizado = await casoDeUso.executar({
       id,
       nomeCompleto,
       usuarioLogado: usuario,
     });
+
+    const segredoToken = process.env.JWT_SECRET;
+
+    const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
+      expiresIn: '15d',
+    });
+
+    return novoToken;
   }
 
   @Patch(':id/alterarSenha')
