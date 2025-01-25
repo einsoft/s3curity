@@ -47,7 +47,7 @@ export default function Perfil() {
                 />
               </div>
               <div className="space-y-2">
-                <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" />
+                <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" disabled={true} />
               </div>
             </CardContent>
           </Card>

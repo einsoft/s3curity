@@ -7,6 +7,7 @@ export interface CampoTelefoneProps extends React.HTMLAttributes<HTMLDivElement>
   value: string;
   placeholder: string;
   onChangeText?: (s: string) => void;
+  disabled?: boolean;
 }
 
 export default function CampoTelefone(props: CampoTelefoneProps) {
@@ -29,6 +30,7 @@ export default function CampoTelefone(props: CampoTelefoneProps) {
             props.onChangeText?.(e.target.value);
           }}
           placeholder={props.placeholder}
+          disabled={props?.disabled ? true : false}
           className="formulario__input"
         />
         <div>
