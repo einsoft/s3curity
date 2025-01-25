@@ -15,7 +15,9 @@ export default function useFormAuth() {
   const [dataCriacao] = useState(new Date());
   const [token] = useState("");
   const [imagemPerfil] = useState("avatar.svg");
-  const [dataExpiracaoToken] = useState<Date>(new Date(new Date().getTime() + 1000 * 60 * 60 * 24));
+  const [dataExpiracaoToken] = useState<Date>(
+    new Date(new Date().getTime() + 1000 * 60 * 60 * 24),
+  );
 
   const { httpPost } = useAPI();
   const { usuario, iniciarSessao } = useSessao();
