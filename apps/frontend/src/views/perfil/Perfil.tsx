@@ -34,7 +34,9 @@ export default function Perfil() {
         <header>
           <div className="flex items-center space-x-3">
             <Image
-              src={usuario?.imagemPerfil ? usuario?.imagemPerfil : "/avatar.svg"}
+              src={
+                usuario?.imagemPerfil ? usuario?.imagemPerfil : "/avatar.svg"
+              }
               alt="Avatar"
               width="96"
               height="96"
@@ -50,7 +52,9 @@ export default function Perfil() {
         </header>
         <div className="space-y-8 w-full">
           <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
-            <div className="formulario__container--logotipo text-zinc-500">Informações principais</div>
+            <div className="formulario__container--logotipo text-zinc-500">
+              Informações principais
+            </div>
             <CardContent className="space-y-6">
               <div className="space-y-2 pt-4">
                 <CampoTexto
@@ -61,7 +65,12 @@ export default function Perfil() {
                 />
               </div>
               <div className="space-y-2">
-                <CampoEmail placeholder="E-mail principal" value={email} labelText="E-mail" disabled={true} />
+                <CampoEmail
+                  placeholder="E-mail principal"
+                  value={email}
+                  labelText="E-mail"
+                  disabled={true}
+                />
               </div>
               <div className="pt-6 flex justify-center bg w-full">
                 <button
@@ -77,11 +86,17 @@ export default function Perfil() {
               </div>
             </CardContent>
           </Card>
-          <Card id="aviso" className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
-            <div className="formulario__container--logotipo text-zinc-500">Mudar a senha</div>
+          <Card
+            id="aviso"
+            className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]"
+          >
+            <div className="formulario__container--logotipo text-zinc-500">
+              Mudar a senha
+            </div>
             <CardHeader className="formulario__container--aviso">
               <div className={erroSenha ? "text-red-500" : ""}>
-                {erroSenha || "Para sua segurança, não compartilhe sua senha com outras pessoas."}
+                {erroSenha ||
+                  "Para sua segurança, não compartilhe sua senha com outras pessoas."}
               </div>
             </CardHeader>
             <CardContent className="space-y-4">

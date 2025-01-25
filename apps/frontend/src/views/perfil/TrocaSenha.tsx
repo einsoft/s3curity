@@ -15,7 +15,9 @@ export default function TrocaSenha() {
       <Cabecalho />
       <div className="formulario__container gap-4">
         <Logo />
-        <span className="formulario__container--logotipo">Solicitar troca de senha</span>
+        <span className="formulario__container--logotipo">
+          Solicitar troca de senha
+        </span>
         <CampoEmail placeholder="E-mail" value={usuario ? usuario.email : ""} />
         <button onClick={submeter} className="form__button--green">
           Enviar

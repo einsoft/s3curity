@@ -20,7 +20,7 @@ export default class AtualizarSenhaUsuario
 {
   constructor(
     private readonly repo: RepositorioUsuario,
-    private readonly cripto: ProvedorCriptografia
+    private readonly cripto: ProvedorCriptografia,
   ) {}
 
   async executar(entrada: Entrada): Promise<Saida> {
