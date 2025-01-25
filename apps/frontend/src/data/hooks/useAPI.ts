@@ -39,6 +39,11 @@ export default function useAPI() {
       body: JSON.stringify(body),
     });
 
+    if (!resposta.ok) {
+      const errorData = await resposta.json().catch(() => ({}));
+      throw new Error(errorData.message || "Erro na requisição");
+    }
+
     return extrairDados(resposta);
   }
 

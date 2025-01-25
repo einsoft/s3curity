@@ -44,7 +44,10 @@ export default function MenuUsuario() {
           <Link href="/perfil">Perfil</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
-        <DropdownMenuItem onClick={encerrarSessao} className="flex gap-2 text-red-500">
+        <DropdownMenuItem
+          onClick={encerrarSessao}
+          className="flex gap-2 text-red-500"
+        >
           <IconLogout size={18} />
           <span>Logout</span>
         </DropdownMenuItem>
