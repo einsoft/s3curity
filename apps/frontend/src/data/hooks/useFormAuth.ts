@@ -24,6 +24,7 @@ interface ErrorResponse {
 
 interface SubmitResult {
   success: boolean;
+  data?: any;
   error?: ErrorResponse;
 }
 
@@ -103,27 +104,66 @@ export default function useFormAuth() {
     }
   }
 
-  async function registrar() {
-    await httpPost("/auth/registrar", {
-      nomeCompleto: nome,
-      email,
-      senha,
-      dataCriacao,
-      token,
-      dataExpiracaoToken,
-      telefone,
-      imagemPerfil,
-    });
+  async function registrar(): Promise<SubmitResult> {
+    try {
+      const response = await httpPost("/auth/registrar", {
+        nomeCompleto: nome,
+        email,
+        senha,
+        dataCriacao: dataCriacao.toISOString(),
+        token,
+        dataExpiracaoToken: dataExpiracaoToken.toISOString(),
+        telefone,
+        imagemPerfil,
+      });
+      iniciarSessao(response.token);
+      return { success: true };
+    } catch (error: any) {
+      const response = error?.response;
+      const errorMessage =
+        response?.data?.error?.message ||
+        response?.data?.message ||
+        "Erro ao registrar usuário";
+
+      toast({
+        title:
+          response?.status === 409 ? "Email já cadastrado" : "Erro de registro",
+        description: errorMessage,
+        variant: "destructive",
+      });
+
+      return {
+        success: false,
+        error: {
+          code: response?.status || 500,
+          category: "registration",
+          type: response?.data?.error?.type || "unknown_error",
+          message: errorMessage,
+          timestamp: new Date().toISOString(),
+          path: "/auth/registrar",
+          stack: error?.stack || "",
+          details: {
+            method: "POST",
+            headers: response?.config?.headers || {},
+            body: {
+              nomeCompleto: nome,
+              email,
+              senha,
+              dataCriacao: dataCriacao.toISOString(),
+              token,
+              dataExpiracaoToken: dataExpiracaoToken.toISOString(),
+              telefone,
+              imagemPerfil,
+            },
+          },
+        },
+      };
+    }
   }
 
   async function submeter(): Promise<SubmitResult> {
     try {
-      if (modo === "login") {
-        return await login();
-      } else {
-        await registrar();
-        return await login();
-      }
+      return modo === "login" ? await login() : await registrar();
     } catch (error: any) {
       const response = error?.response;
       return {
@@ -149,8 +189,6 @@ export default function useFormAuth() {
           },
         },
       };
-    } finally {
-      limparFormulario();
     }
   }
 
