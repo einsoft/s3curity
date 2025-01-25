@@ -122,26 +122,41 @@
 
   .form__button--green {
     background: #22c55e;
-    color: #f5f5f5;
-    padding: 5px;
-    border-radius: 6px;
+    color: #ffffff; /* White for readability */
+    font-weight: bold; /* Bold text */
+    padding: 10px 15px; /* Better spacing */
+    border-radius: 8px; /* Smoother edges */
     width: 50%;
+    transition: background-color 0.3s;
+  }
+  .form__button--green:hover {
+    background: #16a34a; /* Slightly darker green on hover */
   }
 
   .form__button--red {
     background: #ef4444;
-    color: #f5f5f5;
-    padding: 5px;
-    border-radius: 6px;
+    color: #ffffff; /* White for readability */
+    font-weight: bold; /* Bold text */
+    padding: 10px 15px; /* Better spacing */
+    border-radius: 8px; /* Smoother edges */
     width: 50%;
+    transition: background-color 0.3s;
+  }
+  .form__button--red:hover {
+    background: #dc2626; /* Slightly darker red on hover */
   }
 
   .form__button--gray {
-    background: #27272a;
-    color: #f5f5f5;
-    padding: 5px;
-    border-radius: 6px;
+    background: #3f3f46;
+    color: #e4e4e7; /* Lighter gray for contrast */
+    font-weight: bold; /* Bold text */
+    padding: 10px 15px; /* Better spacing */
+    border-radius: 8px; /* Smoother edges */
     width: 50%;
+    transition: background-color 0.3s;
+  }
+  .form__button--gray:hover {
+    background: #27272a; /* Slightly darker gray on hover */
   }
 
   .debug {
