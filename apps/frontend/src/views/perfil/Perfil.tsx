@@ -11,7 +11,7 @@ import useSessao from "@/src/data/hooks/useSessao";
 
 export default function Perfil() {
   const { usuario } = useSessao();
-  const { setNome, submeter, processando, email } = useFormPerfil();
+  const { nome, setNome, submeter, processando, email } = useFormPerfil();
 
   return (
     <div className="container mt-16">
@@ -40,7 +40,7 @@ export default function Perfil() {
             <CardContent className="space-y-6">
               <div className="space-y-2 pt-4">
                 <CampoTexto
-                  value={usuario?.nomeCompleto || ""}
+                  value={nome || ""}
                   placeholder="Nome completo"
                   onChangeText={setNome}
                   labelText="Nome completo"

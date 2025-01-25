@@ -33,8 +33,7 @@ export default function useFormPerfil() {
         nomeCompleto: nome,
       });
       if (novoToken) {
-        await atualizarSessao(novoToken);
-        // Update local state to match new session state
+        atualizarSessao(novoToken);
         setNome(nome);
       }
     } catch (error) {
