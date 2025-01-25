@@ -24,6 +24,7 @@ export default function Perfil() {
     confirmaNovaSenha,
     setConfirmaNovaSenha,
     submeterSenha,
+    erroSenha,
   } = useFormPerfil();
 
   return (
@@ -47,7 +48,7 @@ export default function Perfil() {
             </div>
           </div>
         </header>
-        <div className="space-y-8">
+        <div className="space-y-8 w-full">
           <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
             <div className="formulario__container--logotipo text-zinc-500">Informações principais</div>
             <CardContent className="space-y-6">
@@ -76,10 +77,12 @@ export default function Perfil() {
               </div>
             </CardContent>
           </Card>
-          <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
+          <Card id="aviso" className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
             <div className="formulario__container--logotipo text-zinc-500">Mudar a senha</div>
             <CardHeader className="formulario__container--aviso">
-              <div>Para sua segurança, não compartilhe sua senha com outras pessoas.</div>
+              <div className={erroSenha ? "text-red-500" : ""}>
+                {erroSenha || "Para sua segurança, não compartilhe sua senha com outras pessoas."}
+              </div>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="space-y-2">

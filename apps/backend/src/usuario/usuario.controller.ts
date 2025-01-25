@@ -3,7 +3,7 @@ import { BcryptProvider } from 'src/auth/bcrypt.provider';
 import { UsuarioPrisma } from 'src/auth/usuario.prisma';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 
-import { Body, Controller, HttpException, Param, Patch } from '@nestjs/common';
+import { Body, Controller, Param, Patch } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -79,41 +79,46 @@ export class UsuarioController {
     alterarSenhaDto: AlterarSenhaDto,
     @UsuarioLogado() usuario: Usuario,
   ) {
-    try {
-      const casoDeUso = new AtualizarSenhaUsuario(this.repo, this.cripto);
-      await casoDeUso.executar({
-        id: id,
-        senhaAtual: alterarSenhaDto.senhaAtual,
-        novaSenha: alterarSenhaDto.novaSenha,
-        confirmaNovaSenha: alterarSenhaDto.confirmaNovaSenha,
-        usuarioLogado: usuario,
-      });
+    const casoDeUso = new AtualizarSenhaUsuario(this.repo, this.cripto);
+    const resultado = await casoDeUso.executar({
+      id: id,
+      senhaAtual: alterarSenhaDto.senhaAtual,
+      novaSenha: alterarSenhaDto.novaSenha,
+      confirmaNovaSenha: alterarSenhaDto.confirmaNovaSenha,
+      usuarioLogado: usuario,
+    });
 
-      const usuarioAtualizado = await this.repo.buscarPorId(id);
-
-      const segredoToken = process.env.JWT_SECRET;
-      const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
-        expiresIn: '15d',
-      });
-
-      return novoToken;
-    } catch (error) {
-      if (error instanceof Error) {
-        throw new HttpException(
-          {
-            statusCode: 400,
-            message: error.message,
+    if (resultado.erro) {
+      return {
+        success: false,
+        error: {
+          code: 400,
+          category: 'VALIDATION',
+          type: 'HttpException',
+          message: resultado.erro,
+          timestamp: new Date().toISOString(),
+          path: `/usuario/${id}/alterarSenha`,
+          details: {
+            method: 'PATCH',
+            headers: {
+              'user-agent':
+                'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36',
+            },
+            body: alterarSenhaDto,
           },
-          400,
-        );
-      }
-      throw new HttpException(
-        {
-          statusCode: 500,
-          message: 'Erro interno ao alterar senha',
         },
-        500,
-      );
+      };
     }
+
+    const usuarioAtualizado = await this.repo.buscarPorId(id);
+    const segredoToken = process.env.JWT_SECRET;
+    const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
+      expiresIn: '15d',
+    });
+
+    return {
+      success: true,
+      token: novoToken,
+    };
   }
 }

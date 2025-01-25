@@ -12,6 +12,7 @@ export default function useFormPerfil() {
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [confirmaNovaSenha, setConfirmaNovaSenha] = useState("");
+  const [erroSenha, setErroSenha] = useState("");
 
   const { usuario, atualizarSessao } = useSessao();
   const { httpPatch } = useAPI();
@@ -68,21 +69,35 @@ export default function useFormPerfil() {
     }
 
     try {
+      setErroSenha("");
       setProcessando(true);
-      const novoToken = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
+      const response = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
         senhaAtual,
         novaSenha,
         confirmaNovaSenha,
       });
 
-      if (novoToken) {
-        atualizarSessao(novoToken);
+      if (response?.success) {
+        atualizarSessao(response.token);
         setSenhaAtual("");
         setNovaSenha("");
         setConfirmaNovaSenha("");
+      } else if (response?.error) {
+        setErroSenha(response.error.message);
       }
-    } catch (error) {
-      console.error("Erro ao alterar senha:", error);
+    } catch (error: any) {
+      if (error.response?.data?.error) {
+        const { message, details } = error.response.data.error;
+        setErroSenha(message);
+        console.error("Erro ao alterar senha:", {
+          code: error.response.data.error.code,
+          message,
+          details,
+        });
+      } else {
+        setErroSenha("Ocorreu um erro ao alterar a senha. Tente novamente.");
+        console.error("Erro desconhecido ao alterar senha:", error);
+      }
     } finally {
       setProcessando(false);
     }
@@ -103,5 +118,6 @@ export default function useFormPerfil() {
     confirmaNovaSenha,
     setConfirmaNovaSenha,
     submeterSenha,
+    erroSenha,
   };
 }
