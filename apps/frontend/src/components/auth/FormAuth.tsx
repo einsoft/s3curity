@@ -119,6 +119,7 @@ export default function FormAuth() {
               placeholder="Nome Completo"
               value={nome}
               onChangeText={setNome}
+              icon={true}
             />
             <CampoTelefone
               placeholder="Telefone"

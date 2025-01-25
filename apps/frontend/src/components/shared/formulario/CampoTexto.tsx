@@ -1,3 +1,5 @@
+import { IconTextCaption } from "@tabler/icons-react";
+
 import { Label } from "@/src/components/ui/label";
 
 export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -6,6 +8,7 @@ export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
   placeholder: string;
   onChangeText?: (s: string) => void;
   disabled?: boolean;
+  icon?: boolean;
 }
 
 export default function CampoTexto(props: CampoTextoProps) {
@@ -16,18 +19,25 @@ export default function CampoTexto(props: CampoTextoProps) {
           {props.labelText}
         </Label>
       )}
-      <input
-        id={props.placeholder}
-        type="text"
-        value={props.value}
-        onChange={(e) => {
-          props.onChange?.(e);
-          props.onChangeText?.(e.target.value);
-        }}
-        placeholder={props.placeholder}
-        className="formulario__input"
-        disabled={props?.disabled ? true : false}
-      />
+      <div className="formulario__input">
+        <input
+          id={props.placeholder}
+          type="text"
+          value={props.value}
+          onChange={(e) => {
+            props.onChange?.(e);
+            props.onChangeText?.(e.target.value);
+          }}
+          placeholder={props.placeholder}
+          className="formulario__input"
+          disabled={props?.disabled ? true : false}
+        />
+        {props.icon && (
+          <div>
+            <IconTextCaption className="text-zinc-500 cursor-pointer" />
+          </div>
+        )}
+      </div>
     </div>
   );
 }
