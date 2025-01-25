@@ -32,7 +32,11 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         this.props.fallback || (
           <div className="p-4 bg-red-50 border border-red-200 rounded">
             <h2 className="text-red-700 font-medium">Something went wrong</h2>
-            {this.state.error && <p className="text-red-600 text-sm mt-2">{this.state.error.message}</p>}
+            {this.state.error && (
+              <p className="text-red-600 text-sm mt-2">
+                {this.state.error.message}
+              </p>
+            )}
           </div>
         )
       );

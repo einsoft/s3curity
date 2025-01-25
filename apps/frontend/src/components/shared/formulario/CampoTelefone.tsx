@@ -2,7 +2,8 @@ import { IconPhone } from "@tabler/icons-react";
 
 import { Label } from "@/src/components/ui/label";
 
-export interface CampoTelefoneProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CampoTelefoneProps
+  extends React.HTMLAttributes<HTMLDivElement> {
   labelText?: string;
   value: string;
   placeholder: string;
