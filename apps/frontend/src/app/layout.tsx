@@ -1,8 +1,11 @@
 import type { Metadata } from "next";
+
+import "../assets/styles/globals.css";
+
 import { Poppins } from "next/font/google";
 import { Analytics } from "@vercel/analytics/react";
 
-import "../assets/styles/globals.css";
+import ErrorBoundary from "@/src/components/shared/ErrorBoundary";
 
 const poppinsRegular = Poppins({
   subsets: ["latin"],
@@ -31,7 +34,7 @@ export default function RootLayout({
       <body className={`${poppinsRegular} antialiased`}>
         <>
           <Analytics />
-          {children}
+          <ErrorBoundary>{children}</ErrorBoundary>
         </>
       </body>
     </html>
