@@ -11,26 +11,6 @@ import CampoSenha from "../shared/formulario/CampoSenha";
 import CampoTelefone from "../shared/formulario/CampoTelefone";
 import CampoTexto from "../shared/formulario/CampoTexto";
 
-interface ErrorResponse {
-  code: number;
-  category: string;
-  type: string;
-  message: string;
-  timestamp: string;
-  path: string;
-  stack: string;
-  details: {
-    method: string;
-    headers: Record<string, string>;
-    body: Record<string, string>;
-  };
-}
-
-interface SubmitResult {
-  success: boolean;
-  error?: ErrorResponse;
-}
-
 export default function FormAuth() {
   const searchParams = useSearchParams();
   const { toast } = useToast();
@@ -50,36 +30,39 @@ export default function FormAuth() {
   const toastest = searchParams.get("toastest");
 
   const handleSubmit = async (): Promise<void> => {
-    const response = (await submeter()) as SubmitResult;
+    try {
+      await submeter();
+    } catch (error) {
+      const errorMessage =
+        error instanceof Error ? error.message : "Erro desconhecido";
 
-    if (!response || typeof response !== "object") {
-      toast({
-        title: "Erro de conexão",
-        description: "Não foi possível conectar ao servidor",
-        variant: "destructive",
-      });
-      return;
-    }
-
-    if (response.success) {
-      return;
-    }
-
-    if (
-      response.error?.code === 500 &&
-      response.error?.message?.includes("Senha")
-    ) {
-      toast({
-        title: "Senha incorreta",
-        description: "Senha incorreta, confira e tente novamente",
-        variant: "destructive",
-      });
-    } else {
-      toast({
-        title: "Falha no login",
-        description: response.error?.message || "E-mail ou senha incorretos",
-        variant: "destructive",
-      });
+      if (
+        errorMessage.toLowerCase().includes("usuário ou senha incorretos") ||
+        errorMessage.toLowerCase().includes("credenciais inválidas")
+      ) {
+        toast({
+          title: "Credenciais inválidas",
+          description:
+            "E-mail ou senha incorretos. Verifique suas credenciais.",
+          variant: "destructive",
+        });
+      } else if (
+        errorMessage.toLowerCase().includes("senha") ||
+        errorMessage.toLowerCase().includes("incorreta")
+      ) {
+        toast({
+          title: "Credenciais inválidas",
+          description:
+            "E-mail ou senha incorretos. Verifique suas credenciais.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Erro na autenticação",
+          description: errorMessage,
+          variant: "destructive",
+        });
+      }
     }
   };
 

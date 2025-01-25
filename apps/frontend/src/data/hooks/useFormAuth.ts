@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { useToast } from "./use-toast";
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
 
@@ -27,6 +28,7 @@ interface SubmitResult {
 }
 
 export default function useFormAuth() {
+  const { toast } = useToast();
   const [modo, setModo] = useState<"login" | "cadastro">("login");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -65,25 +67,35 @@ export default function useFormAuth() {
 
   async function login(): Promise<SubmitResult> {
     try {
-      const token = await httpPost("/auth/login", { email, senha });
-      iniciarSessao(token);
+      const response = await httpPost("/auth/login", { email, senha });
+      iniciarSessao(response.token);
       return { success: true };
     } catch (error: any) {
+      const response = error?.response;
+      const errorMessage =
+        response?.data?.message ||
+        response?.data?.error?.message ||
+        "Usuário ou senha incorreta";
+
+      toast({
+        title: "Erro de autenticação",
+        description: errorMessage,
+        variant: "destructive",
+      });
+
       return {
         success: false,
         error: {
-          code: error?.response?.status || 500,
+          code: response?.status || 500,
           category: "authentication",
-          type: error?.response?.data?.error?.type || "unknown_error",
-          message:
-            error?.response?.data?.error?.message ||
-            "Usuário ou senha incorreta",
+          type: response?.data?.error?.type || "unknown_error",
+          message: errorMessage,
           timestamp: new Date().toISOString(),
           path: "/auth/login",
           stack: error?.stack || "",
           details: {
             method: "POST",
-            headers: {},
+            headers: response?.config?.headers || {},
             body: { email, senha },
           },
         },
@@ -113,21 +125,23 @@ export default function useFormAuth() {
         return await login();
       }
     } catch (error: any) {
+      const response = error?.response;
       return {
         success: false,
         error: {
-          code: error?.response?.status || 500,
+          code: response?.status || 500,
           category: "authentication",
-          type: error?.response?.data?.error?.type || "unknown_error",
+          type: response?.data?.error?.type || "unknown_error",
           message:
-            error?.response?.data?.error?.message ||
+            response?.data?.message ||
+            response?.data?.error?.message ||
             "Usuário ou senha incorreta",
           timestamp: new Date().toISOString(),
           path: "/auth",
           stack: error?.stack || "",
           details: {
             method: "POST",
-            headers: {},
+            headers: response?.config?.headers || {},
             body:
               modo === "login"
                 ? { email, senha }

@@ -1,6 +1,12 @@
 import * as jwt from 'jsonwebtoken';
 
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  HttpException,
+  HttpStatus,
+  Post,
+} from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginUsuario, RegistrarUsuario } from '@s3curity/core';
 
@@ -30,14 +36,36 @@ export class AuthController {
   @ApiOperation({ summary: 'Login do usuário' })
   @ApiResponse({ status: 200, description: 'Login bem-sucedido' })
   @ApiResponse({ status: 401, description: 'Credenciais inválidas' })
+  @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
   async login(@Body() dados: LoginDto) {
-    const casoDeUso = new LoginUsuario(this.repo, this.cripto);
-    const usuario = await casoDeUso.executar({
-      email: dados.email,
-      senha: dados.senha,
-    });
+    try {
+      const casoDeUso = new LoginUsuario(this.repo, this.cripto);
+      const usuario = await casoDeUso.executar({
+        email: dados.email,
+        senha: dados.senha,
+      });
 
-    const segredoToken = process.env.JWT_SECRET;
-    return jwt.sign(usuario, segredoToken, { expiresIn: '15d' });
+      const segredoToken = process.env.JWT_SECRET;
+      if (!segredoToken) {
+        throw new HttpException(
+          'JWT_SECRET não configurado',
+          HttpStatus.INTERNAL_SERVER_ERROR,
+        );
+      }
+
+      const token = jwt.sign(usuario, segredoToken, { expiresIn: '15d' });
+      return { token };
+    } catch (error) {
+      if (error.message === 'Credenciais inválidas') {
+        throw new HttpException(
+          'Usuário ou senha incorretos',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+      throw new HttpException(
+        error.message || 'Erro interno do servidor',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 }
