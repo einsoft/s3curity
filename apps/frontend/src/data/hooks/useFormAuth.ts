@@ -6,6 +6,26 @@ import { useRouter, useSearchParams } from "next/navigation";
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
 
+interface ErrorResponse {
+  code: number;
+  category: string;
+  type: string;
+  message: string;
+  timestamp: string;
+  path: string;
+  stack: string;
+  details: {
+    method: string;
+    headers: Record<string, string>;
+    body: Record<string, string>;
+  };
+}
+
+interface SubmitResult {
+  success: boolean;
+  error?: ErrorResponse;
+}
+
 export default function useFormAuth() {
   const [modo, setModo] = useState<"login" | "cadastro">("login");
   const [nome, setNome] = useState("");
@@ -43,9 +63,32 @@ export default function useFormAuth() {
     setModo(modo === "login" ? "cadastro" : "login");
   }
 
-  async function login() {
-    const token = await httpPost("/auth/login", { email, senha });
-    iniciarSessao(token);
+  async function login(): Promise<SubmitResult> {
+    try {
+      const token = await httpPost("/auth/login", { email, senha });
+      iniciarSessao(token);
+      return { success: true };
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          code: error?.response?.status || 500,
+          category: "authentication",
+          type: error?.response?.data?.error?.type || "unknown_error",
+          message:
+            error?.response?.data?.error?.message ||
+            "Usuário ou senha incorreta",
+          timestamp: new Date().toISOString(),
+          path: "/auth/login",
+          stack: error?.stack || "",
+          details: {
+            method: "POST",
+            headers: {},
+            body: { email, senha },
+          },
+        },
+      };
+    }
   }
 
   async function registrar() {
@@ -61,14 +104,40 @@ export default function useFormAuth() {
     });
   }
 
-  async function submeter() {
-    if (modo === "login") {
-      await login();
-    } else {
-      await registrar();
-      await login();
+  async function submeter(): Promise<SubmitResult> {
+    try {
+      if (modo === "login") {
+        return await login();
+      } else {
+        await registrar();
+        return await login();
+      }
+    } catch (error: any) {
+      return {
+        success: false,
+        error: {
+          code: error?.response?.status || 500,
+          category: "authentication",
+          type: error?.response?.data?.error?.type || "unknown_error",
+          message:
+            error?.response?.data?.error?.message ||
+            "Usuário ou senha incorreta",
+          timestamp: new Date().toISOString(),
+          path: "/auth",
+          stack: error?.stack || "",
+          details: {
+            method: "POST",
+            headers: {},
+            body:
+              modo === "login"
+                ? { email, senha }
+                : { nome, email, senha, telefone },
+          },
+        },
+      };
+    } finally {
+      limparFormulario();
     }
-    limparFormulario();
   }
 
   return {
