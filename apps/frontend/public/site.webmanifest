@@ -1,6 +1,6 @@
 {
-  "name": "S3curity",
-  "short_name": "S3c",
+  "background_color": "#09090b",
+  "display": "standalone",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
@@ -13,7 +13,7 @@
       "type": "image/png"
     }
   ],
-  "theme_color": "#f5f5f5",
-  "background_color": "#09090b",
-  "display": "standalone"
+  "name": "S3curity",
+  "short_name": "S3c",
+  "theme_color": "#f5f5f5"
 }
