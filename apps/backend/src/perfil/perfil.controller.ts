@@ -3,7 +3,18 @@ import { PerfilDto } from 'src/perfil/dto/perfil.dto';
 import { PerfilPrisma } from 'src/perfil/perfil.prisma';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 
-import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  HttpCode,
+  HttpException,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+  Query,
+} from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
@@ -13,6 +24,8 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { ListarPerfis, Perfil, Usuario } from '@s3curity/core';
+
+import { AtualizarPerfilDto } from './dto/atualizar-perfil.dto';
 
 @ApiTags('Perfil')
 @ApiBearerAuth()
@@ -99,5 +112,43 @@ export class PerfilController {
   })
   perfil(@UsuarioLogado() usuario: Usuario) {
     return `Olá ${usuario.nomeCompleto}`;
+  }
+
+  @Put(':id')
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Atualizar um perfil existente' })
+  @ApiBody({ type: AtualizarPerfilDto })
+  @ApiResponse({
+    status: 200,
+    description: 'Perfil atualizado com sucesso',
+  })
+  @ApiResponse({
+    status: 400,
+    description: 'Dados inválidos',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Não autorizado - Token JWT inválido ou ausente',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Perfil não encontrado',
+  })
+  @ApiResponse({
+    status: 422,
+    description: 'Permissões inválidas ou não encontradas',
+  })
+  async atualizarPerfil(
+    @Param('id') id: string,
+    @Body() dto: AtualizarPerfilDto,
+  ): Promise<void> {
+    try {
+      await this.perfilPrisma.atualizar(Number(id), dto);
+    } catch (error) {
+      if (error.message.includes('Permissões não encontradas')) {
+        throw new HttpException(error.message, HttpStatus.UNPROCESSABLE_ENTITY);
+      }
+      throw error;
+    }
   }
 }

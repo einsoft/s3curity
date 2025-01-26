@@ -3,6 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { Perfil, RepositorioPerfil } from '@s3curity/core';
 
 import { PrismaService } from '../db/prisma.service';
+import { AtualizarPerfilDto } from './dto/atualizar-perfil.dto';
 
 @Injectable()
 export class PerfilPrisma implements RepositorioPerfil {
@@ -43,6 +44,65 @@ export class PerfilPrisma implements RepositorioPerfil {
         dataCriacao: perfilData.dataCriacao ?? new Date(),
         status: perfilData.status ?? 'ativo',
       },
+    });
+  }
+
+  async buscarPorId(id: number): Promise<Perfil | null> {
+    const perfil = await this.prisma.perfil.findUnique({
+      where: { id },
+      include: {
+        permissoes: true,
+      },
+    });
+
+    if (!perfil) {
+      return null;
+    }
+
+    return {
+      ...perfil,
+      status: perfil.status as Perfil['status'],
+      permissoes: perfil.permissoes.map((p) => p.id),
+    };
+  }
+
+  async atualizar(id: number, dto: AtualizarPerfilDto): Promise<void> {
+    const { id: _, permissoes, ...dadosAtualizacao } = dto;
+
+    await this.prisma.$transaction(async (tx) => {
+      await tx.perfil.update({
+        where: { id },
+        data: dadosAtualizacao,
+      });
+
+      if (permissoes) {
+        const permissoesExistentes = await tx.permissao.findMany({
+          where: {
+            id: { in: permissoes },
+          },
+          select: { id: true },
+        });
+
+        if (permissoesExistentes.length !== permissoes.length) {
+          const permissoesInexistentes = permissoes.filter(
+            (permissaoId) =>
+              !permissoesExistentes.some((p) => p.id === permissaoId),
+          );
+          throw new Error(
+            `Permissões não encontradas: ${permissoesInexistentes.join(', ')}`,
+          );
+        }
+
+        await tx.perfil.update({
+          where: { id },
+          data: {
+            permissoes: {
+              set: [],
+              connect: permissoesExistentes.map(({ id }) => ({ id })),
+            },
+          },
+        });
+      }
     });
   }
 }

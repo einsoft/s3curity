@@ -8,6 +8,10 @@
     "forceConsistentCasingInFileNames": true,
     "strict": true,
     "strictNullChecks": false,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@backend/*": ["../../apps/backend/src/*"]
+    }
   }
 }
