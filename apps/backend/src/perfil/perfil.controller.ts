@@ -12,13 +12,16 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Perfil, Usuario } from '@s3curity/core';
+import { ListarPerfis, Perfil, Usuario } from '@s3curity/core';
 
 @ApiTags('Perfil')
 @ApiBearerAuth()
 @Controller('perfil')
 export class PerfilController {
-  constructor(private readonly perfilPrisma: PerfilPrisma) {}
+  constructor(
+    private readonly perfilPrisma: PerfilPrisma,
+    private readonly listarPerfisService: ListarPerfis,
+  ) {}
 
   @Post('cadastrarperfil')
   @HttpCode(201)
@@ -74,7 +77,10 @@ export class PerfilController {
     @Query('limite') limite: string = '10',
     @Query('offset') offset: string = '0',
   ): Promise<Perfil[]> {
-    return await this.perfilPrisma.listar(parseInt(limite), parseInt(offset));
+    return await this.listarPerfisService.executar({
+      limite: parseInt(limite),
+      offset: parseInt(offset),
+    });
   }
 
   @Get('hello')

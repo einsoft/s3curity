@@ -28,7 +28,7 @@ export class PerfilPrisma implements RepositorioPerfil {
   }
 
   async salvar(perfil: Perfil): Promise<void> {
-    const { permissoes: _, ...perfilData } = perfil;
+    const { permissoes, ...perfilData } = perfil;
 
     await this.prisma.perfil.upsert({
       where: { id: perfil.id ?? -1 },
