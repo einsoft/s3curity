@@ -3,7 +3,6 @@ import { Injectable } from '@nestjs/common';
 import { Perfil, RepositorioPerfil } from '@s3curity/core';
 
 import { PrismaService } from '../db/prisma.service';
-import { AtualizarPerfilDto } from './dto/atualizar-perfil.dto';
 
 @Injectable()
 export class PerfilPrisma implements RepositorioPerfil {
