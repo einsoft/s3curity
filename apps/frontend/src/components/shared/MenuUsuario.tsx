@@ -41,7 +41,7 @@ export default function MenuUsuario() {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex gap-2">
           <IconUser size={18} />
-          <Link href="/perfil">Perfil</Link>
+          <Link href="/perfilusuario">Perfil usuário</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
