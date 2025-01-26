@@ -1,11 +1,15 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
+
+import { AuthMiddleware } from '../auth/auth.middleware';
+import { AuthModule } from '../auth/auth.module';
+import { DbModule } from '../db/db.module';
 import { PerfilController } from './perfil.controller';
-import { AuthModule } from 'src/auth/auth.module';
-import { AuthMiddleware } from 'src/auth/auth.middleware';
+import { PerfilPrisma } from './perfil.prisma';
 
 @Module({
-  imports: [AuthModule],
+  imports: [AuthModule, DbModule],
   controllers: [PerfilController],
+  providers: [PerfilPrisma],
 })
 export class PerfilModule {
   configure(consumer: MiddlewareConsumer) {

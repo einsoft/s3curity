@@ -1,6 +1,3 @@
-import { PerfilPrisma } from 'src/perfil/perfil.prisma';
-import { UsuarioLogado } from 'src/shared/usuario.decorator';
-
 import { Controller, Get } from '@nestjs/common';
 import {
   ApiBearerAuth,
@@ -9,6 +6,9 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Usuario } from '@s3curity/core';
+
+import { UsuarioLogado } from '../shared/usuario.decorator';
+import { PerfilPrisma } from './perfil.prisma';
 
 @ApiTags('Perfil')
 @ApiBearerAuth()
