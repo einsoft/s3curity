@@ -1,12 +1,14 @@
 import { CriarPerfilDto } from 'src/perfil/dto/criar-perfil.dto';
+import { PerfilDto } from 'src/perfil/dto/perfil.dto';
 import { PerfilPrisma } from 'src/perfil/perfil.prisma';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 
-import { Body, Controller, Get, HttpCode, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, Post, Query } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiBody,
   ApiOperation,
+  ApiQuery,
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
@@ -40,6 +42,39 @@ export class PerfilController {
       dataCriacao: new Date(),
     };
     await this.perfilPrisma.salvar(perfil);
+  }
+
+  @Get('listar')
+  @HttpCode(200)
+  @ApiOperation({ summary: 'Listar perfis' })
+  @ApiQuery({
+    name: 'limite',
+    type: Number,
+    required: false,
+    description: 'Número máximo de perfis a retornar',
+    example: 10,
+  })
+  @ApiQuery({
+    name: 'offset',
+    type: Number,
+    required: false,
+    description: 'Número de perfis a pular',
+    example: 0,
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'Lista de perfis retornada com sucesso',
+    type: [PerfilDto],
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Não autorizado - Token JWT inválido ou ausente',
+  })
+  async listarPerfis(
+    @Query('limite') limite: string = '10',
+    @Query('offset') offset: string = '0',
+  ): Promise<Perfil[]> {
+    return await this.perfilPrisma.listar(parseInt(limite), parseInt(offset));
   }
 
   @Get('hello')

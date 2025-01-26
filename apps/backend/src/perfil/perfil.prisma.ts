@@ -8,6 +8,25 @@ import { PrismaService } from '../db/prisma.service';
 export class PerfilPrisma implements RepositorioPerfil {
   constructor(private readonly prisma: PrismaService) {}
 
+  async listar(limite: number, offset: number): Promise<Perfil[]> {
+    const perfis = await this.prisma.perfil.findMany({
+      take: limite,
+      skip: offset,
+      include: {
+        permissoes: true,
+      },
+      orderBy: {
+        dataCriacao: 'desc',
+      },
+    });
+
+    return perfis.map((perfil) => ({
+      ...perfil,
+      status: perfil.status as Perfil['status'],
+      permissoes: perfil.permissoes.map((p) => p.id),
+    }));
+  }
+
   async salvar(perfil: Perfil): Promise<void> {
     const { permissoes: _, ...perfilData } = perfil;
 
