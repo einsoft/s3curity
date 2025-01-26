@@ -1,3 +1,4 @@
+import { PerfilPrisma } from 'src/perfil/perfil.prisma';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
 
 import { Controller, Get } from '@nestjs/common';
@@ -13,6 +14,8 @@ import { Usuario } from '@s3curity/core';
 @ApiBearerAuth()
 @Controller('perfil')
 export class PerfilController {
+  constructor(private readonly perfilPrisma: PerfilPrisma) {}
+
   @Get('hello')
   @ApiOperation({ summary: 'Endpoint de saudação do perfil' })
   @ApiResponse({
