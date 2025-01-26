@@ -10,10 +10,10 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginUsuario, RegistrarUsuario } from '@s3curity/core';
 
+import { UsuarioPrisma } from '../usuario/usuario.prisma';
 import { BcryptProvider } from './bcrypt.provider';
 import { LoginDto } from './dto/login.dto';
 import { RegistrarUsuarioDto } from './dto/registrar-usuario.dto';
-import { UsuarioPrisma } from './usuario.prisma';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -27,9 +27,31 @@ export class AuthController {
   @ApiOperation({ summary: 'Registrar um novo usuário' })
   @ApiResponse({ status: 201, description: 'Usuário registrado com sucesso' })
   @ApiResponse({ status: 400, description: 'Dados inválidos' })
+  @ApiResponse({ status: 409, description: 'Usuário já existe' })
+  @ApiResponse({ status: 500, description: 'Erro interno do servidor' })
   async registrar(@Body() usuario: RegistrarUsuarioDto) {
-    const casoDeUso = new RegistrarUsuario(this.repo, this.cripto);
-    return await casoDeUso.executar(usuario);
+    try {
+      const casoDeUso = new RegistrarUsuario(this.repo, this.cripto);
+      const resultado = await casoDeUso.executar(usuario);
+      return resultado;
+    } catch (error) {
+      if (error.message === 'Usuário já existe') {
+        throw new HttpException(
+          'Já existe um usuário com este email',
+          HttpStatus.CONFLICT,
+        );
+      }
+      if (error.message === 'Dados inválidos') {
+        throw new HttpException(
+          'Dados de registro inválidos',
+          HttpStatus.BAD_REQUEST,
+        );
+      }
+      throw new HttpException(
+        error.message || 'Erro ao registrar usuário',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
   }
 
   @Post('login')

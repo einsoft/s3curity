@@ -1,24 +1,56 @@
 {
   "name": "s3curity",
   "private": true,
+  "version": "1.0.1",
+  "description": "Security-focused full-stack application with NestJS backend and Next.js frontend",
   "license": "Unlicense",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/your-username/s3curity.git"
+  },
+  "keywords": [
+    "security",
+    "nestjs",
+    "nextjs",
+    "fullstack",
+    "typescript"
+  ],
   "scripts": {
     "build": "turbo build",
     "dev": "turbo dev",
+    "start": "turbo start",
     "lint": "turbo lint",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+    "clean": "turbo clean",
+    "test": "turbo test",
+    "check-types": "turbo check-types",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@types/node": "^20.11.19",
+    "eslint": "^8.56.0",
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.0",
     "prettier": "^3.2.5",
-    "turbo": "^2.3.3",
+    "turbo": "^2.3.4",
     "typescript": "5.5.4"
   },
   "engines": {
-    "node": ">=18"
+    "node": ">=18",
+    "yarn": ">=1.22.22"
   },
-  "packageManager": "yarn@1.22.22",
+  "packageManager": "yarn@4.6.0",
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{md,json}": [
+      "prettier --write"
+    ]
+  }
 }

@@ -2,7 +2,7 @@ import { ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
-import { AppModule } from './app.module';
+import { AppModule } from './app/app.module';
 import errorFilter from './error.filter';
 
 async function bootstrap() {
@@ -12,7 +12,7 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
 
-    .setDescription('Documentação Swagger para a API de S3curity.')
+    .setDescription('Documentação API S3curity.')
     .setVersion('1.0')
     .addBearerAuth()
     .build();
@@ -22,6 +22,8 @@ async function bootstrap() {
 
   app.useGlobalFilters(new errorFilter());
   const port = process.env.PORT ?? 4000;
+
   await app.listen(port);
 }
+
 bootstrap();

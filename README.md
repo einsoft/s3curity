@@ -57,7 +57,29 @@
 
 [![S3curity Screen Shot][product-screenshot]](https://s3curity-web.vercel.app)
 
-**S3curity** é uma solução robusta de autenticação e autorização projetada para garantir segurança, flexibilidade e eficiência no gerenciamento de usuários, perfis e permissões. Este projeto foi desenvolvido com o objetivo de oferecer uma infraestrutura escalável e moderna, que atenda às necessidades de controle de acesso para aplicações web e mobile.
+**S3curity** é uma solução robusta de autenticação e autorização projetada para garantir segurança, flexibilidade e eficiência no gerenciamento de usuários, perfis e permissões.
+
+### Principais Funcionalidades
+
+- ✅ Autenticação segura com JWT
+- ✅ Gerenciamento de usuários e perfis
+- ✅ Controle de permissões granular
+- ✅ API RESTful documentada
+- ✅ Interface web moderna e responsiva
+- ✅ Integração com múltiplos provedores de autenticação
+- ✅ Suporte a multi-tenant
+
+### Arquitetura
+
+O sistema foi desenvolvido seguindo os princípios de Clean Architecture e Domain-Driven Design (DDD), com:
+
+- **Frontend**: Next.js com TypeScript
+- **Backend**: NestJS com Prisma ORM
+- **Banco de Dados**: SQLite (com suporte para outros SGBDs)
+- **Autenticação**: JWT com refresh tokens
+- **Testes**: Jest e Cypress
+
+[![Arquitetura][architecture-diagram]](https://github.com/einsoft/s3curity/wiki/Arquitetura)
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
@@ -74,87 +96,83 @@
 
 <!-- Iniciando -->
 
-## Iniciando
+## 🚀 Iniciando
 
-Para executar localmente, siga os passos seguintes.
+Para executar localmente, siga os passos abaixo:
 
 ### Pré-requisitos
 
-Antes de iniciar o desenvolvimento deste projeto, certifique-se de ter o seguinte software instalado em seu ambiente:
+- [ ] **Node.js** v14.x ou superior ([instalar](https://nodejs.org/))
+- [ ] **Yarn** v1.22.x ou superior
+- [ ] **Docker** (opcional para desenvolvimento com containers)
+- [ ] **Git** ([instalar](https://git-scm.com/))
 
-1. **Node.js**: Versão 14.x ou superior. Pode ser baixado e instalado a partir do [site oficial do Node.js](https://nodejs.org/).
-2. **yarn**: Gerenciador de pacotes do Node.js.
-3. **TypeScript**: Transpilador para JavaScript, instalado globalmente. Instale com o comando:
-   ```sh
-   npm install -g typescript
-   ```
-4. **Next.js**: Framework para React.js.
-5. **React**: Biblioteca para construção de interfaces de usuário. Geralmente instalado como parte do Next.js.
-6. **Prisma ORM**: Ferramenta para modelagem de dados e geração de consultas SQL. Instale com o comando:
-   ```sh
-   yarn add @prisma/client
-   ```
-7. **SQLite**: Banco de dados relacional leve. O Prisma geralmente lida com a instalação do SQLite, mas você pode precisar instalar bibliotecas adicionais dependendo do sistema operacional.
-8. **NestJS**: Framework para construção de aplicativos Node.js robustos e escaláveis. Instale com o comando:
-   ```sh
-   npm install -g @nestjs/cli
-   ```
-9. **Git**: Sistema de controle de versão. Certifique-se de ter o Git instalado a partir do [site oficial do Git](https://git-scm.com/).
-
-## Instalação
+### Instalação
 
 1. Clonar o repositório
+
    ```sh
    git clone https://github.com/einsoft/s3curity.git
+   cd s3curity
    ```
-2. Instalar os pacotes necessários, na raiz do projeto, execute:
+
+2. Instalar dependências
+
    ```sh
-   yarn
+   yarn install
    ```
-3. Na pasta apps/backend, renomear o arquivo `.env.exemplo` para `.env` e preencher as variáveis de ambiente
-   ```js
-   const JWT_SECRET = "ENTER YOUR API";
-   ```
-4. Na pasta apps/backend, executar o comando para aplicar as migrações ao banco de dados:
+
+3. Configurar ambiente
+
    ```sh
+   cp apps/backend/.env.exemplo apps/backend/.env
+   # Editar o arquivo .env com suas credenciais
+   ```
+
+4. Configurar banco de dados
+
+   ```sh
+   cd apps/backend
    npx prisma migrate dev
-   ```
-5. Ainda na pasta apps/backend, executar o comando para gerar o client do Prisma:
-   ```sh
    npx prisma generate
    ```
 
-### Desenvolvimento
+5. Iniciar aplicação
+   ```sh
+   yarn dev
+   ```
 
-Para iniciar todos os aplicativos em modo de desenvolvimento:
+### 🛠️ Desenvolvimento
+
+| Comando                            | Descrição                    |
+| ---------------------------------- | ---------------------------- |
+| `yarn dev`                         | Inicia frontend e backend    |
+| `yarn workspace frontend dev`      | Inicia apenas o frontend     |
+| `yarn workspace backend start:dev` | Inicia apenas o backend      |
+| `yarn test`                        | Executa todos os testes      |
+| `yarn lint`                        | Verifica estilo de código    |
+| `yarn build`                       | Gera build de produção       |
+| `yarn clean`                       | Limpa cache e builds antigos |
+
+### 🗂️ Estrutura do Projeto
 
 ```bash
-yarn dev
-```
-
-Para iniciar aplicativos específicos:
-
-```bash
-# Frontend
-yarn workspace frontend dev
-
-# Backend
-yarn workspace backend start:dev
-```
-
-### Estrutura do Projeto
-
-```
 s3curity/
 ├── apps/
 │   ├── frontend/          # Aplicação Next.js
 │   └── backend/           # API NestJS
 ├── packages/
-│   ├── core/             # Lógica de negócio compartilhada
-│   ├── ui/               # Componentes UI compartilhados
-│   ├── eslint-config/    # Configurações ESLint
+│   ├── core/              # Lógica de negócio compartilhada
+│   ├── ui/                # Componentes UI compartilhados
+│   ├── eslint-config/     # Configurações ESLint
 │   └── typescript-config/ # Configurações TypeScript
 ```
+
+### 📚 Documentação
+
+- [Guia de Contribuição](https://github.com/einsoft/s3curity/wiki/Contribui%C3%A7%C3%A3o)
+- [Documentação da API](https://github.com/einsoft/s3curity/wiki/API-Documentation)
+- [Guia de Estilo](https://github.com/einsoft/s3curity/wiki/Style-Guide)
 
 ### Documentação da API
 
@@ -163,40 +181,49 @@ A documentação da API está disponível em:
 - Swagger UI: `http://localhost:4000/api`
 - OpenAPI JSON: `http://localhost:4000/api-json`
 
-### Resolução de Problemas
+### 🚨 Resolução de Problemas
 
-1. **Erro de conexão com banco de dados**
+#### Erro de conexão com banco de dados
 
-   - Verifique se o PostgreSQL está rodando
-   - Confirme as credenciais no arquivo .env
-   - Verifique se o banco de dados existe
+- [ ] Verifique se o banco de dados SQLite foi gerado corretamente na pasta: src/apps/backend/prisma/dev.db
+- [ ] Confirme as credenciais no arquivo .env
 
-2. **Erro de build**
+#### Erro de build
 
-   - Limpe a cache: `yarn clean`
-   - Reinstale as dependências: `yarn install`
+- [ ] Limpe a cache: `yarn clean`
+- [ ] Reinstale as dependências: `yarn install`
 
-3. **Erro de tipagem**
-   - Regenere os tipos do Prisma: `npx prisma generate`
-   - Verifique se todas as dependências estão instaladas
+#### Erro de tipagem
+
+- [ ] Regenere os tipos do Prisma: `npx prisma generate`
+- [ ] Verifique se todas as dependências estão instaladas
+
+#### Outros problemas
+
+Consulte nosso [guia de troubleshooting](https://github.com/einsoft/s3curity/wiki/Troubleshooting) para mais informações.
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
 <!-- CONTRIBUTING -->
 
-## Contribuindo
+## 🤝 Contribuindo
 
-Contribuições são o que tornam a comunidade de código aberto um lugar incrível para aprender, inspirar e criar. Quaisquer contribuições que você fizer serão **muito apreciadas**.
+Contribuições são bem-vindas! Siga estes passos:
 
-Se você tiver uma sugestão para melhorias, basta fazer um fork do repositório e crie um pull request. Você também pode simplesmente abrir uma issue com a tag "melhoria".
+1. Faça um fork do projeto
+2. Crie sua branch (`git checkout -b feature/NovaFeature`)
+3. Faça commit das mudanças (`git commit -m 'Adiciona NovaFeature'`)
+4. Envie para a branch (`git push origin feature/NovaFeature`)
+5. Abra um Pull Request
 
-Não se esqueça de dar uma estrela ao projeto! Obrigado novamente!
+Antes de contribuir, leia nosso [guia de contribuição](https://github.com/einsoft/s3curity/wiki/Contribuicao).
 
-1. Faça um fork
-2. Crie sua branch (`git checkout -b feature/AmazingFeature`)
-3. Faça um commit de suas mudanças (`git commit -m 'Add some AmazingFeature'`)
-4. Envie para sua Branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request <a href="https://github.com/einsoft/s3curity/wiki/Contribui%C3%A7%C3%A3o:-enviando-as-modifica%C3%A7%C3%B5es-para-o-projeto">nesse link</a>
+### Boas práticas
+
+- [ ] Siga o guia de estilo de código
+- [ ] Escreva testes para novas funcionalidades
+- [ ] Mantenha commits atômicos e bem descritos
+- [ ] Documente novas funcionalidades
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
@@ -208,9 +235,18 @@ Não se esqueça de dar uma estrela ao projeto! Obrigado novamente!
 
 <!-- LICENSE -->
 
-## Licença
+## 📄 Licença
 
-Distribuído com a licença Unlicense. Consulte `LICENSE.txt` para mais informações.
+Este projeto está licenciado sob a licença Unlicense - veja o arquivo [LICENSE.txt](LICENSE.txt) para mais detalhes.
+
+## 🚧 Roadmap
+
+- [ ] Suporte a autenticação OAuth
+- [ ] Integração com provedores de identidade (Google, GitHub, etc.)
+- [ ] Dashboard administrativo
+- [ ] Documentação completa da API
+
+Veja nosso [roadmap completo](https://github.com/einsoft/s3curity/wiki/Roadmap) para mais detalhes.
 
 <p align="right">(<a href="#readme-top">voltar ao topo ^</a>)</p>
 
@@ -238,6 +274,11 @@ Projeto: [https://github.com/einsoft/s3curity](https://github.com/einsoft/s3curi
 [linkedin-shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
 [linkedin-url]: https://linkedin.com/in/linkedin_username
 [product-screenshot]: apps/frontend/public/screenshot.png
+[architecture-diagram]: apps/frontend/public/architecture.png
+[ci-badge]: https://github.com/einsoft/s3curity/actions/workflows/ci.yml/badge.svg
+[ci-url]: https://github.com/einsoft/s3curity/actions
+[cov-badge]: https://codecov.io/gh/einsoft/s3curity/branch/main/graph/badge.svg
+[cov-url]: https://codecov.io/gh/einsoft/s3curity
 [Next.js]: https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white
 [Next-url]: https://nextjs.org/
 [React.js]: https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB

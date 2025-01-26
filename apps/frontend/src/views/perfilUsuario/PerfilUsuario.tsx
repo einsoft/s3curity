@@ -9,7 +9,7 @@ import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
 import useFormPerfil from "@/src/data/hooks/useFormPerfil";
 import useSessao from "@/src/data/hooks/useSessao";
 
-export default function Perfil() {
+export default function PerfilUsuario() {
   const { usuario } = useSessao();
   const {
     nome,

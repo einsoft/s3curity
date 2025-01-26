@@ -1,6 +1,7 @@
 import { IconPhone } from "@tabler/icons-react";
 
 import { Label } from "@/src/components/ui/label";
+import useFormatadorTelefone from "@/src/data/hooks/useUtils";
 
 export interface CampoTelefoneProps
   extends React.HTMLAttributes<HTMLDivElement> {
@@ -12,6 +13,14 @@ export interface CampoTelefoneProps
 }
 
 export default function CampoTelefone(props: CampoTelefoneProps) {
+  const { valorFormatado, handleChange } = useFormatadorTelefone(props.value);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    handleChange(e);
+    const formattedValue = e.target.value;
+    props.onChangeText?.(formattedValue);
+  };
+
   return (
     <div className="outline-none">
       {props?.labelText && (
@@ -25,11 +34,8 @@ export default function CampoTelefone(props: CampoTelefoneProps) {
         <input
           id={props.placeholder}
           type="text"
-          value={props.value}
-          onChange={(e) => {
-            props.onChange?.(e);
-            props.onChangeText?.(e.target.value);
-          }}
+          value={valorFormatado}
+          onChange={handleInputChange}
           placeholder={props.placeholder}
           disabled={props?.disabled ? true : false}
           className="formulario__input"

@@ -1,0 +1,7 @@
+graph TD
+    A[Frontend - Next.js] -->|HTTP Requests| B[Backend - NestJS]
+    B -->|Prisma ORM| C[(Database)]
+    D[Core Package] -->|Business Logic| B
+    E[UI Package] -->|Components| A
+    F[ESLint Config] -->|Linting Rules| A & B & D & E
+    G[TypeScript Config] -->|Type Checking| A & B & D & E
