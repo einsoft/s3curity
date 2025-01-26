@@ -66,8 +66,8 @@ export class PerfilPrisma implements RepositorioPerfil {
     };
   }
 
-  async atualizar(id: number, dto: AtualizarPerfilDto): Promise<void> {
-    const { id: _, permissoes, ...dadosAtualizacao } = dto;
+  async atualizar(id: number, perfil: Perfil): Promise<void> {
+    const { id: _, permissoes, ...dadosAtualizacao } = perfil;
 
     await this.prisma.$transaction(async (tx) => {
       await tx.perfil.update({
@@ -103,6 +103,34 @@ export class PerfilPrisma implements RepositorioPerfil {
           },
         });
       }
+    });
+  }
+
+  async excluir(id: number): Promise<void> {
+    await this.prisma.$transaction(async (tx) => {
+      const perfil = await tx.perfil.findUnique({
+        where: { id },
+        include: { permissoes: true },
+      });
+
+      if (!perfil) {
+        throw new Error('Perfil não encontrado');
+      }
+
+      // Remove associações de permissões
+      await tx.perfil.update({
+        where: { id },
+        data: {
+          permissoes: {
+            set: [],
+          },
+        },
+      });
+
+      // Deleta o perfil
+      await tx.perfil.delete({
+        where: { id },
+      });
     });
   }
 }

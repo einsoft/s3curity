@@ -6,6 +6,7 @@ import { UsuarioLogado } from 'src/shared/usuario.decorator';
 import {
   Body,
   Controller,
+  Delete,
   Get,
   HttpCode,
   HttpException,
@@ -143,10 +144,48 @@ export class PerfilController {
     @Body() dto: AtualizarPerfilDto,
   ): Promise<void> {
     try {
-      await this.perfilPrisma.atualizar(Number(id), dto);
+      if (!dto.nome) {
+        throw new HttpException('Nome é obrigatório', HttpStatus.BAD_REQUEST);
+      }
+
+      const perfil: Perfil = {
+        id: Number(id),
+        nome: dto.nome,
+        descricao: dto.descricao || '',
+        status: dto.status || 'ativo',
+        permissoes: dto.permissoes || [],
+        dataCriacao: new Date(),
+      };
+      await this.perfilPrisma.atualizar(Number(id), perfil);
     } catch (error) {
       if (error.message.includes('Permissões não encontradas')) {
         throw new HttpException(error.message, HttpStatus.UNPROCESSABLE_ENTITY);
+      }
+      throw error;
+    }
+  }
+
+  @Delete(':id')
+  @HttpCode(204)
+  @ApiOperation({ summary: 'Excluir um perfil existente' })
+  @ApiResponse({
+    status: 204,
+    description: 'Perfil excluído com sucesso',
+  })
+  @ApiResponse({
+    status: 401,
+    description: 'Não autorizado - Token JWT inválido ou ausente',
+  })
+  @ApiResponse({
+    status: 404,
+    description: 'Perfil não encontrado',
+  })
+  async excluirPerfil(@Param('id') id: string): Promise<void> {
+    try {
+      await this.perfilPrisma.excluir(Number(id));
+    } catch (error) {
+      if (error.message.includes('Perfil não encontrado')) {
+        throw new HttpException(error.message, HttpStatus.NOT_FOUND);
       }
       throw error;
     }
