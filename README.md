@@ -137,6 +137,71 @@ Para executar localmente, siga os passos abaixo:
    npx prisma generate
    ```
 
+   **Detalhes sobre a configuração do Prisma:**
+
+   - `npx prisma migrate dev`: Cria e aplica as migrações do banco de dados
+   - `npx prisma generate`: Gera o cliente Prisma com base no schema
+
+   **Configuração do Banco de Dados:**
+
+   Por padrão, o projeto usa SQLite para desenvolvimento. Para usar outro banco de dados:
+
+   1. Edite o arquivo `apps/backend/prisma/schema.prisma`
+   2. Altere o provider no datasource:
+      ```prisma
+      datasource db {
+        provider = "postgresql" // ou "mysql", "sqlserver"
+        url      = env("DATABASE_URL")
+      }
+      ```
+   3. Atualize a variável DATABASE_URL no .env
+
+   **Solução de Problemas Comuns:**
+
+   - Erro "Database does not exist":
+
+     ```sh
+     # Para PostgreSQL
+     createdb s3curity_dev
+     # Para MySQL
+     mysql -u root -e "CREATE DATABASE s3curity_dev;"
+     ```
+
+   - Erro de permissões:
+     Verifique se o usuário do banco tem permissões adequadas
+
+   - Erro de conexão:
+     Verifique se o banco está rodando e acessível
+     Teste a conexão manualmente:
+
+     ```sh
+     psql postgres://user:pass@host:port/dbname
+     ```
+
+   - Resetar banco de dados:
+     ```sh
+     npx prisma migrate reset
+     ```
+
+   **Dicas de Desenvolvimento:**
+
+   - Para visualizar o banco de dados:
+
+     ```sh
+     npx prisma studio
+     ```
+
+   - Para criar nova migração:
+
+     ```sh
+     npx prisma migrate dev --name nome_da_migracao
+     ```
+
+   - Para aplicar migrações em produção:
+     ```sh
+     npx prisma migrate deploy
+     ```
+
 5. Iniciar aplicação
    ```sh
    yarn dev
