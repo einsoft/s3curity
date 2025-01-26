@@ -1,7 +1,7 @@
 {
   "name": "s3curity",
   "private": true,
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Security-focused full-stack application with NestJS backend and Next.js frontend",
   "license": "Unlicense",
   "repository": {
