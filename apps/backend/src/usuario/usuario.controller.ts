@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { BcryptProvider } from 'src/auth/bcrypt.provider';
-import { UsuarioPrisma } from 'src/auth/usuario.prisma';
 import { UsuarioLogado } from 'src/shared/usuario.decorator';
+import { UsuarioPrisma } from 'src/usuario/usuario.prisma';
 
 import { Body, Controller, Param, Patch } from '@nestjs/common';
 import {

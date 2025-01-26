@@ -10,10 +10,10 @@ import {
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginUsuario, RegistrarUsuario } from '@s3curity/core';
 
+import { UsuarioPrisma } from '../usuario/usuario.prisma';
 import { BcryptProvider } from './bcrypt.provider';
 import { LoginDto } from './dto/login.dto';
 import { RegistrarUsuarioDto } from './dto/registrar-usuario.dto';
-import { UsuarioPrisma } from './usuario.prisma';
 
 @ApiTags('Auth')
 @Controller('auth')

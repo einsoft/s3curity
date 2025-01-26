@@ -1,9 +1,11 @@
-import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
 import { DbModule } from 'src/db/db.module';
-import { UsuarioPrisma } from './usuario.prisma';
-import { BcryptProvider } from './bcrypt.provider';
+
+import { Module } from '@nestjs/common';
+
+import { UsuarioPrisma } from '../usuario/usuario.prisma';
+import { AuthController } from './auth.controller';
 import { AuthMiddleware } from './auth.middleware';
+import { BcryptProvider } from './bcrypt.provider';
 
 @Module({
   imports: [DbModule],

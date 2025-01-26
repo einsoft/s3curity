@@ -9,7 +9,7 @@ import {
 } from '@nestjs/common';
 import { Usuario } from '@s3curity/core';
 
-import { UsuarioPrisma } from './usuario.prisma';
+import { UsuarioPrisma } from '../usuario/usuario.prisma';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
