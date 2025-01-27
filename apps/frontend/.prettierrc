@@ -8,7 +8,11 @@
     "^[./]"
   ],
   "importOrderParserPlugins": ["typescript", "jsx", "decorators-legacy"],
-  "plugins": ["@ianvs/prettier-plugin-sort-imports", "prettier-plugin-sort-json"],
+  "plugins": [
+    "@ianvs/prettier-plugin-sort-imports",
+    "prettier-plugin-sort-json",
+    "prettier-plugin-tailwindcss"
+  ],
   "printWidth": 80,
   "semi": true,
   "singleQuote": false,
