@@ -34,7 +34,7 @@ export default function CampoTexto(props: CampoTextoProps) {
         />
         {props.icon && (
           <div>
-            <IconTextCaption className="text-zinc-500 cursor-pointer" />
+            <IconTextCaption className="cursor-pointer text-zinc-500" />
           </div>
         )}
       </div>

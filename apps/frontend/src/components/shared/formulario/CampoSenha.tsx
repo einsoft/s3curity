@@ -43,12 +43,12 @@ export default function CampoSenha(props: CampoSenhaProps) {
           {mostrarSenha ? (
             <IconEyeOff
               onClick={alternarMostrarSenha}
-              className="text-zinc-500 cursor-pointer"
+              className="cursor-pointer text-zinc-500"
             />
           ) : (
             <IconEye
               onClick={alternarMostrarSenha}
-              className="text-zinc-500 cursor-pointer"
+              className="cursor-pointer text-zinc-500"
             />
           )}
         </div>

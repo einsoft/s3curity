@@ -33,9 +33,9 @@ export default function Processando() {
 
   return (
     <div className="h-screen">
-      <div className="flex flex-col justify-center items-center absolute top-0 left-0 w-full h-full gap-2 bg-black/90 text-center">
+      <div className="absolute left-0 top-0 flex h-full w-full flex-col items-center justify-center gap-2 bg-black/90 text-center">
         <Progress value={progress} />
-        <span className="font-light text-zinc-500 ml-3">Processando...</span>
+        <span className="ml-3 font-light text-zinc-500">Processando...</span>
       </div>
     </div>
   );

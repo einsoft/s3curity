@@ -40,7 +40,7 @@ export default function PerfilUsuario() {
               alt="Avatar"
               width="96"
               height="96"
-              className="rounded-full mb-4"
+              className="mb-4 rounded-full"
               style={{ aspectRatio: "96/96", objectFit: "cover" }}
               priority={false}
             />
@@ -50,8 +50,8 @@ export default function PerfilUsuario() {
             </div>
           </div>
         </header>
-        <div className="space-y-8 w-full">
-          <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
+        <div className="w-full space-y-8">
+          <Card className="border-2 border-dashed border-[#A1A1AA1A] bg-[#A1A1AA1A]">
             <div className="formulario__container--logotipo text-zinc-500">
               Informações principais
             </div>
@@ -72,7 +72,7 @@ export default function PerfilUsuario() {
                   disabled={true}
                 />
               </div>
-              <div className="pt-6 flex justify-center bg w-full">
+              <div className="bg flex w-full justify-center pt-6">
                 <button
                   className="form__button--green w-full"
                   disabled={processando}
@@ -88,7 +88,7 @@ export default function PerfilUsuario() {
           </Card>
           <Card
             id="aviso"
-            className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]"
+            className="border-2 border-dashed border-[#A1A1AA1A] bg-[#A1A1AA1A]"
           >
             <div className="formulario__container--logotipo text-zinc-500">
               Mudar a senha
@@ -127,7 +127,7 @@ export default function PerfilUsuario() {
                   labelText="Confirme a nova senha"
                 />
               </div>
-              <div className="flex flex-col space-y-4 pt-6 w-full">
+              <div className="flex w-full flex-col space-y-4 pt-6">
                 <button
                   className="form__button--green w-full"
                   disabled={processando}

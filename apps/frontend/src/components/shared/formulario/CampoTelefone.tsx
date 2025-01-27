@@ -41,7 +41,7 @@ export default function CampoTelefone(props: CampoTelefoneProps) {
           className="formulario__input"
         />
         <div>
-          <IconPhone className="text-zinc-500 cursor-pointer" />
+          <IconPhone className="cursor-pointer text-zinc-500" />
         </div>
       </div>
     </div>
