@@ -235,7 +235,7 @@ s3curity/
 
 ### 📚 Documentação
 
-- [Guia de Contribuição](https://github.com/einsoft/s3curity/wiki/Contribui%C3%A7%C3%A3o)
+- [Guia de Contribuição](https://github.com/einsoft/s3curity/wiki/Contribui%C3%A7%C3%A3o:-Iniciando-uma-tarefa)
 - [Documentação da API](https://github.com/einsoft/s3curity/wiki/API-Documentation)
 - [Guia de Estilo](https://github.com/einsoft/s3curity/wiki/Style-Guide)
 
@@ -281,7 +281,7 @@ Contribuições são bem-vindas! Siga estes passos:
 4. Envie para a branch (`git push origin feature/NovaFeature`)
 5. Abra um Pull Request
 
-Antes de contribuir, leia nosso [guia de contribuição](https://github.com/einsoft/s3curity/wiki/Contribuicao).
+Antes de contribuir, leia nosso [guia de contribuição](https://github.com/einsoft/s3curity/wiki/Contribui%C3%A7%C3%A3o:-Iniciando-uma-tarefa).
 
 ### Boas práticas
 
