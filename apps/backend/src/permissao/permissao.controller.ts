@@ -97,24 +97,6 @@ export class PermissaoController {
     });
   }
 
-  @Get('hello')
-  @ApiOperation({ summary: 'Endpoint de saudação da permissão' })
-  @ApiResponse({
-    status: 200,
-    description: 'Retorna uma saudação personalizada',
-    schema: {
-      type: 'string',
-      example: 'Olá João Silva',
-    },
-  })
-  @ApiResponse({
-    status: 401,
-    description: 'Não autorizado - Token JWT inválido ou ausente',
-  })
-  permissao(@UsuarioLogado() usuario: Usuario) {
-    return `Olá ${usuario.nomeCompleto}`;
-  }
-
   @Put(':id')
   @HttpCode(200)
   @ApiOperation({ summary: 'Atualizar uma permissão existente' })
