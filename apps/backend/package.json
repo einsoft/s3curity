@@ -37,7 +37,7 @@
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
-    "@nestjs/swagger": "^11.0.2",
+    "@nestjs/swagger": "^11.0.3",
     "@nestjs/testing": "^10.0.0",
     "@s3curity/core": "*",
     "@types/bcrypt": "^5.0.2",

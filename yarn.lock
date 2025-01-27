@@ -1592,9 +1592,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@nestjs/swagger@npm:^11.0.2":
-  version: 11.0.2
-  resolution: "@nestjs/swagger@npm:11.0.2"
+"@nestjs/swagger@npm:^11.0.3":
+  version: 11.0.3
+  resolution: "@nestjs/swagger@npm:11.0.3"
   dependencies:
     "@microsoft/tsdoc": "npm:0.15.0"
     "@nestjs/mapped-types": "npm:2.1.0"
@@ -1616,7 +1616,7 @@ __metadata:
       optional: true
     class-validator:
       optional: true
-  checksum: 10c0/61930ae3c6c34a72857bfc7655470d9e22d524c15303ae3d85e414429f0a26a7873218d9570ac1e6cbb1811de92e3090d9dbcbc3d4d8bf3665b980d22175f87d
+  checksum: 10c0/9fcc96ed523665f91d2e52a3faa16908e5af7353b6010172b3633661a037fe2f1d7425feb0ac7710925e481e09d13822b974cdf39234a3897780125efa5645ba
   languageName: node
   linkType: hard
 
@@ -4719,7 +4719,7 @@ __metadata:
     "@nestjs/core": "npm:^10.0.0"
     "@nestjs/platform-express": "npm:^10.0.0"
     "@nestjs/schematics": "npm:^10.0.0"
-    "@nestjs/swagger": "npm:^11.0.2"
+    "@nestjs/swagger": "npm:^11.0.3"
     "@nestjs/testing": "npm:^10.0.0"
     "@prisma/client": "npm:^6.2.1"
     "@s3curity/core": "npm:*"
