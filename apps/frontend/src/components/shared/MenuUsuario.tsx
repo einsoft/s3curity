@@ -20,9 +20,9 @@ export default function MenuUsuario() {
         <div className="flex items-center gap-3">
           <div className="flex flex-col items-end">
             <span className="font-bold">{usuario?.nomeCompleto}</span>
-            <span className="text-zinc-400 text-xs">{usuario?.email}</span>
+            <span className="text-xs text-zinc-400">{usuario?.email}</span>
           </div>
-          <div className="bg-zinc-700 w-10 h-10 p-1 rounded-full">
+          <div className="h-10 w-10 rounded-full bg-zinc-700 p-1">
             <Image
               src={usuario.imagemPerfil ? usuario.imagemPerfil : "/avatar.svg"}
               height={40}
@@ -41,7 +41,12 @@ export default function MenuUsuario() {
         <DropdownMenuSeparator />
         <DropdownMenuItem className="flex gap-2">
           <IconUser size={18} />
-          <Link href="/perfilusuario">Perfil usuário</Link>
+          <Link href="/perfilusuario">Usuário</Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem className="flex gap-2">
+          <IconUser size={18} />
+          <Link href="/perfil">Gerenciamento perfis</Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
