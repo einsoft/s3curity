@@ -3228,7 +3228,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:*, @types/react@npm:^19":
+"@types/react@npm:*":
   version: 19.0.2
   resolution: "@types/react@npm:19.0.2"
   dependencies:
@@ -3244,6 +3244,15 @@ __metadata:
     "@types/prop-types": "npm:*"
     csstype: "npm:^3.0.2"
   checksum: 10c0/6405f805700daf096a507a191bc4f8814ebed49120f156926b0a5b7b6f41424214320cea3dbb6df85f476b220f0554ef7e587baa88f59375e64bdbab525f58aa
+  languageName: node
+  linkType: hard
+
+"@types/react@npm:19.0.8":
+  version: 19.0.8
+  resolution: "@types/react@npm:19.0.8"
+  dependencies:
+    csstype: "npm:^3.0.2"
+  checksum: 10c0/5fa7236356b1476de03519c66ef65d4fd904826956105619e2ad60cb0b55ae7b251dd5fff02234076225b5e15333d0d936bf9dbe1d461406f8a2ba01c197ddcd
   languageName: node
   linkType: hard
 
@@ -6908,7 +6917,7 @@ __metadata:
     "@types/js-cookie": "npm:^3.0.6"
     "@types/jwt-decode": "npm:^3.1.0"
     "@types/node": "npm:^20"
-    "@types/react": "npm:^19"
+    "@types/react": "npm:19.0.8"
     "@types/react-dom": "npm:^19"
     "@typescript-eslint/eslint-plugin": "npm:^8.19.1"
     "@typescript-eslint/parser": "npm:^8.19.1"
