@@ -1,0 +1,67 @@
+.perfil {
+  @apply p-6 bg-[#121212] min-h-screen text-white;
+}
+
+.perfil__search-bar {
+  @apply w-full mb-4 flex items-center justify-center p-3 rounded-lg;
+}
+
+.perfil__search-bar-input {
+  @apply w-1/2 bg-[#1E1E1E] text-white placeholder-gray-500 border border-[#292929] !important;
+}
+
+.perfil__table-container {
+  @apply rounded-lg border border-[#292929] overflow-hidden;
+}
+
+.perfil__table {
+  @apply w-full border border-[#292929];
+}
+
+.perfil__table-header {
+  @apply bg-[#1E1E1E] text-white border-b border-[#292929];
+}
+
+.perfil__table-header-row {
+  @apply border-b border-[#292929];
+}
+
+.perfil__table-header-cell {
+  @apply text-center p-3 border border-[#292929];
+}
+
+.perfil__table-body {
+  /* No additional styles needed */
+}
+
+.perfil__table-row {
+  @apply border-b border-[#292929] hover:bg-[#252525];
+}
+
+.perfil__table-cell {
+  @apply text-center p-3 border border-[#292929] text-[#E0E0E0];
+}
+
+.perfil__table-empty {
+  @apply text-center p-4 border border-[#292929] text-[#E0E0E0];
+}
+
+.perfil__paginacao {
+  @apply mt-4;
+}
+
+.perfil__button-edit {
+  @apply border border-blue-500 text-blue-500 px-4 py-1 rounded-md hover:bg-blue-500 hover:text-white transition;
+}
+
+.perfil__button-delete {
+  @apply border border-red-500 text-red-500 px-4 py-1 rounded-md hover:bg-red-500 hover:text-white transition ml-2;
+}
+
+.perfil__status-active {
+  @apply text-green-400;
+}
+
+.perfil__status-inactive {
+  @apply text-red-400;
+}

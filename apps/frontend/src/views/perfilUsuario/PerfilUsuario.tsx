@@ -1,3 +1,5 @@
+import "./perfil-usuario.css";
+
 import Image from "next/image";
 
 import Cabecalho from "@/src/components/shared/Cabecalho";

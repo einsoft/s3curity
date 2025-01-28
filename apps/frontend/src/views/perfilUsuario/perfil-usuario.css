@@ -1,0 +1,179 @@
+.perfilUsuario__container {
+  @apply flex justify-center items-center w-full h-full min-h-screen text-white;
+}
+
+.perfilUsuario__margin-top-16 {
+  @apply mt-16;
+}
+
+.perfilUsuario__formulario-container {
+  @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
+}
+
+.perfilUsuario__flex {
+  @apply flex;
+}
+
+.perfilUsuario__items-center {
+  @apply items-center;
+}
+
+.perfilUsuario__space-x-3 {
+  @apply space-x-3;
+}
+
+.perfilUsuario__rounded-full {
+  @apply rounded-full;
+}
+
+.perfilUsuario__margin-bottom-4 {
+  @apply mb-4;
+}
+
+.perfilUsuario__space-y-1 {
+  @apply space-y-1;
+}
+
+.perfilUsuario__text-2xl {
+  @apply text-2xl;
+}
+
+.perfilUsuario__font-bold {
+  @apply font-bold;
+}
+
+.perfilUsuario__bg-gray-100 {
+  @apply bg-[#A1A1AA1A];
+}
+
+.perfilUsuario__border-dashed {
+  @apply border-dashed;
+}
+
+.perfilUsuario__border-2 {
+  @apply border-2;
+}
+
+.perfilUsuario__border-gray-100 {
+  @apply border-[#A1A1AA1A];
+}
+
+.perfilUsuario__formulario-container-logotipo {
+  @apply font-bold leading-9 text-center;
+}
+
+.perfilUsuario__text-zinc-500 {
+  @apply text-zinc-500;
+}
+
+.perfilUsuario__space-y-6 {
+  @apply space-y-6;
+}
+
+.perfilUsuario__space-y-2 {
+  @apply space-y-2;
+}
+
+.perfilUsuario__padding-top-4 {
+  @apply pt-4;
+}
+
+.perfilUsuario__padding-top-6 {
+  @apply pt-6;
+}
+
+.perfilUsuario__justify-center {
+  @apply justify-center;
+}
+
+.perfilUsuario__w-full {
+  @apply w-full;
+}
+
+.perfilUsuario__form-button-green {
+  @apply bg-[#22c55e] text-white font-bold py-2 px-4 rounded-lg w-1/2 transition-colors duration-300 hover:bg-[#16a34a];
+}
+
+.perfilUsuario__formulario-container-aviso {
+  @apply text-red-700 text-center bg-red-100 m-4 p-4 rounded-lg;
+}
+
+.perfilUsuario__text-red-500 {
+  @apply text-red-500;
+}
+
+.perfilUsuario__form-button-red {
+  @apply bg-[#ef4444] text-white font-bold py-2 px-4 rounded-lg w-1/2 transition-colors duration-300 hover:bg-[#dc2626];
+}
+
+.perfilUsuario__form-button-gray {
+  @apply bg-[#3f3f46] text-[#e4e4e7] font-bold py-2 px-4 rounded-lg w-1/2 transition-colors duration-300 hover:bg-[#27272a];
+}
+
+.perfilUsuario__perfil {
+  @apply p-6 bg-[#121212] min-h-screen text-white;
+}
+
+.perfilUsuario__perfil-search-bar {
+  @apply mb-4 flex items-center bg-[#1E1E1E] p-3 rounded-lg;
+}
+
+.perfilUsuario__perfil-search-bar-input {
+  @apply w-full bg-[#1E1E1E] text-white placeholder-gray-500 border border-[#292929];
+}
+
+.perfilUsuario__perfil-table-container {
+  @apply rounded-lg border border-[#292929] overflow-hidden;
+}
+
+.perfilUsuario__perfil-table {
+  @apply w-full border border-[#292929];
+}
+
+.perfilUsuario__perfil-table-header {
+  @apply bg-[#1E1E1E] text-white border-b border-[#292929];
+}
+
+.perfilUsuario__perfil-table-header-row {
+  @apply border-b border-[#292929];
+}
+
+.perfilUsuario__perfil-table-header-cell {
+  @apply text-center p-3 border border-[#292929];
+}
+
+.perfilUsuario__perfil-table-body {
+  /* No additional styles needed */
+}
+
+.perfilUsuario__perfil-table-row {
+  @apply border-b border-[#292929] hover:bg-[#252525];
+}
+
+.perfilUsuario__perfil-table-cell {
+  @apply text-center p-3 border border-[#292929] text-[#E0E0E0];
+}
+
+.perfilUsuario__perfil-table-empty {
+  @apply text-center p-4 border border-[#292929] text-[#E0E0E0];
+}
+
+.perfilUsuario__perfil-pagination {
+  @apply mt-4;
+}
+
+.perfilUsuario__perfil-button-edit {
+  @apply border border-blue-500 text-blue-500 px-4 py-1 rounded-md hover:bg-blue-500 hover:text-white transition;
+}
+
+.perfilUsuario__perfil-button-delete {
+  @apply border border-red-500 text-red-500 px-4 py-1 rounded-md hover:bg-red-500 hover:text-white transition ml-2;
+}
+
+.perfilUsuario__perfil-status-active {
+  @apply text-green-400;
+}
+
+.perfilUsuario__perfil-status-inactive {
+  @apply text-red-400;
+}

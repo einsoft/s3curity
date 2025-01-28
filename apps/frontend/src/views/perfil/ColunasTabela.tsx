@@ -1,5 +1,7 @@
 "use client";
 
+import "./perfil.css";
+
 import { Perfil } from "@s3curity/core";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
