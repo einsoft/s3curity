@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
-import { useToast } from "@/src/data/hooks/use-toast";
 import useFormAuth from "@/src/data/hooks/useFormAuth";
+import { useToast } from "@/src/data/hooks/useToast";
 import CampoEmail from "../shared/formulario/CampoEmail";
 import CampoSenha from "../shared/formulario/CampoSenha";
 import CampoTelefone from "../shared/formulario/CampoTelefone";

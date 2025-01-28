@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
-import { useToast } from "./use-toast";
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
+import { useToast } from "./useToast";
 
 interface ErrorResponse {
   code: number;
