@@ -1,6 +1,6 @@
-import Logo from "@/src/components/logo/Logo";
 import Cabecalho from "@/src/components/shared/Cabecalho";
 import CampoEmail from "@/src/components/shared/formulario/CampoEmail";
+import Logo from "@/src/components/shared/logo/Logo";
 import useSessao from "@/src/data/hooks/useSessao";
 
 export default function TrocaSenha() {

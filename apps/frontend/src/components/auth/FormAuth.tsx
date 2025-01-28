@@ -5,11 +5,11 @@ import { useSearchParams } from "next/navigation";
 
 import { useToast } from "@/src/data/hooks/use-toast";
 import useFormAuth from "@/src/data/hooks/useFormAuth";
-import Logo from "../logo/Logo";
 import CampoEmail from "../shared/formulario/CampoEmail";
 import CampoSenha from "../shared/formulario/CampoSenha";
 import CampoTelefone from "../shared/formulario/CampoTelefone";
 import CampoTexto from "../shared/formulario/CampoTexto";
+import Logo from "../shared/logo/Logo";
 
 export default function FormAuth() {
   const searchParams = useSearchParams();
