@@ -4,7 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Perfil } from "@s3curity/core";
 
 import { Input } from "@/src/components/ui/input";
-import usePerfil from "@/src/data/hooks/usePerfil";
+import { useFetchPerfis } from "./PerfisData";
 
 interface ProcuraProps {
   onSearch: (filteredPerfis: Perfil[]) => void;
@@ -12,17 +12,7 @@ interface ProcuraProps {
 
 export default function Procura({ onSearch }: ProcuraProps) {
   const [search, setSearch] = useState("");
-  const [perfis, setPerfis] = useState<Perfil[]>([]);
-  const { fetchPerfis } = usePerfil();
-
-  useEffect(() => {
-    async function loadPerfis() {
-      const fetchedPerfis = await fetchPerfis();
-      setPerfis(fetchedPerfis);
-    }
-
-    loadPerfis();
-  }, [fetchPerfis]);
+  const perfis = useFetchPerfis();
 
   const filteredPerfis = useMemo(() => {
     return perfis.filter((perfil: Perfil) =>
