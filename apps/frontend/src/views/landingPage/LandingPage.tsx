@@ -1,7 +1,7 @@
 "use client";
 
-import Logo from "@/src/components/logo/Logo";
 import Cabecalho from "@/src/components/shared/Cabecalho";
+import Logo from "@/src/components/shared/logo/Logo";
 
 export default function LandingPage() {
   return (
