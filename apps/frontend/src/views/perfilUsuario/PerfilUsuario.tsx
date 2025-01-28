@@ -6,7 +6,7 @@ import CampoSenha from "@/src/components/shared/formulario/CampoSenha";
 import CampoTexto from "@/src/components/shared/formulario/CampoTexto";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
-import useFormPerfil from "@/src/data/hooks/useFormPerfil";
+import useFormPerfil from "@/src/data/hooks/useFormPerfilUsuario";
 import useSessao from "@/src/data/hooks/useSessao";
 
 export default function PerfilUsuario() {
