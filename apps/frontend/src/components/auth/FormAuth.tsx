@@ -105,11 +105,11 @@ export default function FormAuth() {
           <Logo />
         </Link>
         {modo === "login" ? (
-          <span className="formulario__container--logotipo">
+          <span className="formulario__container-logotipo">
             Entre com sua conta
           </span>
         ) : (
-          <span className="formulario__container--logotipo">Cadastrar</span>
+          <span className="formulario__container-logotipo">Cadastrar</span>
         )}
       </div>
       <div className="formulario gap-4">
@@ -140,10 +140,10 @@ export default function FormAuth() {
           </span>
         )}
         <div className="form__buttoncontainer mt-4">
-          <button onClick={handleSubmit} className="form__button--green">
+          <button onClick={handleSubmit} className="form__button-green">
             Confirmar
           </button>
-          <button className="form__button--red">
+          <button className="form__button-red">
             <Link href="/">Cancelar</Link>
           </button>
         </div>

@@ -9,9 +9,9 @@ export default function Cabecalho() {
   const { usuario } = useSessao();
   return (
     <header className="cabecalho__container">
-      <nav className="cabecalho__container--items">
+      <nav className="cabecalho__container-items">
         <div>&nbsp;</div>
-        <div className="cabecalho__container--itemsAlinhamentoDireita">
+        <div className="cabecalho__container-itemsAlinhamentoDireita">
           {usuario ? <MenuUsuario /> : <Link href="/entrar">Entrar</Link>}
         </div>
       </nav>

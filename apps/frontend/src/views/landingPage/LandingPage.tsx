@@ -7,7 +7,7 @@ export default function LandingPage() {
   return (
     <div className="container__landingpage">
       <Cabecalho />
-      <div className="container__landingpage--conteudo">
+      <div className="container__landingpage-conteudo">
         <Logo />
       </div>
     </div>

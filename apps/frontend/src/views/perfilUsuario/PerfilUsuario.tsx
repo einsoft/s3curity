@@ -52,7 +52,7 @@ export default function PerfilUsuario() {
         </header>
         <div className="space-y-8 w-full">
           <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
-            <div className="formulario__container--logotipo text-zinc-500">
+            <div className="formulario__container-logotipo text-zinc-500">
               Informações principais
             </div>
             <CardContent className="space-y-6">
@@ -74,7 +74,7 @@ export default function PerfilUsuario() {
               </div>
               <div className="pt-6 flex justify-center bg w-full">
                 <button
-                  className="form__button--green w-full"
+                  className="form__button-green w-full"
                   disabled={processando}
                   onClick={async (e) => {
                     e.preventDefault();
@@ -90,10 +90,10 @@ export default function PerfilUsuario() {
             id="aviso"
             className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]"
           >
-            <div className="formulario__container--logotipo text-zinc-500">
+            <div className="formulario__container-logotipo text-zinc-500">
               Mudar a senha
             </div>
-            <CardHeader className="formulario__container--aviso">
+            <CardHeader className="formulario__container-aviso">
               <div className={erroSenha ? "text-red-500" : ""}>
                 {erroSenha ||
                   "Para sua segurança, não compartilhe sua senha com outras pessoas."}
@@ -129,7 +129,7 @@ export default function PerfilUsuario() {
               </div>
               <div className="flex flex-col space-y-4 pt-6 w-full">
                 <button
-                  className="form__button--green w-full"
+                  className="form__button-green w-full"
                   disabled={processando}
                   onClick={async (e) => {
                     e.preventDefault();
