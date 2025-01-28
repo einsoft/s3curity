@@ -28,11 +28,11 @@ export default function PerfilUsuario() {
   } = useFormPerfil();
 
   return (
-    <div className="container mt-16">
+    <div className="perfilUsuario__container perfilUsuario__margin-top-16">
       <Cabecalho />
-      <div className="formulario__container">
+      <div className="perfilUsuario__formulario-container">
         <header>
-          <div className="flex items-center space-x-3">
+          <div className="perfilUsuario__flex perfilUsuario__items-center perfilUsuario__space-x-3">
             <Image
               src={
                 usuario?.imagemPerfil ? usuario?.imagemPerfil : "/avatar.svg"
@@ -40,23 +40,25 @@ export default function PerfilUsuario() {
               alt="Avatar"
               width="96"
               height="96"
-              className="rounded-full mb-4"
+              className="perfilUsuario__rounded-full perfilUsuario__margin-bottom-4"
               style={{ aspectRatio: "96/96", objectFit: "cover" }}
               priority={false}
             />
-            <div className="space-y-1">
-              <h1 className="text-2xl font-bold">{usuario?.nomeCompleto}</h1>
+            <div className="perfilUsuario__space-y-1">
+              <h1 className="perfilUsuario__text-2xl perfilUsuario__font-bold">
+                {usuario?.nomeCompleto}
+              </h1>
               <Button>Mudar avatar</Button>
             </div>
           </div>
         </header>
         <div className="space-y-8 w-full">
-          <Card className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]">
-            <div className="formulario__container-logotipo text-zinc-500">
+          <Card className="perfilUsuario__bg-gray-100 perfilUsuario__border-dashed perfilUsuario__border-2 perfilUsuario__border-gray-100">
+            <div className="perfilUsuario__formulario-container-logotipo perfilUsuario__text-zinc-500">
               Informações principais
             </div>
-            <CardContent className="space-y-6">
-              <div className="space-y-2 pt-4">
+            <CardContent className="perfilUsuario__space-y-6">
+              <div className="perfilUsuario__space-y-2 perfilUsuario__padding-top-4">
                 <CampoTexto
                   value={nome || ""}
                   placeholder="Nome completo"
@@ -64,7 +66,7 @@ export default function PerfilUsuario() {
                   labelText="Nome completo"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="perfilUsuario__space-y-2">
                 <CampoEmail
                   placeholder="E-mail principal"
                   value={email}
@@ -72,9 +74,9 @@ export default function PerfilUsuario() {
                   disabled={true}
                 />
               </div>
-              <div className="pt-6 flex justify-center bg w-full">
+              <div className="perfilUsuario__padding-top-6 perfilUsuario__flex perfilUsuario__justify-center perfilUsuario__bg perfilUsuario__w-full">
                 <button
-                  className="form__button-green w-full"
+                  className="perfilUsuario__form-button-green perfilUsuario__w-full"
                   disabled={processando}
                   onClick={async (e) => {
                     e.preventDefault();
@@ -88,19 +90,19 @@ export default function PerfilUsuario() {
           </Card>
           <Card
             id="aviso"
-            className="bg-[#A1A1AA1A] border-dashed border-2 border-[#A1A1AA1A]"
+            className="perfilUsuario__bg-gray-100 perfilUsuario__border-dashed perfilUsuario__border-2 perfilUsuario__border-gray-100"
           >
-            <div className="formulario__container-logotipo text-zinc-500">
+            <div className="perfilUsuario__formulario-container-logotipo perfilUsuario__text-zinc-500">
               Mudar a senha
             </div>
-            <CardHeader className="formulario__container-aviso">
-              <div className={erroSenha ? "text-red-500" : ""}>
+            <CardHeader className="perfilUsuario__formulario-container-aviso">
+              <div className={erroSenha ? "perfilUsuario__text-red-500" : ""}>
                 {erroSenha ||
                   "Para sua segurança, não compartilhe sua senha com outras pessoas."}
               </div>
             </CardHeader>
-            <CardContent className="space-y-4">
-              <div className="space-y-2">
+            <CardContent className="perfilUsuario__space-y-4">
+              <div className="perfilUsuario__space-y-2">
                 <CampoSenha
                   id="senha"
                   placeholder="Senha atual"
@@ -109,7 +111,7 @@ export default function PerfilUsuario() {
                   labelText="Senha atual"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="perfilUsuario__space-y-2">
                 <CampoSenha
                   id="novasenha"
                   placeholder="Nova senha"
@@ -118,7 +120,7 @@ export default function PerfilUsuario() {
                   labelText="Nova senha"
                 />
               </div>
-              <div className="space-y-2">
+              <div className="perfilUsuario__space-y-2">
                 <CampoSenha
                   id="confirmenovasenha"
                   placeholder="Confirme a nova senha"
@@ -127,9 +129,9 @@ export default function PerfilUsuario() {
                   labelText="Confirme a nova senha"
                 />
               </div>
-              <div className="flex flex-col space-y-4 pt-6 w-full">
+              <div className="perfilUsuario__flex perfilUsuario__flex-col perfilUsuario__space-y-4 perfilUsuario__padding-top-6 perfilUsuario__w-full">
                 <button
-                  className="form__button-green w-full"
+                  className="perfilUsuario__form-button-green perfilUsuario__w-full"
                   disabled={processando}
                   onClick={async (e) => {
                     e.preventDefault();
