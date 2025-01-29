@@ -12,10 +12,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
         <main className="flex-1">{children}</main>
         <nav className="order-first w-64 bg-black/60 text-right">
           <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
-            <Link href={"/perfil"}>Listar</Link>
+            <Link href={"/perfil"}>Gerenciar</Link>
           </div>
           <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
-            <Link href={"/perfil/adicionar"}>Adicionar</Link>
+            <Link href={"/perfil/adicionar"}>Visualizar</Link>
+          </div>
+          <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
+            <Link href={"/perfil/adicionar"}>Relatórios</Link>
           </div>
         </nav>
       </div>
