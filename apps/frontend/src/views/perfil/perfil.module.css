@@ -2,15 +2,15 @@
   @apply p-6 bg-[#121212] min-h-screen text-white;
 }
 
-.perfil__search-bar {
+.perfil__search_bar {
   @apply w-full mb-4 flex items-center justify-center p-3 rounded-lg;
 }
 
-.perfil__search-bar-input {
+.perfil__search_bar_input {
   @apply w-1/2 bg-[#1E1E1E] text-white placeholder-gray-500 border border-[#292929] !important;
 }
 
-.perfil__table-container {
+.perfil__table_container {
   @apply rounded-lg border border-[#292929] overflow-hidden;
 }
 
@@ -18,31 +18,31 @@
   @apply w-full border border-[#292929];
 }
 
-.perfil__table-header {
+.perfil__table_header {
   @apply bg-[#1E1E1E] text-white border-b border-[#292929];
 }
 
-.perfil__table-header-row {
+.perfil__table_header-row {
   @apply border-b border-[#292929];
 }
 
-.perfil__table-header-cell {
+.perfil__table_header_cell {
   @apply text-center p-3 border border-[#292929];
 }
 
-.perfil__table-body {
+.perfil__table_body {
   /* No additional styles needed */
 }
 
-.perfil__table-row {
+.perfil__table_row {
   @apply border-b border-[#292929] hover:bg-[#252525];
 }
 
-.perfil__table-cell {
+.perfil__table_cell {
   @apply text-center p-3 border border-[#292929] text-[#E0E0E0];
 }
 
-.perfil__table-empty {
+.perfil__table_empty {
   @apply text-center p-4 border border-[#292929] text-[#E0E0E0];
 }
 
@@ -50,18 +50,18 @@
   @apply mt-4;
 }
 
-.perfil__button-edit {
+.perfil__button_edit {
   @apply border border-blue-500 text-blue-500 px-4 py-1 rounded-md hover:bg-blue-500 hover:text-white transition;
 }
 
-.perfil__button-delete {
+.perfil__button_delete {
   @apply border border-red-500 text-red-500 px-4 py-1 rounded-md hover:bg-red-500 hover:text-white transition ml-2;
 }
 
-.perfil__status-active {
+.perfil__status_active {
   @apply text-green-400;
 }
 
-.perfil__status-inactive {
+.perfil__status_inactive {
   @apply text-red-400;
 }

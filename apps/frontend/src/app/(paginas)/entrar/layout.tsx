@@ -1,3 +1,3 @@
-export default function layout({ children }: any) {
-  return <div className="container">{children}</div>;
+export default function Layout({ children }: { children: React.ReactNode }) {
+  return <>{children}</>;
 }

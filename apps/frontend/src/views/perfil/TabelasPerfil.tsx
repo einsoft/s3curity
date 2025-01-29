@@ -19,6 +19,7 @@ import {
 } from "@/src/components/ui/table";
 import columns from "./ColunasTabela";
 import Paginacao from "./Paginacao";
+import styles from "./perfil.module.css";
 import Procura from "./Procura";
 
 export default function TabelasPerfil() {
@@ -33,21 +34,21 @@ export default function TabelasPerfil() {
   });
 
   return (
-    <div className="perfil">
+    <div className={styles.perfil}>
       <Procura onSearch={setFilteredPerfis} />
 
-      <div className="perfil__table-container">
-        <Table className="perfil__table">
-          <TableHeader className="perfil__table-header">
+      <div className={styles.perfil__table_container}>
+        <Table className={styles.perfil__table}>
+          <TableHeader className={styles.perfil__table_header}>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow
                 key={headerGroup.id}
-                className="perfil__table-header-row"
+                className={styles.perfil__table_header_row}
               >
                 {headerGroup.headers.map((header) => (
                   <TableHead
                     key={header.id}
-                    className="perfil__table-header-cell"
+                    className={styles.perfil__table_header_cell}
                   >
                     {flexRender(
                       header.column.columnDef.header,
@@ -61,9 +62,12 @@ export default function TabelasPerfil() {
           <TableBody>
             {table.getRowModel().rows.length ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} className="perfil__table-row">
+                <TableRow key={row.id} className={styles.perfil__table_row}>
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id} className="perfil__table-cell">
+                    <TableCell
+                      key={cell.id}
+                      className={styles.perfil__table_cell}
+                    >
                       {flexRender(
                         cell.column.columnDef.cell,
                         cell.getContext(),
@@ -76,7 +80,7 @@ export default function TabelasPerfil() {
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className="perfil__table-empty"
+                  className={styles.perfil__table_empty}
                 >
                   Nenhum perfil encontrado.
                 </TableCell>

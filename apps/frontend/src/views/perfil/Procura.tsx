@@ -4,6 +4,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Perfil } from "@s3curity/core";
 
 import { Input } from "@/src/components/ui/input";
+import styles from "./perfil.module.css";
 import { useFetchPerfis } from "./PerfisData";
 
 interface ProcuraProps {
@@ -25,12 +26,12 @@ export default function Procura({ onSearch }: ProcuraProps) {
   }, [filteredPerfis, onSearch]);
 
   return (
-    <div className="perfil__search-bar">
+    <div className={styles.perfil__search_bar}>
       <Input
         placeholder="Pesquisar Perfis"
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="perfil__search-bar-input"
+        className={styles.perfil__search_bar_input}
       />
     </div>
   );

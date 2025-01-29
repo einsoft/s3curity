@@ -2,6 +2,6 @@
   @apply relative min-h-screen w-full;
 }
 
-.landingpage__container-conteudo {
+.landingpage__container_conteudo {
   @apply flex items-center justify-center h-screen;
 }

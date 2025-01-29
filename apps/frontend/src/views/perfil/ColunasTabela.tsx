@@ -1,12 +1,11 @@
 "use client";
 
-import "./perfil.css";
-
 import { Perfil } from "@s3curity/core";
 import { ColumnDef } from "@tanstack/react-table";
 import { format } from "date-fns";
 
 import { Button } from "@/src/components/ui/button";
+import styles from "./perfil.module.css";
 
 const columns: ColumnDef<Perfil>[] = [
   {
@@ -37,8 +36,8 @@ const columns: ColumnDef<Perfil>[] = [
       <span
         className={
           row.getValue("status") === "ativo"
-            ? "perfil__status-active"
-            : "perfil__status-inactive"
+            ? styles.perfil__status_active
+            : styles.perfil__status_inactive
         }
       >
         {row.getValue("status")}
@@ -50,8 +49,8 @@ const columns: ColumnDef<Perfil>[] = [
     header: "Ações",
     cell: () => (
       <div className="flex justify-center">
-        <Button className="perfil__button-edit">Editar</Button>
-        <Button className="perfil__button-delete">Excluir</Button>
+        <Button className={styles.perfil__button_edit}>Editar</Button>
+        <Button className={styles.perfil__button_delete}>Excluir</Button>
       </div>
     ),
   },

@@ -84,48 +84,12 @@
     @apply flex justify-end;
   }
 
-  .formulario {
-    @apply flex flex-col gap-1 w-full p-4;
-  }
-
-  .formulario__container {
-    @apply flex flex-col items-center justify-center bg-[#18181b] py-10 px-10 rounded-lg w-[630];
-  }
-
-  .formulario__container-logotipo {
-    @apply font-bold leading-9 text-center;
-  }
-
-  .formulario__container-aviso {
-    @apply text-red-700 text-center bg-red-100 m-4 p-4 rounded-lg;
-  }
-
-  .formulario__link {
-    @apply text-zinc-500 text-right;
-  }
-
   .formulario__input {
     @apply w-[100%] h-[50px] bg-[#09090B] rounded-lg px-4 flex items-center text-zinc-400;
   }
 
   .formulario__label {
     @apply text-zinc-500 text-sm ml-1;
-  }
-
-  .form__buttoncontainer {
-    @apply flex justify-center gap-2;
-  }
-
-  .form__button-green {
-    @apply bg-[#22c55e] text-white font-bold py-2 px-4 rounded-lg w-1/2 transition-colors duration-300 hover:bg-[#16a34a];
-  }
-
-  .form__button-red {
-    @apply bg-[#ef4444] text-white font-bold py-2 px-4 rounded-lg w-1/2 transition-colors duration-300 hover:bg-[#dc2626];
-  }
-
-  .form__button-gray {
-    @apply bg-[#3f3f46] text-[#e4e4e7] font-bold py-2 px-4 rounded-lg w-1/2 transition-colors duration-300 hover:bg-[#27272a];
   }
 
   .debug {

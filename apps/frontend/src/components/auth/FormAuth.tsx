@@ -10,6 +10,7 @@ import CampoSenha from "../shared/formulario/CampoSenha";
 import CampoTelefone from "../shared/formulario/CampoTelefone";
 import CampoTexto from "../shared/formulario/CampoTexto";
 import Logo from "../shared/logo/Logo";
+import styles from "./FormAuth.module.css";
 
 export default function FormAuth() {
   const searchParams = useSearchParams();
@@ -99,20 +100,22 @@ export default function FormAuth() {
   };
 
   return (
-    <div className="formulario__container">
+    <div className={styles.formulario__container}>
       <div className="pb-2">
         <Link href={"/"}>
           <Logo />
         </Link>
         {modo === "login" ? (
-          <span className="formulario__container-logotipo">
+          <span className={styles.formulario__container_logotipo}>
             Entre com sua conta
           </span>
         ) : (
-          <span className="formulario__container-logotipo">Cadastrar</span>
+          <span className={styles.formulario__container_logotipo}>
+            Cadastrar
+          </span>
         )}
       </div>
-      <div className="formulario gap-4">
+      <div className={`${styles.formulario} gap-4`}>
         {modo === "cadastro" && (
           <>
             <CampoTexto
@@ -135,20 +138,20 @@ export default function FormAuth() {
         />
         <CampoSenha placeholder="Senha" value={senha} onChangeText={setSenha} />
         {modo === "login" && (
-          <span className="formulario__link">
+          <span className={styles.formulario__link}>
             <Link href="/trocarsenha">Esqueceu sua senha?</Link>
           </span>
         )}
-        <div className="form__buttoncontainer mt-4">
-          <button onClick={handleSubmit} className="form__button-green">
+        <div className={`${styles.form__buttoncontainer} mt-4`}>
+          <button onClick={handleSubmit} className={styles.form__button_green}>
             Confirmar
           </button>
-          <button className="form__button-red">
+          <button className={styles.form__button_red}>
             <Link href="/">Cancelar</Link>
           </button>
         </div>
         {toastest && (
-          <div className="form__buttoncontainer mt-4">
+          <div className={`${styles.form__buttoncontainer} mt-4`}>
             <button
               onClick={() =>
                 toast({
@@ -156,14 +159,14 @@ export default function FormAuth() {
                   description: "This is a test toast message",
                 })
               }
-              className="form__button--blue"
+              className={styles.form__button_blue}
             >
               Test Toast
             </button>
           </div>
         )}
       </div>
-      <div className="formulario mt-4">
+      <div className={`${styles.formulario} mt-4`}>
         <button onClick={alternarModo}>
           {modo === "login" ? (
             <div>
