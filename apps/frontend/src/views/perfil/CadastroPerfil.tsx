@@ -1,7 +1,18 @@
+"use client";
+
+import CampoTexto from "@/src/components/shared/formulario/CampoTexto";
 import { Button } from "@/src/components/ui/button";
+import usePerfil from "@/src/data/hooks/usePerfil";
 import styles from "./perfil.module.css";
 
 export default function CadastroPerfil() {
+  const { nome, descricao, status, setNome, setDescricao, setStatus } =
+    usePerfil();
+
+  function handleSubmit() {
+    console.log("Salvando perfil");
+  }
+
   return (
     <div className="flex flex-col bg-zinc-900 text-white p-6 rounded-xl shadow-lg w-full">
       <div className="mb-4 w-full">
@@ -11,11 +22,11 @@ export default function CadastroPerfil() {
         >
           Nome perfil
         </label>
-        <input
+        <CampoTexto
           id="nome"
-          type="text"
-          value="cadastrar novo perfil (incluir)"
-          className="w-full mt-1 p-2 bg-zinc-800 rounded-md border border-zinc-700 text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          value={nome}
+          placeholder="Cadastrar novo perfil (incluir)"
+          onChangeText={setNome}
         />
       </div>
 
@@ -26,12 +37,10 @@ export default function CadastroPerfil() {
         >
           Descrição perfil
         </label>
-        <input
-          id="descricao"
-          type="text"
-          value="Ao utilizar a interface da aplicação administrativa, o usuário pode..."
-          readOnly
-          className="w-full mt-1 p-2 bg-zinc-800 rounded-md border border-zinc-700 text-gray-300 truncate focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <CampoTexto
+          value={descricao}
+          placeholder="Descricao"
+          onChangeText={setDescricao}
         />
       </div>
 
@@ -39,16 +48,17 @@ export default function CadastroPerfil() {
         <label className="block text-sm font-medium text-gray-400" htmlFor="id">
           Status
         </label>
-        <input
-          id="id"
-          type="text"
-          value="status-perfil"
-          readOnly
-          className="w-full mt-1 p-2 bg-zinc-800 rounded-md border border-zinc-700 text-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+        <CampoTexto
+          value={status}
+          placeholder="ativo"
+          onChangeText={setStatus}
         />
       </div>
 
-      <Button className={`${styles.perfil__button_salvar} w-1/3 self-center`}>
+      <Button
+        onClick={handleSubmit}
+        className={`${styles.perfil__button_salvar} w-1/4 self-end`}
+      >
         Salvar
       </Button>
     </div>

@@ -7,6 +7,9 @@ import useAPI from "./useAPI";
 export default function usePerfil() {
   const [processando, setProcessando] = useState(false);
   const [perfis, setPerfis] = useState([]);
+  const [nome, setNome] = useState("");
+  const [descricao, setDescricao] = useState("");
+  const [status, setStatus] = useState("");
 
   const { httpGet } = useAPI();
 
@@ -28,6 +31,12 @@ export default function usePerfil() {
   }, []);
 
   return {
+    nome,
+    setNome,
+    descricao,
+    setDescricao,
+    status,
+    setStatus,
     processando,
     perfis,
     fetchPerfis,
