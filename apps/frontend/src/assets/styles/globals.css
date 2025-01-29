@@ -69,7 +69,7 @@
 
 @layer components {
   .container {
-    @apply flex justify-center items-center w-full h-full min-h-screen text-white;
+    @apply flex justify-center items-center w-full h-full min-h-screen text-white bg-[#121212];
   }
 
   .cabecalho__container {

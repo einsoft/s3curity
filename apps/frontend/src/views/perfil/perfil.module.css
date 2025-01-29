@@ -50,6 +50,10 @@
   @apply mt-4;
 }
 
+.perfil__button_salvar {
+  @apply border border-green-500 text-green-500 px-4 py-1 rounded-md hover:bg-green-500 hover:text-white transition;
+}
+
 .perfil__button_edit {
   @apply border border-blue-500 text-blue-500 px-4 py-1 rounded-md hover:bg-blue-500 hover:text-white transition;
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import Cabecalho from "@/src/components/shared/Cabecalho";
 
 export default function Layout({ children }: { children: React.ReactNode }) {
@@ -8,9 +10,13 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <Cabecalho />
       <div className="flex flex-1 flex-row">
         <main className="flex-1">{children}</main>
-        <nav className="order-first w-64 bg-black/60">
-          <div className="ml-3 rounded-l-lg bg-[#121212] p-2">Listar</div>
-          <div className="ml-3 rounded-l-lg p-2">Adicionar</div>
+        <nav className="order-first w-64 bg-black/60 text-right">
+          <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
+            <Link href={"/perfil"}>Listar</Link>
+          </div>
+          <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
+            <Link href={"/perfil/adicionar"}>Adicionar</Link>
+          </div>
         </nav>
       </div>
     </div>
