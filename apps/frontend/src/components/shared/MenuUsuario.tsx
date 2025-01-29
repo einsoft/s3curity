@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -14,14 +15,48 @@ import {
   DropdownMenuItem,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from "./ui/dropdown-menu";
+} from "../ui/dropdown-menu";
 
 export default function MenuUsuario() {
+  useEffect(() => {
+    const handleMenuToggle = (event: Event) => {
+      const cabecalho = document.querySelector(".cabecalho__container");
+      if (cabecalho) {
+        if (event.type === "click") {
+          cabecalho.classList.add("fixed");
+        } else if (event.type === "blur") {
+          cabecalho.classList.remove("fixed");
+        }
+      }
+    };
+
+    const dropdownTrigger = document.querySelector(
+      "[data-radix-popper-trigger]",
+    );
+    if (dropdownTrigger) {
+      dropdownTrigger.addEventListener("click", handleMenuToggle);
+      dropdownTrigger.addEventListener("blur", handleMenuToggle);
+    }
+
+    return () => {
+      if (dropdownTrigger) {
+        dropdownTrigger.removeEventListener("click", handleMenuToggle);
+        dropdownTrigger.removeEventListener("blur", handleMenuToggle);
+      }
+    };
+  }, []);
   const { usuario, encerrarSessao } = useSessao();
 
   return usuario ? (
     <DropdownMenu>
-      <DropdownMenuTrigger>
+      <DropdownMenuTrigger
+        onClick={() => {
+          const cabecalho = document.querySelector(".cabecalho__container");
+          if (cabecalho) {
+            cabecalho.classList.add("fixed");
+          }
+        }}
+      >
         <div className="flex items-center gap-3">
           <div className="flex flex-col items-end">
             <span className="font-bold">{usuario?.nomeCompleto}</span>
