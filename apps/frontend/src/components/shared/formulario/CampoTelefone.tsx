@@ -1,4 +1,5 @@
 import { IconPhone } from "@tabler/icons-react";
+import { v4 as uuidv4 } from "uuid";
 
 import { Label } from "@/src/components/ui/label";
 import useFormatadorTelefone from "@/src/data/hooks/useUtils";
@@ -14,6 +15,7 @@ export interface CampoTelefoneProps
 
 export default function CampoTelefone(props: CampoTelefoneProps) {
   const { valorFormatado, handleChange } = useFormatadorTelefone(props.value);
+  const inputId = uuidv4();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     handleChange(e);
@@ -32,7 +34,7 @@ export default function CampoTelefone(props: CampoTelefoneProps) {
       )}
       <div className="formulario__input">
         <input
-          id={props.placeholder}
+          id={inputId}
           type="text"
           value={valorFormatado}
           onChange={handleInputChange}

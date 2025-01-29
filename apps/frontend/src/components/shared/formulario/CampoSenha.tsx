@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { IconEye, IconEyeOff } from "@tabler/icons-react";
+import { v4 as uuidv4 } from "uuid";
 
 export interface CampoSenhaProps extends React.HTMLAttributes<HTMLDivElement> {
   labelText?: string;
@@ -12,6 +13,7 @@ export interface CampoSenhaProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export default function CampoSenha(props: CampoSenhaProps) {
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const inputId = uuidv4();
 
   function alternarMostrarSenha() {
     setMostrarSenha(!mostrarSenha);
@@ -28,7 +30,7 @@ export default function CampoSenha(props: CampoSenhaProps) {
       )}
       <div className="formulario__input">
         <input
-          id={props.id ? props.id : "senha"}
+          id={inputId}
           type={mostrarSenha ? "text" : "password"}
           value={props.value}
           onChange={(e) => {

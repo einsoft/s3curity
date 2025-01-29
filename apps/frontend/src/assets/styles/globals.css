@@ -73,11 +73,11 @@
   }
 
   .cabecalho__container {
-    @apply fixed top-0 left-0 w-full flex items-center h-12 bg-black/60 rounded-xl;
+    @apply fixed top-0 left-0 w-full flex items-center h-14 bg-black/60 rounded-xl;
   }
 
   .cabecalho__container-items {
-    @apply flex justify-around w-full;
+    @apply flex justify-around w-full items-center;
   }
 
   .cabecalho__container-itemsAlinhamentoDireita {

@@ -1,4 +1,5 @@
 import { IconTextCaption } from "@tabler/icons-react";
+import { v4 as uuidv4 } from "uuid";
 
 import { Label } from "@/src/components/ui/label";
 
@@ -12,6 +13,8 @@ export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function CampoTexto(props: CampoTextoProps) {
+  const inputId = uuidv4();
+
   return (
     <div className="outline-none">
       {props.labelText && (
@@ -21,7 +24,7 @@ export default function CampoTexto(props: CampoTextoProps) {
       )}
       <div className="formulario__input">
         <input
-          id={props.placeholder}
+          id={inputId}
           type="text"
           value={props.value}
           onChange={(e) => {

@@ -1,4 +1,5 @@
 import { IconMail } from "@tabler/icons-react";
+import { v4 as uuidv4 } from "uuid";
 
 import { Label } from "@/src/components/ui/label";
 
@@ -11,6 +12,8 @@ export interface CampoEmailProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export default function CampoEmail(props: CampoEmailProps) {
+  const inputId = uuidv4();
+
   return (
     <div className="outline-none">
       {props?.labelText && (
@@ -22,7 +25,7 @@ export default function CampoEmail(props: CampoEmailProps) {
       )}
       <div className="formulario__input">
         <input
-          id={props.placeholder}
+          id={inputId}
           disabled={props?.disabled ? true : false}
           type="text"
           value={props.value}

@@ -11,8 +11,10 @@ export default function Cabecalho() {
   return (
     <header className="cabecalho__container">
       <nav className="cabecalho__container-items">
-        <div>
-          <Logo width={60} />
+        <div className="mt-2">
+          <Link href={"/"}>
+            <Logo width={60} />
+          </Link>
         </div>
         <div className="cabecalho__container-itemsAlinhamentoDireita">
           {usuario ? <MenuUsuario /> : <Link href="/entrar">Entrar</Link>}
