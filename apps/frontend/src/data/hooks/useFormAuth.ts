@@ -192,6 +192,89 @@ export default function useFormAuth() {
     }
   }
 
+  const handleRegistrationSuccess = async () => {
+    const loginResult = await submeter();
+    if (loginResult.success) {
+      toast({
+        title: "Cadastro realizado!",
+        description: "Você foi automaticamente logado e será redirecionado.",
+        variant: "default",
+      });
+    } else {
+      toast({
+        title: "Cadastro realizado!",
+        description: "Por favor, faça login com suas novas credenciais.",
+        variant: "default",
+      });
+      alternarModo();
+    }
+  };
+
+  const handleLoginSuccess = () => {
+    toast({
+      title: "Login realizado!",
+      description: "Você será redirecionado em breve.",
+      variant: "default",
+    });
+  };
+
+  const handleSuccess = () => {
+    if (modo === "cadastro") {
+      handleRegistrationSuccess();
+    } else {
+      handleLoginSuccess();
+    }
+  };
+
+  const handleError = (error: any) => {
+    const errorMessage =
+      error instanceof Error ? error.message : "Erro desconhecido";
+
+    if (errorMessage.includes("Já existe um usuário com este email")) {
+      toast({
+        title: "Email já cadastrado",
+        description: "Este email já está em uso. Tente fazer login.",
+        variant: "destructive",
+      });
+    } else if (
+      errorMessage.includes("Dados de registro inválidos") ||
+      errorMessage.includes("Dados inválidos")
+    ) {
+      toast({
+        title: "Dados inválidos",
+        description: "Verifique os dados informados e tente novamente.",
+        variant: "destructive",
+      });
+    } else if (
+      errorMessage.includes("Usuário ou senha incorretos") ||
+      errorMessage.includes("Credenciais inválidas")
+    ) {
+      toast({
+        title: "Credenciais inválidas",
+        description: "E-mail ou senha incorretos. Verifique suas credenciais.",
+        variant: "destructive",
+      });
+    } else {
+      toast({
+        title: "Erro na autenticação",
+        description: errorMessage,
+        variant: "destructive",
+      });
+    }
+  };
+
+  const handleSubmit = async (): Promise<void> => {
+    try {
+      const result = await submeter();
+
+      if (result.success) {
+        handleSuccess();
+      }
+    } catch (error) {
+      handleError(error);
+    }
+  };
+
   return {
     modo,
     nome,
@@ -209,5 +292,10 @@ export default function useFormAuth() {
     setTelefone,
     setEmail,
     setSenha,
+    handleRegistrationSuccess,
+    handleLoginSuccess,
+    handleSuccess,
+    handleError,
+    handleSubmit,
   };
 }
