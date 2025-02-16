@@ -3,9 +3,9 @@
 import { useEffect, useState } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 
+import { useToastContext } from "../contexts/ToastContext";
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
-import { useToast } from "./useToast";
 
 interface ErrorResponse {
   code: number;
@@ -29,7 +29,7 @@ interface SubmitResult {
 }
 
 export default function useFormAuth() {
-  const { toast } = useToast();
+  const { showSuccess, showError } = useToastContext();
   const [modo, setModo] = useState<"login" | "cadastro">("login");
   const [nome, setNome] = useState("");
   const [telefone, setTelefone] = useState("");
@@ -78,11 +78,7 @@ export default function useFormAuth() {
         response?.data?.error?.message ||
         "Usuário ou senha incorreta";
 
-      toast({
-        title: "Erro de autenticação",
-        description: errorMessage,
-        variant: "destructive",
-      });
+      showError("Erro de autenticação", errorMessage);
 
       return {
         success: false,
@@ -125,12 +121,10 @@ export default function useFormAuth() {
         response?.data?.message ||
         "Erro ao registrar usuário";
 
-      toast({
-        title:
-          response?.status === 409 ? "Email já cadastrado" : "Erro de registro",
-        description: errorMessage,
-        variant: "destructive",
-      });
+      showError(
+        response?.status === 409 ? "Email já cadastrado" : "Erro de registro",
+        errorMessage,
+      );
 
       return {
         success: false,
@@ -195,27 +189,21 @@ export default function useFormAuth() {
   const handleRegistrationSuccess = async () => {
     const loginResult = await submeter();
     if (loginResult.success) {
-      toast({
-        title: "Cadastro realizado!",
-        description: "Você foi automaticamente logado e será redirecionado.",
-        variant: "default",
-      });
+      showSuccess(
+        "Cadastro realizado!",
+        "Você foi automaticamente logado e será redirecionado.",
+      );
     } else {
-      toast({
-        title: "Cadastro realizado!",
-        description: "Por favor, faça login com suas novas credenciais.",
-        variant: "default",
-      });
+      showSuccess(
+        "Cadastro realizado!",
+        "Por favor, faça login com suas novas credenciais.",
+      );
       alternarModo();
     }
   };
 
   const handleLoginSuccess = () => {
-    toast({
-      title: "Login realizado!",
-      description: "Você será redirecionado em breve.",
-      variant: "default",
-    });
+    showSuccess("Login realizado!", "Você será redirecionado em breve.");
   };
 
   const handleSuccess = () => {
@@ -231,35 +219,28 @@ export default function useFormAuth() {
       error instanceof Error ? error.message : "Erro desconhecido";
 
     if (errorMessage.includes("Já existe um usuário com este email")) {
-      toast({
-        title: "Email já cadastrado",
-        description: "Este email já está em uso. Tente fazer login.",
-        variant: "destructive",
-      });
+      showError(
+        "Email já cadastrado",
+        "Este email já está em uso. Tente fazer login.",
+      );
     } else if (
       errorMessage.includes("Dados de registro inválidos") ||
       errorMessage.includes("Dados inválidos")
     ) {
-      toast({
-        title: "Dados inválidos",
-        description: "Verifique os dados informados e tente novamente.",
-        variant: "destructive",
-      });
+      showError(
+        "Dados inválidos",
+        "Verifique os dados informados e tente novamente.",
+      );
     } else if (
       errorMessage.includes("Usuário ou senha incorretos") ||
       errorMessage.includes("Credenciais inválidas")
     ) {
-      toast({
-        title: "Credenciais inválidas",
-        description: "E-mail ou senha incorretos. Verifique suas credenciais.",
-        variant: "destructive",
-      });
+      showError(
+        "Credenciais inválidas",
+        "E-mail ou senha incorretos. Verifique suas credenciais.",
+      );
     } else {
-      toast({
-        title: "Erro na autenticação",
-        description: errorMessage,
-        variant: "destructive",
-      });
+      showError("Erro na autenticação", errorMessage);
     }
   };
 

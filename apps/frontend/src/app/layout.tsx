@@ -7,6 +7,7 @@ import { Analytics } from "@vercel/analytics/react";
 
 import ErrorBoundary from "@/src/components/shared/ErrorBoundary";
 import { Toaster } from "@/src/components/ui/toaster";
+import { ToastProvider } from "@/src/data/contexts/ToastContext";
 
 const poppinsRegular = Poppins({
   subsets: ["latin"],
@@ -36,8 +37,10 @@ export default function RootLayout({
         <>
           <Analytics />
           <ErrorBoundary>
-            {children}
-            <Toaster />
+            <ToastProvider>
+              {children}
+              <Toaster />
+            </ToastProvider>
           </ErrorBoundary>
         </>
       </body>
