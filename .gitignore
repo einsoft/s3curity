@@ -45,3 +45,4 @@ yarn-error.log*
 *.pem
 
 /memory-bank/*
+.clinerules
