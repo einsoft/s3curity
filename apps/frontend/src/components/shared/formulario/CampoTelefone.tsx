@@ -1,51 +1,54 @@
-import { IconPhone } from "@tabler/icons-react";
-import { v4 as uuidv4 } from "uuid";
+"use client";
 
-import { Label } from "@/src/components/ui/label";
-import useFormatadorTelefone from "@/src/data/hooks/useUtils";
+import { InputHTMLAttributes } from "react";
+import { PhoneIcon } from "lucide-react";
 
 export interface CampoTelefoneProps
-  extends React.HTMLAttributes<HTMLDivElement> {
-  labelText?: string;
-  value: string;
+  extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
-  onChangeText?: (s: string) => void;
-  disabled?: boolean;
+  value: string;
+  onChangeText: (value: string) => void;
+  required?: boolean;
 }
 
-export default function CampoTelefone(props: CampoTelefoneProps) {
-  const { valorFormatado, handleChange } = useFormatadorTelefone(props.value);
-  const inputId = uuidv4();
+export default function CampoTelefone({
+  placeholder,
+  value,
+  onChangeText,
+  required,
+  "aria-label": ariaLabel,
+  ...rest
+}: CampoTelefoneProps) {
+  const formatarTelefone = (tel: string) => {
+    // Remove tudo que não é número
+    const numeros = tel.replace(/\D/g, "");
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    handleChange(e);
-    const formattedValue = e.target.value;
-    props.onChangeText?.(formattedValue);
+    // Aplica a máscara conforme o tamanho
+    if (numeros.length <= 11) {
+      return numeros.replace(/(\d{2})(\d{4,5})(\d{4})/, "($1) $2-$3");
+    }
+    return numeros.slice(0, 11); // Limita a 11 dígitos
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const formatted = formatarTelefone(e.target.value);
+    onChangeText(formatted);
   };
 
   return (
-    <div className="outline-none">
-      {props?.labelText && (
-        <>
-          <Label className="formulario__label" htmlFor={props.placeholder}>
-            {props.labelText}
-          </Label>
-        </>
-      )}
-      <div className="formulario__input">
-        <input
-          id={inputId}
-          type="text"
-          value={valorFormatado}
-          onChange={handleInputChange}
-          placeholder={props.placeholder}
-          disabled={props?.disabled ? true : false}
-          className="formulario__input"
-        />
-        <div>
-          <IconPhone className="text-zinc-500 cursor-pointer" />
-        </div>
-      </div>
+    <div className="relative">
+      <PhoneIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+      <input
+        type="tel"
+        className="w-full p-3 pl-10 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
+        placeholder={placeholder}
+        value={value}
+        onChange={handleChange}
+        required={required}
+        aria-label={ariaLabel}
+        maxLength={15} // (XX) XXXXX-XXXX
+        {...rest}
+      />
     </div>
   );
 }

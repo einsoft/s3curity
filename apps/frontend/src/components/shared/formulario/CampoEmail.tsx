@@ -1,45 +1,36 @@
-import { IconMail } from "@tabler/icons-react";
-import { v4 as uuidv4 } from "uuid";
+"use client";
 
-import { Label } from "@/src/components/ui/label";
+import { InputHTMLAttributes } from "react";
+import { MailIcon } from "lucide-react";
 
-export interface CampoEmailProps extends React.HTMLAttributes<HTMLDivElement> {
-  labelText?: string;
-  value: string;
+export interface CampoEmailProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
-  onChangeText?: (s: string) => void;
-  disabled?: boolean;
+  value: string;
+  onChangeText: (value: string) => void;
+  required?: boolean;
 }
 
-export default function CampoEmail(props: CampoEmailProps) {
-  const inputId = uuidv4();
-
+export default function CampoEmail({
+  placeholder,
+  value,
+  onChangeText,
+  required,
+  "aria-label": ariaLabel,
+  ...rest
+}: CampoEmailProps) {
   return (
-    <div className="outline-none">
-      {props?.labelText && (
-        <>
-          <Label className="formulario__label" htmlFor={props.placeholder}>
-            {props.labelText}
-          </Label>
-        </>
-      )}
-      <div className="formulario__input">
-        <input
-          id={inputId}
-          disabled={props?.disabled ? true : false}
-          type="text"
-          value={props.value}
-          onChange={(e) => {
-            props.onChange?.(e);
-            props.onChangeText?.(e.target.value);
-          }}
-          placeholder={props.placeholder}
-          className="formulario__input"
-        />
-        <div>
-          <IconMail className="text-zinc-500" />
-        </div>
-      </div>
+    <div className="relative">
+      <MailIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
+      <input
+        type="email"
+        className="w-full p-3 pl-10 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChangeText(e.target.value)}
+        required={required}
+        aria-label={ariaLabel}
+        {...rest}
+      />
     </div>
   );
 }

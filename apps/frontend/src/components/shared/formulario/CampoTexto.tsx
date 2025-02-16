@@ -1,46 +1,42 @@
-import { IconTextCaption } from "@tabler/icons-react";
-import { v4 as uuidv4 } from "uuid";
+"use client";
 
-import { Label } from "@/src/components/ui/label";
+import { InputHTMLAttributes } from "react";
+import { UserIcon } from "lucide-react";
 
-export interface CampoTextoProps extends React.HTMLAttributes<HTMLDivElement> {
-  labelText?: string;
-  value: string;
+export interface CampoTextoProps extends InputHTMLAttributes<HTMLInputElement> {
   placeholder: string;
-  onChangeText?: (s: string) => void;
-  disabled?: boolean;
+  value: string;
+  onChangeText: (value: string) => void;
   icon?: boolean;
+  required?: boolean;
 }
 
-export default function CampoTexto(props: CampoTextoProps) {
-  const inputId = uuidv4();
-
+export default function CampoTexto({
+  placeholder,
+  value,
+  onChangeText,
+  icon,
+  required,
+  "aria-label": ariaLabel,
+  ...rest
+}: CampoTextoProps) {
   return (
-    <div className="outline-none">
-      {props.labelText && (
-        <Label className="formulario__label" htmlFor={props.placeholder}>
-          {props.labelText}
-        </Label>
+    <div className="relative">
+      {icon && (
+        <UserIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
       )}
-      <div className="formulario__input">
-        <input
-          id={inputId}
-          type="text"
-          value={props.value}
-          onChange={(e) => {
-            props.onChange?.(e);
-            props.onChangeText?.(e.target.value);
-          }}
-          placeholder={props.placeholder}
-          className="formulario__input"
-          disabled={props?.disabled ? true : false}
-        />
-        {props.icon && (
-          <div>
-            <IconTextCaption className="text-zinc-500 cursor-pointer" />
-          </div>
-        )}
-      </div>
+      <input
+        type="text"
+        className={`w-full p-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+          icon ? "pl-10" : ""
+        }`}
+        placeholder={placeholder}
+        value={value}
+        onChange={(e) => onChangeText(e.target.value)}
+        required={required}
+        aria-label={ariaLabel}
+        {...rest}
+      />
     </div>
   );
 }

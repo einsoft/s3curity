@@ -22,6 +22,7 @@ export default function useAPI() {
       headers: {
         Authorization: `Bearer ${token}`,
       },
+      credentials: "include", // Added credentials
     });
 
     return extrairDados(resposta);
@@ -36,6 +37,7 @@ export default function useAPI() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      credentials: "include", // Added credentials
       body: JSON.stringify(body),
     });
 
@@ -56,6 +58,7 @@ export default function useAPI() {
         "Content-Type": "application/json",
         Authorization: `Bearer ${token}`,
       },
+      credentials: "include", // Added credentials
       body: JSON.stringify(body),
     });
 

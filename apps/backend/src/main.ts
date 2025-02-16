@@ -6,12 +6,19 @@ import { AppModule } from './app/app.module';
 import errorFilter from './error.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
+
+  // Configure CORS with specific origin and credentials
+  app.enableCors({
+    origin: process.env.FRONTEND_URL || 'http://localhost:3000',
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  });
 
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
-
     .setDescription('Documentação API S3curity.')
     .setVersion('1.0')
     .addBearerAuth()
