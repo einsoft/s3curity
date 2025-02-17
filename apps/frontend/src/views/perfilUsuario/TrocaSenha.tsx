@@ -18,7 +18,11 @@ export default function TrocaSenha() {
         <span className="formulario__container-logotipo">
           Solicitar troca de senha
         </span>
-        <CampoEmail placeholder="E-mail" value={usuario ? usuario.email : ""} />
+        <CampoEmail
+          placeholder="E-mail"
+          value={usuario ? usuario.email : ""}
+          onChangeText={(value) => console.log(value)}
+        />
         <button onClick={submeter} className="form__button-green">
           Enviar
         </button>

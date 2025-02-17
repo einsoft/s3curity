@@ -10,7 +10,7 @@ export default function Entrar() {
   const destino = searchParams.get("destino") || "/dashboard";
 
   return (
-    <div className="min-h-screen w-full flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen w-full flex items-center justify-center bg-[#09090b]">
       <AuthProvider>
         <FormAuth redirectPath={destino} />
       </AuthProvider>

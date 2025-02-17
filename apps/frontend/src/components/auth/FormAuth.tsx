@@ -43,7 +43,7 @@ export default function FormAuth({
   return (
     <div
       className={cn(
-        "flex flex-col items-center w-full max-w-md mx-auto p-6 space-y-6",
+        "flex flex-col items-center w-full max-w-md mx-auto p-6 space-y-6 bg-[#18181b] rounded-lg",
         className,
       )}
     >
@@ -51,7 +51,7 @@ export default function FormAuth({
         <Link href="/" className="hover:opacity-80 transition-opacity">
           <Logo />
         </Link>
-        <h1 className="text-2xl font-semibold text-gray-900">
+        <h1 className="text-2xl font-semibold text-white">
           {modo === "login" ? "Entre com sua conta" : "Cadastrar"}
         </h1>
       </div>

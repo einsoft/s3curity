@@ -40,7 +40,7 @@ export default function CampoTelefone({
       <PhoneIcon className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
       <input
         type="tel"
-        className="w-full p-3 pl-10 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500"
+        className="w-full p-3 pl-10 rounded-lg bg-gray-100 text-[#18181b] focus:ring-black focus:outline-none focus:ring-2"
         placeholder={placeholder}
         value={value}
         onChange={handleChange}

@@ -27,7 +27,7 @@ export default function CampoTexto({
       )}
       <input
         type="text"
-        className={`w-full p-3 rounded-lg bg-gray-100 focus:outline-none focus:ring-2 focus:ring-green-500 ${
+        className={`w-full p-3 rounded-lg bg-gray-100 text-[#18181b] focus:ring-black focus:outline-none focus:ring-2  ${
           icon ? "pl-10" : ""
         }`}
         placeholder={placeholder}
