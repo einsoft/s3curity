@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from "react";
 
+import { useToastContext } from "../contexts/ToastContext";
 import useAPI from "./useAPI";
 
 export default function usePerfil() {
@@ -11,7 +12,8 @@ export default function usePerfil() {
   const [descricao, setDescricao] = useState("");
   const [status, setStatus] = useState("");
 
-  const { httpGet } = useAPI();
+  const { httpGet, httpPost } = useAPI();
+  const { showSuccess, showError } = useToastContext();
 
   const fetchPerfis = useCallback(async () => {
     try {
@@ -30,6 +32,36 @@ export default function usePerfil() {
     fetchPerfis();
   }, []);
 
+  const createPerfil = async () => {
+    if (nome.length < 3) {
+      showError("Nome inválido", "O nome deve ter no mínimo 3 caracteres");
+      return;
+    }
+
+    try {
+      setProcessando(true);
+      await httpPost("/perfil/cadastrarperfil", {
+        nome,
+        descricao: descricao || undefined,
+        status: status || "ativo",
+      });
+
+      showSuccess("Perfil criado", "Perfil cadastrado com sucesso!");
+      setNome("");
+      setDescricao("");
+      setStatus("");
+      await fetchPerfis();
+    } catch (error) {
+      console.error("Erro ao criar perfil:", error);
+      showError(
+        "Erro ao criar perfil",
+        "Ocorreu um erro ao tentar criar o perfil. Tente novamente.",
+      );
+    } finally {
+      setProcessando(false);
+    }
+  };
+
   return {
     nome,
     setNome,
@@ -40,5 +72,6 @@ export default function usePerfil() {
     processando,
     perfis,
     fetchPerfis,
+    createPerfil,
   };
 }

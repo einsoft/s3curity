@@ -6,11 +6,19 @@ import usePerfil from "@/src/data/hooks/usePerfil";
 import styles from "./perfil.module.css";
 
 export default function CadastroPerfil() {
-  const { nome, descricao, status, setNome, setDescricao, setStatus } =
-    usePerfil();
+  const {
+    nome,
+    descricao,
+    status,
+    setNome,
+    setDescricao,
+    setStatus,
+    processando,
+    createPerfil,
+  } = usePerfil();
 
-  function handleSubmit() {
-    console.log("Salvando perfil");
+  async function handleSubmit() {
+    await createPerfil();
   }
 
   return (
@@ -58,8 +66,9 @@ export default function CadastroPerfil() {
       <Button
         onClick={handleSubmit}
         className={`${styles.perfil__button_salvar} w-1/4 self-end`}
+        disabled={processando}
       >
-        Salvar
+        {processando ? "Salvando..." : "Salvar"}
       </Button>
     </div>
   );
