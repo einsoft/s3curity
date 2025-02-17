@@ -19,6 +19,7 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   const config = new DocumentBuilder()
+    .setTitle('S3curity')
     .setDescription('Documentação API S3curity.')
     .setVersion('1.0')
     .addBearerAuth()
