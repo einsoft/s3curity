@@ -1,6 +1,7 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { useRouter } from "next/router";
 
 import { useToastContext } from "../contexts/ToastContext";
 import useAPI from "./useAPI";
@@ -20,7 +21,6 @@ export default function usePerfil() {
       setProcessando(true);
       const data = await httpGet("/perfil/listar");
       setPerfis(data);
-      console.log(data);
     } catch (error) {
       console.error("Erro ao buscar perfis:", error);
     } finally {
@@ -69,6 +69,7 @@ export default function usePerfil() {
         await httpDelete(`/perfil/${id}`);
         showSuccess("Sucesso", "Perfil excluído com sucesso!");
         await fetchPerfis();
+        window.location.reload();
       } catch (error) {
         console.error("Erro ao excluir perfil:", error);
         showError(
