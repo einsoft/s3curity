@@ -1,7 +1,6 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
-import { useRouter } from "next/router";
 
 import { useToastContext } from "../contexts/ToastContext";
 import useAPI from "./useAPI";
