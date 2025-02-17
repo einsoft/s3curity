@@ -65,15 +65,14 @@ export default function PerfilUsuario() {
                   value={nome || ""}
                   placeholder="Nome completo"
                   onChangeText={setNome}
-                  labelText="Nome completo"
                 />
               </div>
               <div className="perfilUsuario__space-y-2">
                 <CampoEmail
                   placeholder="E-mail principal"
                   value={email}
-                  labelText="E-mail"
                   disabled={true}
+                  onChangeText={() => {}}
                 />
               </div>
               <div className="perfilUsuario__padding-top-6 perfilUsuario__flex perfilUsuario__justify-center perfilUsuario__bg perfilUsuario__w-full">
@@ -110,7 +109,6 @@ export default function PerfilUsuario() {
                   placeholder="Senha atual"
                   value={senhaAtual}
                   onChangeText={setSenhaAtual}
-                  labelText="Senha atual"
                 />
               </div>
               <div className="perfilUsuario__space-y-2">
@@ -119,7 +117,6 @@ export default function PerfilUsuario() {
                   placeholder="Nova senha"
                   value={novaSenha}
                   onChangeText={setNovaSenha}
-                  labelText="Nova senha"
                 />
               </div>
               <div className="perfilUsuario__space-y-2">
@@ -128,7 +125,6 @@ export default function PerfilUsuario() {
                   placeholder="Confirme a nova senha"
                   value={confirmaNovaSenha}
                   onChangeText={setConfirmaNovaSenha}
-                  labelText="Confirme a nova senha"
                 />
               </div>
               <div className="perfilUsuario__flex perfilUsuario__flex-col perfilUsuario__space-y-4 perfilUsuario__padding-top-6 perfilUsuario__w-full">
