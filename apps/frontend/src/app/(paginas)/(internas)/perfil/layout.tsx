@@ -19,7 +19,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <Link href={"/perfil"}>Gerenciar</Link>
           </div>
           <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
-            <Link href={"/perfil/adicionar"}>Visualizar</Link>
+            <Link href={"/perfil/adicionar"}>Adicionar</Link>
           </div>
           <div className="ml-3 mb-4 rounded-l-lg bg-[#121212] p-2 pr-4">
             <Link href={"/perfil/adicionar"}>Relatórios</Link>

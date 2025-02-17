@@ -32,7 +32,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [redirectPath, setRedirectPath] = useState("/dashboard");
+  const [redirectPath, setRedirectPath] = useState("/");
 
   const router = useRouter();
   const { showSuccess, showError } = useToastContext();

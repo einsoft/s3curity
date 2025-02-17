@@ -7,7 +7,7 @@ import { AuthProvider } from "@/src/data/contexts/AuthContext";
 
 export default function Entrar() {
   const searchParams = useSearchParams();
-  const destino = searchParams.get("destino") || "/dashboard";
+  const destino = searchParams.get("destino") || "/";
 
   return (
     <div className="min-h-screen w-full flex items-center justify-center bg-[#09090b]">

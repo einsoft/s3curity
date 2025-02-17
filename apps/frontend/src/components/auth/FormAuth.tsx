@@ -18,7 +18,7 @@ interface FormAuthProps {
 
 export default function FormAuth({
   className,
-  redirectPath = "/dashboard",
+  redirectPath = "/",
 }: FormAuthProps) {
   const {
     modo,
