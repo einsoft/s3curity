@@ -12,7 +12,7 @@ export default function usePerfil() {
   const [descricao, setDescricao] = useState("");
   const [status, setStatus] = useState("");
 
-  const { httpGet, httpPost } = useAPI();
+  const { httpGet, httpPost, httpDelete } = useAPI();
   const { showSuccess, showError } = useToastContext();
 
   const fetchPerfis = useCallback(async () => {
@@ -62,6 +62,25 @@ export default function usePerfil() {
     }
   };
 
+  const deletePerfil = async (id: number) => {
+    if (window.confirm("Tem certeza que deseja EXCLUIR?")) {
+      try {
+        setProcessando(true);
+        await httpDelete(`/perfil/${id}`);
+        showSuccess("Sucesso", "Perfil excluído com sucesso!");
+        await fetchPerfis();
+      } catch (error) {
+        console.error("Erro ao excluir perfil:", error);
+        showError(
+          "Erro ao excluir perfil",
+          "Ocorreu um erro ao tentar excluir o perfil. Tente novamente.",
+        );
+      } finally {
+        setProcessando(false);
+      }
+    }
+  };
+
   return {
     nome,
     setNome,
@@ -73,5 +92,6 @@ export default function usePerfil() {
     perfis,
     fetchPerfis,
     createPerfil,
+    deletePerfil,
   };
 }

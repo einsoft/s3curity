@@ -17,13 +17,15 @@ import {
   TableHeader,
   TableRow,
 } from "@/src/components/ui/table";
-import columns from "./ColunasTabela";
+import usePerfilColumns from "./ColunasTabela";
 import Paginacao from "./Paginacao";
 import styles from "./perfil.module.css";
 import Procura from "./Procura";
 
 export default function TabelasPerfil() {
   const [filteredPerfis, setFilteredPerfis] = useState<Perfil[]>([]);
+
+  const columns = usePerfilColumns();
 
   const table = useReactTable({
     data: filteredPerfis,

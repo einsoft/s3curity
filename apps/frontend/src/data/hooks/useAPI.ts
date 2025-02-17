@@ -65,5 +65,24 @@ export default function useAPI() {
     return extrairDados(resposta);
   }
 
-  return { httpGet, httpPost, httpPatch };
+  async function httpDelete(caminho: string) {
+    const uri = caminho.startsWith("/") ? caminho : `/${caminho}`;
+    const urlCompleta = `${urlBase}${uri}`;
+    const resposta = await fetch(urlCompleta, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      credentials: "include",
+    });
+
+    if (!resposta.ok) {
+      const errorData = await resposta.json().catch(() => ({}));
+      throw new Error(errorData.message || "Erro na requisição");
+    }
+
+    return extrairDados(resposta);
+  }
+
+  return { httpGet, httpPost, httpPatch, httpDelete };
 }
