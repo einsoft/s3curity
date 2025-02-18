@@ -8,21 +8,22 @@ datasource db {
 }
 
 model Usuario {
-  id                           Int       @id @default(autoincrement())
+  id                           Int            @id @default(autoincrement())
+  refreshTokens                RefreshToken[]
   nomeCompleto                 String
-  email                        String    @unique
+  email                        String         @unique
   senha                        String?
-  dataCriacao                  DateTime  @default(now())
-  status                       String    @default("ativo") // Values: ativo, inativo, pendente
+  dataCriacao                  DateTime       @default(now())
+  status                       String         @default("ativo") // Values: ativo, inativo, pendente
   token                        String?
   dataExpiracaoToken           DateTime?
-  autenticacaoDoisFatoresAtiva Boolean   @default(false)
+  autenticacaoDoisFatoresAtiva Boolean        @default(false)
   telefone                     String?
   imagemPerfil                 String?
-  tipoAutenticacao             String?   @default("senha") // Values: senha, google, facebook, github
+  tipoAutenticacao             String?        @default("senha") // Values: senha, google, facebook, github
   dataUltimaAtualizacao        DateTime?
   dataUltimoLogin              DateTime?
-  perfis                       Perfil[]  @relation("UsuarioPerfis")
+  perfis                       Perfil[]       @relation("UsuarioPerfis")
 
   @@map("usuarios")
 }
@@ -48,4 +49,18 @@ model Permissao {
   perfis       Perfil[] @relation("PerfilPermissoes")
 
   @@map("permissoes")
+}
+
+model RefreshToken {
+  id        Int      @id @default(autoincrement())
+  token     String   @unique
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+  usuarioId Int
+  usuario   Usuario  @relation(fields: [usuarioId], references: [id], onDelete: Cascade)
+  userAgent String?
+  ipAddress String?
+  isRevoked Boolean  @default(false)
+
+  @@map("refresh_tokens")
 }
