@@ -83,8 +83,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const data = await response.json();
 
       if (modo === "login") {
-        // Use ContextoSessao to store the token
-        iniciarSessao(data.token);
+        // Use ContextoSessao to store the tokens
+        iniciarSessao(data.token, data.refreshToken);
 
         showSuccess("Login realizado!", "Você será redirecionado em breve");
 

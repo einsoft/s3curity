@@ -7,6 +7,7 @@ import { jwtDecode } from "jwt-decode";
 
 interface Sessao {
   token: string | null;
+  refreshToken: string | null;
   usuario: Usuario | null;
 }
 
@@ -14,9 +15,9 @@ interface ContextoSessaoProps {
   carregando: boolean;
   token: string | null;
   usuario: Usuario | null;
-  iniciarSessao: (token: string) => void;
+  iniciarSessao: (token: string, refreshToken: string) => void;
   encerrarSessao: () => void;
-  atualizarSessao: (token: string) => void;
+  atualizarSessao: (token: string, refreshToken: string) => void;
 }
 
 const ContextoSessao = createContext<ContextoSessaoProps>({} as any);
@@ -24,15 +25,47 @@ export default ContextoSessao;
 
 export function ProvedorSessao(props: any) {
   const nomeCookie = "_s3curity_token";
+  const nomeRefreshCookie = "_s3curity_refresh_token";
   const [carregando, setCarregando] = useState(true);
-  const [sessao, setSessao] = useState<Sessao>({ token: null, usuario: null });
+  const [sessao, setSessao] = useState<Sessao>({
+    token: null,
+    refreshToken: null,
+    usuario: null,
+  });
+
+  const atualizarToken = useCallback(async () => {
+    const refreshToken = cookie.get(nomeRefreshCookie);
+    if (!refreshToken) return;
+
+    try {
+      const response = await fetch("/auth/refresh", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ refreshToken }),
+      });
+
+      if (response.ok) {
+        const { token, refreshToken: newRefreshToken } = await response.json();
+        atualizarSessao(token, newRefreshToken);
+      } else {
+        encerrarSessao();
+      }
+    } catch (error) {
+      console.error("Erro ao atualizar token:", error);
+      encerrarSessao();
+    }
+  }, []);
 
   function obterSessao(): Sessao {
-    const encodedToken = cookie.get(nomeCookie);
+    const encodedToken = cookie.get(nomeCookie) || null;
+    const refreshToken = cookie.get(nomeRefreshCookie) || null;
 
     if (!encodedToken) {
       return {
         token: null,
+        refreshToken: null,
         usuario: null,
       };
     }
@@ -42,16 +75,30 @@ export function ProvedorSessao(props: any) {
       const payload: any = jwtDecode(token);
       const valido = payload.exp! > Date.now() / 1000;
 
-      if (!valido) {
-        cookie.remove(nomeCookie);
+      if (!valido && refreshToken) {
+        // Token expirado mas tem refresh token, tenta atualizar
+        atualizarToken();
         return {
           token: null,
+          refreshToken,
+          usuario: null,
+        };
+      }
+
+      if (!valido) {
+        // Token expirado e sem refresh token, limpa cookies
+        cookie.remove(nomeCookie);
+        cookie.remove(nomeRefreshCookie);
+        return {
+          token: null,
+          refreshToken: null,
           usuario: null,
         };
       }
 
       return {
         token,
+        refreshToken,
         usuario: {
           id: payload.id,
           nomeCompleto: payload.nomeCompleto,
@@ -62,10 +109,11 @@ export function ProvedorSessao(props: any) {
           telefone: payload.telefone,
         },
       };
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    } catch (error) {
+    } catch (error: unknown) {
+      console.error("Erro ao decodificar token:", error);
       return {
         token: null,
+        refreshToken: null,
         usuario: null,
       };
     }
@@ -85,10 +133,32 @@ export function ProvedorSessao(props: any) {
     carregarSessao();
   }, [carregarSessao]);
 
-  async function atualizarSessao(token: string) {
+  // Configura um timer para atualizar o token antes de expirar
+  useEffect(() => {
+    if (!sessao.token) return;
+
+    const payload: any = jwtDecode(sessao.token);
+    const expiresIn = payload.exp * 1000 - Date.now();
+    const refreshTime = expiresIn - 60000; // Atualiza 1 minuto antes de expirar
+
+    if (refreshTime <= 0) {
+      atualizarToken();
+      return;
+    }
+
+    const timer = setTimeout(atualizarToken, refreshTime);
+    return () => clearTimeout(timer);
+  }, [sessao.token, atualizarToken]);
+
+  async function atualizarSessao(token: string, refreshToken: string) {
     const encodedToken = encodeURIComponent(token);
     cookie.set(nomeCookie, encodedToken, {
       expires: 1,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+    cookie.set(nomeRefreshCookie, refreshToken, {
+      expires: 30,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     });
@@ -96,10 +166,15 @@ export function ProvedorSessao(props: any) {
     setSessao(sessao);
   }
 
-  function iniciarSessao(token: string) {
+  function iniciarSessao(token: string, refreshToken: string) {
     const encodedToken = encodeURIComponent(token);
     cookie.set(nomeCookie, encodedToken, {
       expires: 1,
+      sameSite: "strict",
+      secure: process.env.NODE_ENV === "production",
+    });
+    cookie.set(nomeRefreshCookie, refreshToken, {
+      expires: 30,
       sameSite: "strict",
       secure: process.env.NODE_ENV === "production",
     });
@@ -109,7 +184,8 @@ export function ProvedorSessao(props: any) {
 
   function encerrarSessao() {
     cookie.remove(nomeCookie);
-    setSessao({ token: null, usuario: null });
+    cookie.remove(nomeRefreshCookie);
+    setSessao({ token: null, refreshToken: null, usuario: null });
   }
 
   return (
