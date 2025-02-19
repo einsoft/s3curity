@@ -9,7 +9,7 @@ import CampoSenha from "@/src/components/shared/formulario/CampoSenha";
 import CampoTexto from "@/src/components/shared/formulario/CampoTexto";
 import { Button } from "@/src/components/ui/button";
 import { Card, CardContent, CardHeader } from "@/src/components/ui/card";
-import useFormPerfil from "@/src/data/hooks/useFormPerfilUsuario";
+import useFormPerfilUsuario from "@/src/data/hooks/useFormPerfilUsuario";
 import useSessao from "@/src/data/hooks/useSessao";
 
 export default function PerfilUsuario() {
@@ -18,7 +18,8 @@ export default function PerfilUsuario() {
     nome,
     setNome,
     submeter,
-    processando,
+    loadingName,
+    loadingPassword,
     email,
     senhaAtual,
     setSenhaAtual,
@@ -28,12 +29,45 @@ export default function PerfilUsuario() {
     setConfirmaNovaSenha,
     submeterSenha,
     erroSenha,
-  } = useFormPerfil();
+  } = useFormPerfilUsuario();
 
-  const [successMessage, setSuccessMessage] = useState("");
-  const [successPasswordMessage, setSuccessPasswordMessage] = useState("");
-  const [showSuccessPasswordMessage, setShowSuccessPasswordMessage] =
-    useState(false);
+  const [messages, setMessages] = useState({
+    nameSuccess: "",
+    passwordSuccess: "",
+  });
+  const [showMessages, setShowMessages] = useState({
+    name: false,
+    password: false,
+  });
+
+  const handleNameSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const success = await submeter();
+    if (success) {
+      setMessages({ ...messages, nameSuccess: "Nome alterado com sucesso!" });
+      setShowMessages({ ...showMessages, name: true });
+      setTimeout(() => {
+        setMessages({ ...messages, nameSuccess: "" });
+        setShowMessages({ ...showMessages, name: false });
+      }, 3000);
+    }
+  };
+
+  const handlePasswordSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const result = await submeterSenha();
+    if (result !== false) {
+      setMessages({
+        ...messages,
+        passwordSuccess: "Senha alterada com sucesso!",
+      });
+      setShowMessages({ ...showMessages, password: true });
+      setTimeout(() => {
+        setMessages({ ...messages, passwordSuccess: "" });
+        setShowMessages({ ...showMessages, password: false });
+      }, 3000);
+    }
+  };
 
   return (
     <div className="perfilUsuario__container perfilUsuario__margin-top-16">
@@ -42,21 +76,17 @@ export default function PerfilUsuario() {
         <header>
           <div className="perfilUsuario__flex perfilUsuario__items-center perfilUsuario__space-x-3">
             <Image
-              src={
-                usuario?.imagemPerfil ? usuario?.imagemPerfil : "/avatar.svg"
-              }
+              src={usuario?.imagemPerfil || "/avatar.svg"}
               alt="Avatar"
-              width="96"
-              height="96"
-              className="perfilUsuario__rounded-full perfilUsuario__margin-bottom-4"
-              style={{ aspectRatio: "96/96", objectFit: "cover" }}
-              priority={false}
+              width={96}
+              height={96}
+              className="perfilUsuario__rounded-full perfilUsuario__margin-bottom-4 perfilUsuario__aspect-square perfilUsuario__object-cover"
             />
             <div className="perfilUsuario__space-y-1">
               <h1 className="perfilUsuario__text-2xl perfilUsuario__font-bold">
                 {usuario?.nomeCompleto}
               </h1>
-              <Button>Mudar avatar</Button>
+              <Button aria-label="Alterar avatar">Mudar avatar</Button>
             </div>
           </div>
         </header>
@@ -84,21 +114,14 @@ export default function PerfilUsuario() {
               <div className="perfilUsuario__padding-top-6 perfilUsuario__flex perfilUsuario__justify-center perfilUsuario__bg perfilUsuario__w-full perfilUsuario__relative">
                 <button
                   className="perfilUsuario__form-button-green perfilUsuario__w-full"
-                  disabled={processando}
-                  onClick={async (e) => {
-                    e.preventDefault();
-                    const success = await submeter();
-                    if (success) {
-                      setSuccessMessage("Nome alterado com sucesso!");
-                      setTimeout(() => setSuccessMessage(""), 3000);
-                    }
-                  }}
+                  disabled={loadingName}
+                  onClick={(e: React.FormEvent) => handleNameSubmit(e)}
                 >
-                  {processando ? "Salvando..." : "Alterar nome"}
+                  {loadingName ? "Salvando..." : "Alterar nome"}
                 </button>
-                {successMessage && (
+                {showMessages.name && (
                   <div className="perfilUsuario__absolute perfilUsuario__bottom-full perfilUsuario__mb-2 perfilUsuario__bg-green-500 perfilUsuario__text-white perfilUsuario__rounded perfilUsuario__px-4 perfilUsuario__py-2">
-                    {successMessage}
+                    {messages.nameSuccess}
                   </div>
                 )}
               </div>
@@ -125,16 +148,12 @@ export default function PerfilUsuario() {
                   value={senhaAtual}
                   onChangeText={setSenhaAtual}
                 />
-              </div>
-              <div className="perfilUsuario__space-y-2">
                 <CampoSenha
                   id="novasenha"
                   placeholder="Nova senha"
                   value={novaSenha}
                   onChangeText={setNovaSenha}
                 />
-              </div>
-              <div className="perfilUsuario__space-y-2">
                 <CampoSenha
                   id="confirmenovasenha"
                   placeholder="Confirme a nova senha"
@@ -146,27 +165,14 @@ export default function PerfilUsuario() {
                 <div className="perfilUsuario__relative w-full">
                   <button
                     className="perfilUsuario__form-button-green perfilUsuario__w-full"
-                    disabled={processando}
-                    onClick={async (e) => {
-                      e.preventDefault();
-                      const result = await submeterSenha();
-                      if (result !== false) {
-                        setSuccessPasswordMessage(
-                          "Senha alterada com sucesso!",
-                        );
-                        setShowSuccessPasswordMessage(true);
-                        setTimeout(() => {
-                          setShowSuccessPasswordMessage(false);
-                          setSuccessPasswordMessage("");
-                        }, 3000);
-                      }
-                    }}
+                    disabled={loadingPassword}
+                    onClick={(e: React.FormEvent) => handlePasswordSubmit(e)}
                   >
-                    {processando ? "Salvando..." : "Alterar senha"}
+                    {loadingPassword ? "Salvando..." : "Alterar senha"}
                   </button>
-                  {showSuccessPasswordMessage && (
+                  {showMessages.password && (
                     <div className="perfilUsuario__absolute perfilUsuario__bottom-full perfilUsuario__mb-2 perfilUsuario__bg-green-500 perfilUsuario__text-white perfilUsuario__rounded perfilUsuario__px-4 perfilUsuario__py-2">
-                      {successPasswordMessage}
+                      {messages.passwordSuccess}
                     </div>
                   )}
                 </div>

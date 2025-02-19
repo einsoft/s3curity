@@ -19,7 +19,7 @@ export default function Logo({
     <Image
       src={logo}
       width={width}
-      height={width * 0.3} // Maintain aspect ratio
+      style={{ height: "auto" }}
       alt="Logo"
       priority={priority}
       loading={loading || (priority ? "eager" : "lazy")}

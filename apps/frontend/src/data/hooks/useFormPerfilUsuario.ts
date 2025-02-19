@@ -6,10 +6,11 @@ import { usePendingOperations } from "@/src/components/shared/ForcarAutenticacao
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
 
-export default function useFormPerfil() {
+export default function useFormPerfilUsuario() {
   const [nome, setNome] = useState("");
   const [email, setEmail] = useState("");
-  const [processando, setProcessando] = useState(false);
+  const [loadingName, setLoadingName] = useState(false);
+  const [loadingPassword, setLoadingPassword] = useState(false);
   const [senhaAtual, setSenhaAtual] = useState("");
   const [novaSenha, setNovaSenha] = useState("");
   const [confirmaNovaSenha, setConfirmaNovaSenha] = useState("");
@@ -40,7 +41,7 @@ export default function useFormPerfil() {
     if (!usuario?.id) return false;
     try {
       registerOperation();
-      setProcessando(true);
+      setLoadingName(true);
       const response = await httpPatch(`/usuario/${usuario.id}/alterarNome`, {
         nomeCompleto: nome,
       });
@@ -59,7 +60,7 @@ export default function useFormPerfil() {
     } finally {
       unregisterOperation();
       if (mounted.current) {
-        setProcessando(false);
+        setLoadingName(false);
       }
     }
   }
@@ -88,7 +89,7 @@ export default function useFormPerfil() {
     try {
       registerOperation();
       setErroSenha("");
-      setProcessando(true);
+      setLoadingPassword(true);
       const result = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
         senhaAtual,
         novaSenha,
@@ -125,7 +126,7 @@ export default function useFormPerfil() {
     } finally {
       unregisterOperation();
       if (mounted.current) {
-        setProcessando(false);
+        setLoadingPassword(false);
       }
     }
   }
@@ -133,7 +134,8 @@ export default function useFormPerfil() {
   return {
     nome,
     email,
-    processando,
+    loadingName,
+    loadingPassword,
     limparFormulario,
     setNome,
     setEmail,
