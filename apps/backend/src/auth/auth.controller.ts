@@ -1,14 +1,7 @@
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import * as jwt from 'jsonwebtoken';
 
-import {
-  Body,
-  Controller,
-  HttpException,
-  HttpStatus,
-  Post,
-  Req,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { LoginUsuario, RegistrarUsuario } from '@s3curity/core';
 
@@ -22,6 +15,24 @@ import { RefreshTokenService } from './refresh-token.service';
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
+  @Get('csrf-token')
+  @ApiOperation({ summary: 'Get CSRF token' })
+  @ApiResponse({ status: 200, description: 'CSRF token generated successfully' })
+  @ApiResponse({ status: 500, description: 'Error generating CSRF token' })
+  async getCsrfToken(@Req() req: Request, @Res() res: Response) {
+    try {
+      const csrfToken = req.csrfToken();
+      console.log('Generated CSRF Token:', csrfToken);
+      res.json({ token: csrfToken });
+    } catch (error) {
+      console.error('CSRF Token Generation Error:', error.message);
+      throw new HttpException(
+        `Error generating CSRF token: ${error.message}`,
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
   constructor(
     private readonly repo: UsuarioPrisma,
     private readonly cripto: BcryptProvider,
@@ -67,10 +78,19 @@ export class AuthController {
   async login(@Body() dados: LoginDto, @Req() req: Request) {
     try {
       const casoDeUso = new LoginUsuario(this.repo, this.cripto);
-      const usuario = await casoDeUso.executar({
+      const usuarioResult = await casoDeUso.executar({
         email: dados.email,
         senha: dados.senha,
       });
+
+      if (!usuarioResult) {
+        throw new HttpException(
+          'Usuário não encontrado',
+          HttpStatus.UNAUTHORIZED,
+        );
+      }
+
+      const usuario = usuarioResult;
 
       const segredoToken = process.env.JWT_SECRET;
       if (!segredoToken) {

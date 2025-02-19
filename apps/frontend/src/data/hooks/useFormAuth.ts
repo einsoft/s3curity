@@ -68,8 +68,8 @@ export default function useFormAuth() {
 
   async function login(): Promise<SubmitResult> {
     try {
-      const response = await httpPost("/auth/login", { email, senha });
-      iniciarSessao(response.token);
+      const authResponse = await httpPost("/auth/login", { email, senha });
+      iniciarSessao(authResponse.token, authResponse.refreshToken);
       return { success: true };
     } catch (error: any) {
       const response = error?.response;
@@ -102,7 +102,7 @@ export default function useFormAuth() {
 
   async function registrar(): Promise<SubmitResult> {
     try {
-      const response = await httpPost("/auth/registrar", {
+      const authResponse = await httpPost("/auth/registrar", {
         nomeCompleto: nome,
         email,
         senha,
@@ -112,7 +112,7 @@ export default function useFormAuth() {
         telefone,
         imagemPerfil,
       });
-      iniciarSessao(response.token);
+      iniciarSessao(authResponse.token, authResponse.refreshToken);
       return { success: true };
     } catch (error: any) {
       const response = error?.response;

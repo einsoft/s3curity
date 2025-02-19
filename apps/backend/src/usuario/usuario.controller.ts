@@ -4,17 +4,8 @@ import { UsuarioLogado } from 'src/shared/usuario.decorator';
 import { UsuarioPrisma } from 'src/usuario/usuario.prisma';
 
 import { Body, Controller, Param, Patch } from '@nestjs/common';
-import {
-  ApiBearerAuth,
-  ApiOperation,
-  ApiResponse,
-  ApiTags,
-} from '@nestjs/swagger';
-import {
-  AtualizarNomeUsuario,
-  AtualizarSenhaUsuario,
-  Usuario,
-} from '@s3curity/core';
+import { ApiBearerAuth, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AtualizarNomeUsuario, AtualizarSenhaUsuario, Usuario } from '@s3curity/core';
 
 import { AlterarSenhaDto } from './dto/alterar-senha.dto';
 import { AtualizarNomeDto } from './dto/atualizar-nome.dto';
@@ -32,11 +23,15 @@ export class UsuarioController {
   @ApiOperation({ summary: 'Alterar o nome do usuário' })
   @ApiResponse({
     status: 200,
-    description: 'Nome alterado com sucesso. Retorna novo token JWT',
+    description: 'Nome alterado com sucesso',
     schema: {
-      type: 'string',
-      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
-    },
+      type: 'object',
+      properties: {
+        success: { type: 'boolean' },
+        token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' },
+        refreshToken: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' }
+      }
+    }
   })
   @ApiResponse({ status: 400, description: 'Dados inválidos' })
   async alterarNome(
@@ -55,21 +50,33 @@ export class UsuarioController {
 
     const segredoToken = process.env.JWT_SECRET;
 
-    const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
-      expiresIn: '15d',
+    const token = jwt.sign(usuarioAtualizado, segredoToken, {
+      expiresIn: '1d',
     });
 
-    return novoToken;
+    const refreshToken = jwt.sign({ sub: usuarioAtualizado.id }, segredoToken, {
+      expiresIn: '30d',
+    });
+
+    return {
+      success: true,
+      token,
+      refreshToken,
+    };
   }
 
   @Patch(':id/alterarSenha')
   @ApiOperation({ summary: 'Alterar a senha do usuário' })
   @ApiResponse({
     status: 200,
-    description: 'Senha alterada com sucesso. Retorna novo token JWT',
+    description: 'Senha alterada com sucesso',
     schema: {
-      type: 'string',
-      example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...',
+      type: 'object',
+      properties: {
+        success: { type: 'boolean' },
+        token: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' },
+        refreshToken: { type: 'string', example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...' }
+      }
     },
   })
   @ApiResponse({ status: 400, description: 'Dados inválidos' })
@@ -112,13 +119,18 @@ export class UsuarioController {
 
     const usuarioAtualizado = await this.repo.buscarPorId(id);
     const segredoToken = process.env.JWT_SECRET;
-    const novoToken = jwt.sign(usuarioAtualizado, segredoToken, {
-      expiresIn: '15d',
+    const token = jwt.sign(usuarioAtualizado, segredoToken, {
+      expiresIn: '1d',
+    });
+
+    const refreshToken = jwt.sign({ sub: usuarioAtualizado.id }, segredoToken, {
+      expiresIn: '30d',
     });
 
     return {
       success: true,
-      token: novoToken,
+      token,
+      refreshToken,
     };
   }
 }

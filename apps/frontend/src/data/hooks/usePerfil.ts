@@ -1,13 +1,14 @@
 "use client";
 
 import { useCallback, useEffect, useState } from "react";
+import { Perfil } from "@s3curity/core";
 
 import { useToastContext } from "../contexts/ToastContext";
 import useAPI from "./useAPI";
 
 export default function usePerfil() {
   const [processando, setProcessando] = useState(false);
-  const [perfis, setPerfis] = useState([]);
+  const [perfis, setPerfis] = useState<Perfil[]>([]);
   const [nome, setNome] = useState("");
   const [descricao, setDescricao] = useState("");
   const [status, setStatus] = useState("");
@@ -16,10 +17,15 @@ export default function usePerfil() {
   const { showSuccess, showError } = useToastContext();
 
   const fetchPerfis = useCallback(async () => {
+    setProcessando(true);
     try {
-      setProcessando(true);
-      const data = await httpGet("/perfil/listar");
-      setPerfis(data);
+      const response = await httpGet("/perfil/listar");
+      if (Array.isArray(response)) {
+        setPerfis(response);
+      } else {
+        console.warn("Unexpected API response format:", response);
+        setPerfis([]);
+      }
     } catch (error) {
       console.error("Erro ao buscar perfis:", error);
     } finally {

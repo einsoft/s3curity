@@ -6,6 +6,7 @@ import { UsuarioPrisma } from '../usuario/usuario.prisma';
 import { AuthController } from './auth.controller';
 import { AuthMiddleware } from './auth.middleware';
 import { BcryptProvider } from './bcrypt.provider';
+import { CsrfMiddleware } from './csrf.middleware';
 import { RefreshTokenService } from './refresh-token.service';
 
 @Module({
@@ -16,7 +17,8 @@ import { RefreshTokenService } from './refresh-token.service';
     BcryptProvider,
     AuthMiddleware,
     RefreshTokenService,
+    CsrfMiddleware,
   ],
-  exports: [UsuarioPrisma, BcryptProvider, AuthMiddleware, RefreshTokenService],
+  exports: [UsuarioPrisma, BcryptProvider, AuthMiddleware, RefreshTokenService, CsrfMiddleware],
 })
 export class AuthModule {}

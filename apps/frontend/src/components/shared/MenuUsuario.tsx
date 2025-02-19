@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -18,6 +18,15 @@ import {
 } from "../ui/dropdown-menu";
 
 export default function MenuUsuario() {
+  const [, forceUpdate] = useState({});
+  const { usuario, encerrarSessao, subscribe } = useSessao();
+
+  useEffect(() => {
+    // Subscribe to session changes
+    const unsubscribe = subscribe(() => forceUpdate({}));
+    return () => unsubscribe();
+  }, [subscribe]);
+
   useEffect(() => {
     const handleMenuToggle = (event: Event) => {
       const cabecalho = document.querySelector(".cabecalho__container");
@@ -45,7 +54,6 @@ export default function MenuUsuario() {
       }
     };
   }, []);
-  const { usuario, encerrarSessao } = useSessao();
 
   return usuario ? (
     <DropdownMenu>

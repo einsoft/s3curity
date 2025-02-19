@@ -16,8 +16,9 @@ export default function Procura({ onSearch }: ProcuraProps) {
   const perfis = useFetchPerfis();
 
   const filteredPerfis = useMemo(() => {
+    if (!Array.isArray(perfis)) return [];
     return perfis.filter((perfil: Perfil) =>
-      perfil.nome.toLowerCase().includes(search.toLowerCase()),
+      perfil.nome?.toLowerCase().includes(search.toLowerCase()),
     );
   }, [search, perfis]);
 

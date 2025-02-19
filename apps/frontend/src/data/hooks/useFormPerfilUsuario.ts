@@ -14,7 +14,7 @@ export default function useFormPerfil() {
   const [confirmaNovaSenha, setConfirmaNovaSenha] = useState("");
   const [erroSenha, setErroSenha] = useState("");
 
-  const { usuario, atualizarSessao } = useSessao();
+  const { usuario, atualizarSessao, atualizarUsuario } = useSessao();
   const { httpPatch } = useAPI();
 
   useEffect(() => {
@@ -29,19 +29,25 @@ export default function useFormPerfil() {
     setEmail("");
   }
 
-  async function submeter() {
-    if (!usuario?.id) return;
+  async function submeter(): Promise<boolean> {
+    if (!usuario?.id) return false;
     try {
       setProcessando(true);
-      const novoToken = await httpPatch(`/usuario/${usuario.id}/alterarNome`, {
+      const response = await httpPatch(`/usuario/${usuario.id}/alterarNome`, {
         nomeCompleto: nome,
       });
-      if (novoToken) {
-        atualizarSessao(novoToken);
-        setNome(nome);
+      let success = false;
+      if (response?.success) {
+        if (response.token && response.refreshToken) {
+          atualizarSessao(response.token, response.refreshToken);
+        }
+        atualizarUsuario({ nomeCompleto: nome });
+        success = true;
       }
+      return success;
     } catch (error) {
       console.error("Erro ao atualizar nome:", error);
+      return false;
     } finally {
       setProcessando(false);
     }
@@ -71,19 +77,20 @@ export default function useFormPerfil() {
     try {
       setErroSenha("");
       setProcessando(true);
-      const response = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
+      const result = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
         senhaAtual,
         novaSenha,
         confirmaNovaSenha,
       });
 
-      if (response?.success) {
-        atualizarSessao(response.token);
+      if (result?.success && result?.token && result?.refreshToken) {
+        atualizarSessao(result.token, result.refreshToken);
         setSenhaAtual("");
         setNovaSenha("");
         setConfirmaNovaSenha("");
-      } else if (response?.error) {
-        setErroSenha(response.error.message);
+      } else if (result?.error) {
+        setErroSenha(result.error.message);
+        return false;
       }
     } catch (error: any) {
       if (error.response?.data?.error) {

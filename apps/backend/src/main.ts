@@ -3,18 +3,26 @@ import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 import { AppModule } from './app/app.module';
+import { CsrfMiddleware } from './auth/csrf.middleware';
 import errorFilter from './error.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    logger: ['error', 'warn', 'log'],
+  });
 
   // Configure CORS with specific origin and credentials
   app.enableCors({
     origin: process.env.FRONTEND_URL || 'http://localhost:3000',
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-CSRF-Token', 'X-XSRF-Token'],
+    exposedHeaders: ['X-CSRF-Token', 'X-XSRF-Token'],
   });
+
+  // Apply CSRF middleware globally
+  const csrfMiddleware = app.get(CsrfMiddleware);
+  app.use(csrfMiddleware.use.bind(csrfMiddleware));
 
   app.useGlobalPipes(new ValidationPipe());
 
