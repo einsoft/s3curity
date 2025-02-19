@@ -20,11 +20,18 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
   }
 
   static getDerivedStateFromError(error: Error): ErrorBoundaryState {
+    // Don't show error UI for AbortError
+    if (error.name === "AbortError") {
+      return { hasError: false };
+    }
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
-    console.error("Error Boundary caught:", error, errorInfo);
+    // Only log errors that aren't AbortError
+    if (error.name !== "AbortError") {
+      console.error("Error Boundary caught:", error, errorInfo);
+    }
   }
 
   render() {
@@ -33,7 +40,7 @@ class ErrorBoundary extends Component<ErrorBoundaryProps, ErrorBoundaryState> {
         this.props.fallback || (
           <div className="container mx-auto text-center">
             <div className="p-4 bg-red-50 border border-red-200 rounded">
-              <h2 className="text-red-700 font-medium">
+              <h2 className="text-red-700 font-medium flex items-center justify-center gap-2">
                 <IconAlertOctagon /> Oops...
               </h2>
               {this.state.error && (

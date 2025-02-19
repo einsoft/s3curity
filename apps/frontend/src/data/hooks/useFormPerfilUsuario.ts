@@ -1,7 +1,8 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
+import { usePendingOperations } from "@/src/components/shared/ForcarAutenticacao";
 import useAPI from "./useAPI";
 import useSessao from "./useSessao";
 
@@ -14,7 +15,10 @@ export default function useFormPerfil() {
   const [confirmaNovaSenha, setConfirmaNovaSenha] = useState("");
   const [erroSenha, setErroSenha] = useState("");
 
-  const { usuario, atualizarSessao, atualizarUsuario } = useSessao();
+  const mounted = useRef(true);
+  const { registerOperation, unregisterOperation } = usePendingOperations();
+
+  const { usuario, atualizarSessao } = useSessao();
   const { httpPatch } = useAPI();
 
   useEffect(() => {
@@ -22,6 +26,9 @@ export default function useFormPerfil() {
       setNome(usuario?.nomeCompleto);
       setEmail(usuario?.email);
     }
+    return () => {
+      mounted.current = false;
+    };
   }, [usuario]);
 
   function limparFormulario() {
@@ -32,24 +39,28 @@ export default function useFormPerfil() {
   async function submeter(): Promise<boolean> {
     if (!usuario?.id) return false;
     try {
+      registerOperation();
       setProcessando(true);
       const response = await httpPatch(`/usuario/${usuario.id}/alterarNome`, {
         nomeCompleto: nome,
       });
-      let success = false;
-      if (response?.success) {
-        if (response.token && response.refreshToken) {
-          atualizarSessao(response.token, response.refreshToken);
-        }
-        atualizarUsuario({ nomeCompleto: nome });
-        success = true;
+
+      if (!mounted.current) return false;
+
+      if (response?.success && response.token && response.refreshToken) {
+        atualizarSessao(response.token, response.refreshToken);
+        return true;
       }
-      return success;
+
+      return false;
     } catch (error) {
       console.error("Erro ao atualizar nome:", error);
       return false;
     } finally {
-      setProcessando(false);
+      unregisterOperation();
+      if (mounted.current) {
+        setProcessando(false);
+      }
     }
   }
 
@@ -75,6 +86,7 @@ export default function useFormPerfil() {
     }
 
     try {
+      registerOperation();
       setErroSenha("");
       setProcessando(true);
       const result = await httpPatch(`/usuario/${usuario.id}/alterarSenha`, {
@@ -83,16 +95,21 @@ export default function useFormPerfil() {
         confirmaNovaSenha,
       });
 
+      if (!mounted.current) return;
+
       if (result?.success && result?.token && result?.refreshToken) {
         atualizarSessao(result.token, result.refreshToken);
         setSenhaAtual("");
         setNovaSenha("");
         setConfirmaNovaSenha("");
+        return true;
       } else if (result?.error) {
         setErroSenha(result.error.message);
         return false;
       }
     } catch (error: any) {
+      if (!mounted.current) return;
+
       if (error.response?.data?.error) {
         const { message, details } = error.response.data.error;
         setErroSenha(message);
@@ -106,7 +123,10 @@ export default function useFormPerfil() {
         console.error("Erro desconhecido ao alterar senha:", error);
       }
     } finally {
-      setProcessando(false);
+      unregisterOperation();
+      if (mounted.current) {
+        setProcessando(false);
+      }
     }
   }
 
