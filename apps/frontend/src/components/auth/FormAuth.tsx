@@ -49,7 +49,7 @@ export default function FormAuth({
     >
       <div className="flex flex-col items-center space-y-2 w-full">
         <Link href="/" className="hover:opacity-80 transition-opacity">
-          <Logo width={40} loading="lazy" />
+          <Logo width={180} loading="eager" priority />
         </Link>
         <h1 className="text-2xl font-semibold text-white">
           {modo === "login" ? "Entre com sua conta" : "Cadastrar"}
