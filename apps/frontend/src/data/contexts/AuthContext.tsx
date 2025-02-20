@@ -75,12 +75,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         },
       );
 
-      if (!response.ok) {
-        const error = await response.json();
-        throw new Error(error.message || "Erro ao processar requisição");
-      }
-
       const data = await response.json();
+
+      if (!response.ok) {
+        // Handle authentication errors
+        if (data.error?.message === "Senha incorreta") {
+          showError("Erro de autenticação", "Usuário ou senha incorretos!");
+          return;
+        }
+
+        // For other errors
+        showError("Erro", data.error?.message || "Ocorreu um erro inesperado");
+        return;
+      }
 
       if (modo === "login") {
         // Use ContextoSessao to store the tokens
@@ -105,7 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       showError(
         "Erro",
-        error instanceof Error ? error.message : "Ocorreu um erro inesperado",
+        "Ocorreu um erro inesperado. Tente novamente mais tarde.",
       );
     } finally {
       setIsLoading(false);
