@@ -8,9 +8,10 @@ export default function useAPI() {
   const abortControllers = useRef(new Set<AbortController>());
 
   useEffect(() => {
+    const controllers = abortControllers.current;
     return () => {
-      abortControllers.current.forEach((controller) => controller.abort());
-      abortControllers.current.clear();
+      controllers.forEach((controller) => controller.abort());
+      controllers.clear();
     };
   }, []);
 

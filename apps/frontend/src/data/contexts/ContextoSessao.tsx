@@ -5,6 +5,29 @@ import { Usuario } from "@s3curity/core";
 import cookie from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 
+// Definições de tipos
+interface JWTPayload {
+  id: number;
+  nomeCompleto: string;
+  email: string;
+  dataCriacao: string;
+  exp: number;
+  telefone?: string;
+}
+
+class TokenRefreshError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "TokenRefreshError";
+  }
+}
+
+const COOKIE_CONFIG = {
+  sameSite: "strict" as const,
+  secure: process.env.NODE_ENV === "production",
+  path: "/",
+} as const;
+
 interface Sessao {
   token: string | null;
   refreshToken: string | null;
@@ -48,8 +71,25 @@ export function ProvedorSessao(props: any) {
   }, []);
 
   const notifySubscribers = useCallback(() => {
-    subscribers.current.forEach((callback) => callback());
+    if (subscribers.current.size === 0) return;
+    queueMicrotask(() => {
+      subscribers.current.forEach((callback) => callback());
+    });
   }, []);
+
+  function validarToken(token: string): boolean {
+    try {
+      const payload = jwtDecode<JWTPayload>(token);
+      return !!(
+        payload.exp &&
+        payload.id &&
+        payload.email &&
+        payload.exp > Date.now() / 1000
+      );
+    } catch {
+      return false;
+    }
+  }
 
   const atualizarToken = useCallback(async () => {
     const refreshToken = cookie.get(nomeRefreshCookie);
@@ -68,10 +108,15 @@ export function ProvedorSessao(props: any) {
         const { token, refreshToken: newRefreshToken } = await response.json();
         atualizarSessao(token, newRefreshToken);
       } else {
-        encerrarSessao();
+        const error = await response.text();
+        throw new TokenRefreshError(error || "Erro ao atualizar token");
       }
     } catch (error) {
-      console.error("Erro ao atualizar token:", error);
+      if (error instanceof TokenRefreshError) {
+        console.error("Erro ao atualizar token:", error.message);
+      } else {
+        console.error("Erro de rede ao atualizar token:", error);
+      }
       encerrarSessao();
     }
   }, []);
@@ -90,23 +135,19 @@ export function ProvedorSessao(props: any) {
 
     try {
       const token = decodeURIComponent(encodedToken);
-      const payload: any = jwtDecode(token);
-      const valido = payload.exp! > Date.now() / 1000;
-
-      if (!valido && refreshToken) {
-        // Token expirado mas tem refresh token, tenta atualizar
-        atualizarToken();
-        return {
-          token: null,
-          refreshToken,
-          usuario: null,
-        };
-      }
-
-      if (!valido) {
-        // Token expirado e sem refresh token, limpa cookies
-        cookie.remove(nomeCookie);
-        cookie.remove(nomeRefreshCookie);
+      if (!validarToken(token)) {
+        if (refreshToken) {
+          // Token inválido mas tem refresh token, tenta atualizar
+          atualizarToken();
+          return {
+            token: null,
+            refreshToken,
+            usuario: null,
+          };
+        }
+        // Token inválido e sem refresh token, limpa cookies
+        cookie.remove(nomeCookie, { ...COOKIE_CONFIG });
+        cookie.remove(nomeRefreshCookie, { ...COOKIE_CONFIG });
         return {
           token: null,
           refreshToken: null,
@@ -114,6 +155,7 @@ export function ProvedorSessao(props: any) {
         };
       }
 
+      const payload = jwtDecode<JWTPayload>(token);
       return {
         token,
         refreshToken,
@@ -123,7 +165,7 @@ export function ProvedorSessao(props: any) {
           email: payload.email,
           dataCriacao: new Date(payload.dataCriacao),
           token,
-          dataExpiracaoToken: new Date(payload.exp! * 1000),
+          dataExpiracaoToken: new Date(payload.exp * 1000),
           telefone: payload.telefone,
         },
       };
@@ -155,9 +197,9 @@ export function ProvedorSessao(props: any) {
   useEffect(() => {
     if (!sessao.token) return;
 
-    const payload: any = jwtDecode(sessao.token);
+    const payload = jwtDecode<JWTPayload>(sessao.token);
     const expiresIn = payload.exp * 1000 - Date.now();
-    const refreshTime = expiresIn - 60000; // Atualiza 1 minuto antes de expirar
+    const refreshTime = Math.max(0, expiresIn - 60000); // Atualiza 1 minuto antes de expirar
 
     if (refreshTime <= 0) {
       atualizarToken();
@@ -175,25 +217,26 @@ export function ProvedorSessao(props: any) {
     }
 
     try {
+      // Validar token antes de atualizar cookies
+      if (!validarToken(token)) {
+        throw new Error("Token inválido");
+      }
+
       const oldUsuario = sessao.usuario;
 
-      // Update cookies first
+      // Atualizar cookies primeiro
       const encodedToken = encodeURIComponent(token);
       cookie.set(nomeCookie, encodedToken, {
+        ...COOKIE_CONFIG,
         expires: 1,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
       });
       cookie.set(nomeRefreshCookie, refreshToken, {
+        ...COOKIE_CONFIG,
         expires: 30,
-        sameSite: "strict",
-        secure: process.env.NODE_ENV === "production",
-        path: "/",
       });
 
-      // Decode token and update session immediately
-      const payload: any = jwtDecode(token);
+      // Decodifica token e atualiza sessão imediatamente
+      const payload = jwtDecode<JWTPayload>(token);
       const novaSessao: Sessao = {
         token,
         refreshToken,
@@ -203,7 +246,7 @@ export function ProvedorSessao(props: any) {
           email: payload.email,
           dataCriacao: new Date(payload.dataCriacao),
           token,
-          dataExpiracaoToken: new Date(payload.exp! * 1000),
+          dataExpiracaoToken: new Date(payload.exp * 1000),
           telefone: payload.telefone,
         },
       };
@@ -223,9 +266,10 @@ export function ProvedorSessao(props: any) {
   }
 
   function encerrarSessao() {
-    cookie.remove(nomeCookie, { path: "/" });
-    cookie.remove(nomeRefreshCookie, { path: "/" });
+    cookie.remove(nomeCookie, { ...COOKIE_CONFIG });
+    cookie.remove(nomeRefreshCookie, { ...COOKIE_CONFIG });
     setSessao({ token: null, refreshToken: null, usuario: null });
+    notifySubscribers();
   }
 
   function atualizarUsuario(
