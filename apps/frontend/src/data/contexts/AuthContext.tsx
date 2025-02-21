@@ -112,7 +112,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     } catch (error) {
       showError(
         "Erro",
-        "Ocorreu um erro inesperado. Tente novamente mais tarde.",
+        "Ocorreu um erro inesperado. Tente novamente mais tarde.\n" + error,
       );
     } finally {
       setIsLoading(false);
