@@ -1,8 +1,8 @@
-import { AtualizarPermissaoDto } from "@backend/permissao/dto/atualizar-permissao.dto";
+import { AtualizarPermissaoDto } from '@backend/permissao/dto/atualizar-permissao.dto';
 
-import CasoDeUso from "../../shared/CasoDeUso";
-import Permissao from "../model/Permissao";
-import RepositorioPermissao from "../provider/RepositorioPermissao";
+import CasoDeUso from '../../shared/CasoDeUso';
+import Permissao from '../model/Permissao';
+import RepositorioPermissao from '../provider/RepositorioPermissao';
 
 export default class AtualizarPermissao
   implements CasoDeUso<AtualizarPermissaoDto, void>
@@ -13,7 +13,7 @@ export default class AtualizarPermissao
     const permissaoExistente = await this.repositorio.buscarPorId(dados.id);
 
     if (!permissaoExistente) {
-      throw new Error("Permissão não encontrada");
+      throw new Error("Permissão não encontrada.");
     }
 
     const permissaoAtualizada: Permissao = {

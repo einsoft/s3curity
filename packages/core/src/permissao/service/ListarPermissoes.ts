@@ -1,6 +1,6 @@
-import CasoDeUso from "../../shared/CasoDeUso";
-import Permissao from "../model/Permissao";
-import RepositorioPermissao from "../provider/RepositorioPermissao";
+import CasoDeUso from '../../shared/CasoDeUso';
+import Permissao from '../model/Permissao';
+import RepositorioPermissao from '../provider/RepositorioPermissao';
 
 type Entrada = {
   limite: number;
@@ -16,11 +16,11 @@ export default class ListarPermissoes
     const { limite, offset } = entrada;
 
     if (limite <= 0 || limite > 100) {
-      throw new Error("Limite deve estar entre 1 e 100");
+      throw new Error("Limite deve estar entre 1 e 100.");
     }
 
     if (offset < 0) {
-      throw new Error("Offset não pode ser negativo");
+      throw new Error("Offset não pode ser negativo.");
     }
 
     return this.repo.listar(limite, offset);
