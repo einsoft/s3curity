@@ -7,7 +7,7 @@ export default class ExcluirPermissao implements CasoDeUso<Permissao, void> {
 
   async executar(permissao: Permissao): Promise<void> {
     if (!permissao.id) {
-      throw new Error("ID da permissão é obrigatório");
+      throw new Error("ID da permissão é obrigatório!");
     }
     await this.repo.excluir(permissao.id);
   }

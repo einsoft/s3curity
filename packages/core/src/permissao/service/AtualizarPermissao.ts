@@ -13,7 +13,7 @@ export default class AtualizarPermissao
     const permissaoExistente = await this.repositorio.buscarPorId(dados.id);
 
     if (!permissaoExistente) {
-      throw new Error("Permissão não encontrada");
+      throw new Error("Permissão não encontrada!");
     }
 
     const permissaoAtualizada: Permissao = {

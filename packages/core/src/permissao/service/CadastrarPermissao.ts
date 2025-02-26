@@ -16,11 +16,11 @@ export default class CadastrarPermissao
     const { nome, descricao } = entrada;
 
     if (!nome || nome.length < 3) {
-      throw new Error("Nome da permissão inválido");
+      throw new Error("Nome da permissão inválido!");
     }
 
     if (!descricao || descricao.length < 5) {
-      throw new Error("Descrição da permissão inválida");
+      throw new Error("Descrição da permissão inválida!");
     }
 
     const permissao: Permissao = {
