@@ -20,7 +20,7 @@ export default class ListarPermissoes
     }
 
     if (offset < 0) {
-      throw new Error("Offset não pode ser negativo");
+      throw new Error("Offset não pode ser negativo!");
     }
 
     return this.repo.listar(limite, offset);
